@@ -50,7 +50,7 @@ https://tetsujinkujira.github.io/tetsujin-bento/
 
 ### 制作
 
-- **企画・制作**: hori
+- **企画・制作**: 手作り弁当喰楽部 鉄人
 - **制作年**: 2026年
 
 ### クライアント
