@@ -6,41 +6,9 @@
   <title>管理画面 | 手作り弁当喰楽部 鉄人</title>
   <!-- Netlify Identity Widget -->
   <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-  <!-- Decap CMS -->
-  <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
 </head>
 <body>
-  <script>
-    // 日本語化
-    CMS.registerLocale('ja', {
-      app: {
-        header: {
-          content: 'コンテンツ',
-          workflow: 'ワークフロー',
-          media: 'メディア',
-          quickAdd: '新規作成'
-        },
-        app: {
-          errorHeader: 'CMS設定の読み込みエラー',
-          configErrors: '設定エラー',
-          checkConfigYml: 'config.ymlファイルを確認してください。',
-          loadingConfig: '設定を読み込み中...',
-          waitingBackend: 'バックエンドを待機中...'
-        }
-      },
-      editor: {
-        editorControlPane: {
-          widget: {
-            required: '{{fieldLabel}}は必須です',
-            regexPattern: '{{fieldLabel}}が形式と一致しません: {{pattern}}',
-            processing: '{{fieldLabel}}を処理中',
-            range: '{{fieldLabel}}は{{minValue}}から{{maxValue}}の間である必要があります',
-            min: '{{fieldLabel}}は{{minValue}}以上である必要があります',
-            max: '{{fieldLabel}}は{{maxValue}}以下である必要があります'
-          }
-        }
-      }
-    });
-  </script>
+  <!-- Decap CMS -->
+  <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
 </body>
 </html>

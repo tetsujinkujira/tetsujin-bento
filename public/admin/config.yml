@@ -2,6 +2,7 @@ backend:
   name: git-gateway
   branch: main
 
+site_url: https://glittering-crumble-67cfa8.netlify.app
 locale: 'ja'
 
 media_folder: "public/images/uploads"
