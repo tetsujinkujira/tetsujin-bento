@@ -1,8 +1,6 @@
 backend:
-  name: github
-  repo: YOUR_GITHUB_USERNAME/tetsujin-bento  # ← GitHubリポジトリに変更してください
+  name: git-gateway
   branch: main
-  base_url: https://api.netlify.com  # GitHub認証用（後で設定）
 
 locale: 'ja'
 
