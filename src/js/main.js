@@ -308,7 +308,7 @@ document.addEventListener('DOMContentLoaded', () => {
 // メニューデータの読み込み（動的ページ用）
 async function loadMenuData() {
   try {
-    const response = await fetch('/data/menu.json');
+    const response = await fetch('./data/menu.json');
     if (!response.ok) throw new Error('Failed to load menu data');
     return await response.json();
   } catch (error) {
@@ -320,7 +320,7 @@ async function loadMenuData() {
 // サイト設定データの読み込み（お知らせ・日替わりメニュー）
 async function loadSiteConfig() {
   try {
-    const response = await fetch('/data/site-config.json');
+    const response = await fetch('./data/site-config.json');
     if (!response.ok) throw new Error('Failed to load site config');
     return await response.json();
   } catch (error) {
