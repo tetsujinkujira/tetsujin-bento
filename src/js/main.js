@@ -317,14 +317,14 @@ async function loadMenuData() {
   }
 }
 
-// お知らせデータの読み込み
-async function loadNewsData() {
+// サイト設定データの読み込み（お知らせ・日替わりメニュー）
+async function loadSiteConfig() {
   try {
-    const response = await fetch('/data/news.json');
-    if (!response.ok) throw new Error('Failed to load news data');
+    const response = await fetch('/data/site-config.json');
+    if (!response.ok) throw new Error('Failed to load site config');
     return await response.json();
   } catch (error) {
-    console.error('Error loading news data:', error);
+    console.error('Error loading site config:', error);
     return null;
   }
 }
@@ -344,9 +344,9 @@ async function loadDailyMenu() {
   if (!scheduleContainer) return; // メニューページでない場合はスキップ
 
   try {
-    const response = await fetch('/data/daily.json');
-    if (!response.ok) throw new Error('Failed to load daily menu');
-    const data = await response.json();
+    const config = await loadSiteConfig();
+    if (!config || !config.daily) throw new Error('Failed to load daily menu');
+    const data = config.daily;
 
     // 月と価格を更新
     if (monthElement) monthElement.textContent = `${data.month}のメニュー`;
@@ -410,9 +410,9 @@ async function loadLatestNews() {
   const bodyElement = document.getElementById('ticker-body');
 
   try {
-    const response = await fetch('/data/news.json');
-    if (!response.ok) throw new Error('Failed to load news');
-    const data = await response.json();
+    const config = await loadSiteConfig();
+    if (!config || !config.news) throw new Error('Failed to load news');
+    const data = config.news;
 
     // カテゴリ表示
     const categoryLabels = {
