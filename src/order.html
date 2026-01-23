@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="鉄人のお弁当のご注文方法。お電話一本で、温かいお弁当をお届けします。">
+  <title>ご注文方法 | 手作り弁当喰楽部 鉄人</title>
+
+  <!-- Favicon -->
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=2">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=2">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?v=2">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico?v=2">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+  <!-- ヘッダー -->
+  <header class="bg-white shadow-sm sticky top-0 z-50">
+    <div class="container mx-auto px-4">
+      <div class="flex items-center justify-between h-16 md:h-20">
+        <a href="./" class="flex items-center gap-2 logo-hover">
+          <span class="text-xl md:text-2xl font-black text-gradient">鉄人</span>
+          <span class="hidden sm:inline text-sm text-secondary-600">手作り弁当喰楽部</span>
+        </a>
+        <nav class="hidden md:flex items-center gap-6">
+          <a href="./menu.html" class="nav-link">メニュー</a>
+          <a href="./area.html" class="nav-link">配達エリア</a>
+          <a href="./about.html" class="nav-link">鉄人とは</a>
+          <a href="./recruit.html" class="nav-link">採用情報</a>
+          <a href="tel:03-3432-3720" class="btn-phone text-base py-2 px-4">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+            </svg>
+            注文する
+          </a>
+        </nav>
+        <button id="mobile-menu-btn" class="md:hidden p-2" aria-label="メニューを開く">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+    <nav id="mobile-menu" class="md:hidden hidden bg-white border-t">
+      <div class="container mx-auto px-4 py-4 space-y-4">
+        <a href="./menu.html" class="block nav-link py-2">メニュー</a>
+        <a href="./area.html" class="block nav-link py-2">配達エリア</a>
+        <a href="./about.html" class="block nav-link py-2">鉄人とは</a>
+        <a href="./recruit.html" class="block nav-link py-2">採用情報</a>
+        <a href="tel:03-3432-3720" class="btn-phone w-full justify-center">電話で注文する</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <!-- ページヘッダー -->
+    <section class="bg-gradient-to-r from-primary-600 to-primary-700 text-white py-12">
+      <div class="container mx-auto px-4 text-center">
+        <h1 class="text-3xl md:text-4xl font-black">ご注文方法</h1>
+        <p class="mt-2 opacity-90">お電話一本で、温かいお弁当をお届け</p>
+      </div>
+    </section>
+
+    <div class="container mx-auto px-4 py-12">
+      <!-- 注文の流れ -->
+      <section class="max-w-4xl mx-auto mb-16">
+        <h2 class="section-title scroll-animate slide-up">ご注文の流れ</h2>
+
+        <div class="space-y-8 stagger-children">
+          <!-- STEP 1 -->
+          <div class="bg-white rounded-2xl shadow-lg p-6 md:p-8 card-3d">
+            <div class="md:flex items-start gap-6">
+              <div class="flex-shrink-0 w-16 h-16 bg-gradient-to-br from-primary-500 to-primary-600 rounded-full flex items-center justify-center text-white text-2xl font-black mb-4 md:mb-0 float">
+                1
+              </div>
+              <div class="flex-grow">
+                <h3 class="text-xl font-bold mb-3">メニューを選ぶ</h3>
+                <p class="text-secondary-600 mb-4">
+                  まずは<a href="./menu.html" class="text-primary-600 font-bold hover:underline">メニューページ</a>から、ご希望のお弁当をお選びください。各メニューには「注文番号」が記載されていますので、ご確認ください。
+                </p>
+                <div class="bg-secondary-50 rounded-lg p-4">
+                  <p class="text-sm text-secondary-600">
+                    <span class="font-bold">ポイント：</span>全品+¥80でライス大盛りにできます。ガッツリ食べたい方におすすめ！
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- STEP 2 -->
+          <div class="bg-white rounded-2xl shadow-lg p-6 md:p-8 card-3d">
+            <div class="md:flex items-start gap-6">
+              <div class="flex-shrink-0 w-16 h-16 bg-gradient-to-br from-accent-500 to-accent-600 rounded-full flex items-center justify-center text-white text-2xl font-black mb-4 md:mb-0 float float-delay-1">
+                2
+              </div>
+              <div class="flex-grow">
+                <h3 class="text-xl font-bold mb-3">お電話で注文</h3>
+                <p class="text-secondary-600 mb-4">
+                  メニューが決まったら、お電話ください。<br>
+                  「注文番号」「個数」「配達先」「配達希望時間」をお伝えください。
+                </p>
+                <div class="bg-amber-50 border border-amber-200 rounded-lg p-3 mb-4">
+                  <p class="text-sm text-amber-800">
+                    <span class="font-bold">🍳 アレルギーをお持ちの方へ</span><br>
+                    ご注文時にお電話でお申し付けください。可能な範囲で対応いたします。
+                  </p>
+                </div>
+                <a href="tel:03-3432-3720" class="inline-flex items-center gap-3 bg-primary-600 text-white font-black text-xl px-6 py-3 rounded-xl shadow-lg hover:bg-primary-700 transition-colors btn-shiny">
+                  <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+                  </svg>
+                  03-3432-3720
+                </a>
+                <p class="text-sm text-secondary-500 mt-3">
+                  受付時間: 平日 9:00〜14:00、16:30〜21:00 / 土曜 〜20:00
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- STEP 3 -->
+          <div class="bg-white rounded-2xl shadow-lg p-6 md:p-8 card-3d">
+            <div class="md:flex items-start gap-6">
+              <div class="flex-shrink-0 w-16 h-16 bg-gradient-to-br from-green-500 to-green-600 rounded-full flex items-center justify-center text-white text-2xl font-black mb-4 md:mb-0 float float-delay-2">
+                3
+              </div>
+              <div class="flex-grow">
+                <h3 class="text-xl font-bold mb-3">お届け・お支払い</h3>
+                <p class="text-secondary-600 mb-4">
+                  ご指定の時間に、温かいお弁当をお届けします。<br>
+                  お届け時に<strong>現金</strong>または<strong>QR決済</strong>でお支払いください。
+                </p>
+                <div class="bg-green-50 rounded-lg p-4 space-y-2">
+                  <p class="text-sm text-green-700">
+                    <span class="font-bold">今すぐお届け：</span>ご注文から<span class="font-bold text-green-800">最短約40分</span>でお届け
+                  </p>
+                  <p class="text-sm text-green-700">
+                    <span class="font-bold">時間指定：</span>ご希望時間に合わせてお届け
+                  </p>
+                  <p class="text-xs text-green-600">※混雑状況・交通事情により前後する場合がございます。</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 注文時のお願い -->
+      <section class="max-w-4xl mx-auto mb-16 scroll-animate slide-up">
+        <h2 class="section-title">ご注文時のお願い</h2>
+
+        <div class="grid md:grid-cols-2 gap-6">
+          <div class="bg-white rounded-xl shadow-md p-6 card-3d">
+            <div class="flex items-center gap-4 mb-4">
+              <div class="w-12 h-12 bg-primary-100 rounded-full flex items-center justify-center">
+                <svg class="w-6 h-6 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+              </div>
+              <h3 class="text-lg font-bold">ご注文のタイミング</h3>
+            </div>
+            <div class="space-y-3 text-secondary-600">
+              <div class="bg-primary-50 rounded-lg p-3">
+                <p class="font-bold text-primary-700 text-sm mb-1">▼ 今すぐお届け希望の場合</p>
+                <p class="text-sm">ご注文確定から<strong>最短約40分</strong>でお届けいたします。</p>
+              </div>
+              <div class="bg-accent-50 rounded-lg p-3">
+                <p class="font-bold text-accent-700 text-sm mb-1">▼ 時間指定でのご注文の場合</p>
+                <p class="text-sm">確実にお届けするため、ご希望時間の<strong>1時間前まで</strong>にご注文ください。</p>
+              </div>
+              <p class="text-xs text-secondary-500">※混雑状況・交通事情により、お時間をいただく場合がございます。</p>
+            </div>
+          </div>
+
+          <div class="bg-white rounded-xl shadow-md p-6 card-3d">
+            <div class="flex items-center gap-4 mb-4">
+              <div class="w-12 h-12 bg-accent-100 rounded-full flex items-center justify-center">
+                <svg class="w-6 h-6 text-accent-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"/>
+                </svg>
+              </div>
+              <h3 class="text-lg font-bold">最低注文金額</h3>
+            </div>
+            <p class="text-secondary-600">
+              エリアにより最低注文金額が異なります。<a href="./area.html" class="text-primary-600 font-bold hover:underline">配達エリア</a>をご確認ください。
+            </p>
+          </div>
+
+          <div class="bg-white rounded-xl shadow-md p-6 card-3d">
+            <div class="flex items-center gap-4 mb-4">
+              <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
+                <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+                </svg>
+              </div>
+              <h3 class="text-lg font-bold">大口のご注文</h3>
+            </div>
+            <p class="text-secondary-600">
+              20個以上のご注文は、<strong>前日まで</strong>にご連絡いただけると確実にご用意できます。
+            </p>
+          </div>
+
+          <div class="bg-white rounded-xl shadow-md p-6 card-3d">
+            <div class="flex items-center gap-4 mb-4">
+              <div class="w-12 h-12 bg-yellow-100 rounded-full flex items-center justify-center">
+                <svg class="w-6 h-6 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+              </div>
+              <h3 class="text-lg font-bold">お支払い方法</h3>
+            </div>
+            <div class="text-secondary-600 space-y-2">
+              <p>お届け時に以下の方法でお支払いください。</p>
+              <div class="flex flex-wrap gap-2">
+                <span class="inline-flex items-center gap-1 bg-green-100 text-green-700 text-sm font-bold px-3 py-1 rounded-full">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+                  現金
+                </span>
+                <span class="inline-flex items-center gap-1 bg-blue-100 text-blue-700 text-sm font-bold px-3 py-1 rounded-full">
+                  <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M3 4h18v2H3V4zm0 7h18v2H3v-2zm0 7h18v2H3v-2z"/></svg>
+                  PayPay
+                </span>
+                <span class="inline-flex items-center gap-1 bg-red-100 text-red-700 text-sm font-bold px-3 py-1 rounded-full">
+                  <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M3 4h18v2H3V4zm0 7h18v2H3v-2zm0 7h18v2H3v-2z"/></svg>
+                  d払い
+                </span>
+                <span class="inline-flex items-center gap-1 bg-orange-100 text-orange-700 text-sm font-bold px-3 py-1 rounded-full">
+                  <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M3 4h18v2H3V4zm0 7h18v2H3v-2zm0 7h18v2H3v-2z"/></svg>
+                  au PAY
+                </span>
+              </div>
+              <p class="text-sm text-secondary-500">※現金の場合、お釣りのないようご用意いただけると助かります。</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 会席膳の予約 -->
+      <section class="max-w-4xl mx-auto scroll-animate slide-up">
+        <div class="bg-gradient-to-r from-yellow-50 to-yellow-100 rounded-2xl p-6 md:p-8">
+          <div class="md:flex items-center gap-8">
+            <div class="md:w-1/3 mb-6 md:mb-0 text-center">
+              <div class="w-24 h-24 mx-auto bg-gradient-to-br from-yellow-500 to-yellow-600 rounded-full flex items-center justify-center shadow-lg">
+                <svg class="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/>
+                </svg>
+              </div>
+            </div>
+            <div class="md:w-2/3">
+              <h2 class="text-2xl font-black mb-4">会席膳のご予約</h2>
+              <p class="text-secondary-700 mb-4">
+                特別な日には「会席膳」をご用意いたします。5名様より、2日前までにご予約ください。
+              </p>
+              <ul class="text-secondary-600 space-y-2 mb-4">
+                <li class="flex items-center gap-2">
+                  <span class="text-yellow-600">★</span>
+                  <span>5名様以上から承ります</span>
+                </li>
+                <li class="flex items-center gap-2">
+                  <span class="text-yellow-600">★</span>
+                  <span>2日前までにご予約ください</span>
+                </li>
+                <li class="flex items-center gap-2">
+                  <span class="text-yellow-600">★</span>
+                  <span>メニュー内容はご相談ください</span>
+                </li>
+              </ul>
+              <a href="./menu.html#premium" class="inline-flex items-center gap-2 text-yellow-700 font-bold hover:text-yellow-800 transition-colors">
+                会席膳の詳細を見る
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- CTA -->
+    <section class="py-16 animated-gradient text-white overflow-hidden relative">
+      <div class="absolute inset-0 pointer-events-none overflow-hidden">
+        <div class="absolute top-10 left-10 w-4 h-4 bg-white/20 rounded-full float"></div>
+        <div class="absolute top-20 right-20 w-6 h-6 bg-white/10 rounded-full float float-delay-1"></div>
+        <div class="absolute bottom-10 left-1/4 w-3 h-3 bg-white/15 rounded-full float float-delay-2"></div>
+      </div>
+      <div class="container mx-auto px-4 text-center relative z-10">
+        <div class="scroll-animate scale-in">
+          <h2 class="text-3xl md:text-4xl font-black mb-4">さっそく注文してみましょう</h2>
+          <p class="mb-8 text-lg opacity-90">温かいお弁当をお届けします</p>
+          <a href="tel:03-3432-3720" class="inline-flex items-center gap-2 sm:gap-3 bg-white text-primary-600 font-black text-xl sm:text-2xl md:text-3xl px-6 sm:px-10 py-4 sm:py-5 rounded-2xl shadow-2xl hover:shadow-3xl transition-all hover:scale-105 btn-shiny ripple">
+            <svg class="w-6 h-6 sm:w-8 sm:h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+            </svg>
+            03-3432-3720
+          </a>
+          <div class="mt-8 glass inline-block px-6 py-3 rounded-full">
+            <p class="text-sm">受付時間: 平日 9:00〜14:00、16:30〜21:00 / 土曜 〜20:00</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- フッター -->
+  <footer class="bg-secondary-900 text-white py-12 relative overflow-hidden">
+    <div class="absolute top-0 left-0 right-0 h-1 animated-gradient"></div>
+    <div class="container mx-auto px-4 relative z-10">
+      <div class="grid md:grid-cols-4 gap-8">
+        <div class="md:col-span-2">
+          <h3 class="text-2xl font-black mb-4 text-gradient">手作り弁当喰楽部 鉄人</h3>
+          <p class="text-secondary-400 mb-4">感謝の気持ちを忘れずに<br>温かい手作りのお弁当を1個よりお届け</p>
+          <address class="not-italic text-secondary-400">
+            〒105-0004<br>東京都港区新橋6-16-4 松永ビル1階<br>
+            <a href="tel:03-3432-3720" class="text-white hover:text-primary-400 transition-colors inline-flex items-center gap-2 mt-2">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+              </svg>
+              TEL: 03-3432-3720
+            </a>
+          </address>
+        </div>
+        <div>
+          <h4 class="font-bold mb-4 text-lg">メニュー</h4>
+          <ul class="space-y-2 text-secondary-400">
+            <li><a href="./menu.html" class="hover:text-white hover:translate-x-1 transition-all inline-block">→ お弁当メニュー</a></li>
+            <li><a href="./area.html" class="hover:text-white hover:translate-x-1 transition-all inline-block">→ 配達エリア</a></li>
+            <li><a href="./order.html" class="hover:text-white hover:translate-x-1 transition-all inline-block">→ ご注文方法</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-bold mb-4 text-lg">その他</h4>
+          <ul class="space-y-2 text-secondary-400">
+            <li><a href="./about.html" class="hover:text-white hover:translate-x-1 transition-all inline-block">→ 鉄人とは</a></li>
+            <li><a href="./recruit.html" class="hover:text-white hover:translate-x-1 transition-all inline-block">→ 採用情報</a></li>
+            <li><a href="./legal.html" class="hover:text-white hover:translate-x-1 transition-all inline-block">→ 特定商取引法に基づく表記</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="border-t border-secondary-800 mt-8 pt-8 text-center text-secondary-500 text-sm">
+        <p>&copy; 2026 手作り弁当喰楽部 鉄人. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- モバイル固定電話ボタン -->
+  <a href="tel:03-3432-3720" class="md:hidden fixed bottom-4 right-4 btn-phone rounded-full w-16 h-16 shadow-2xl z-50 pulse-ring">
+    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+    </svg>
+  </a>
+
+  <script src="./js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,136 @@
+backend:
+  name: github
+  repo: YOUR_GITHUB_USERNAME/tetsujin-bento  # ← GitHubリポジトリに変更してください
+  branch: main
+  base_url: https://api.netlify.com  # GitHub認証用（後で設定）
+
+locale: 'ja'
+
+media_folder: "public/images/uploads"
+public_folder: "/images/uploads"
+
+collections:
+  # ========================================
+  # 日替わりメニュー
+  # ========================================
+  - name: "daily"
+    label: "日替わりメニュー"
+    files:
+      - name: "daily_menu"
+        label: "今月の日替わり（桜桃）"
+        file: "public/data/daily.json"
+        fields:
+          - { label: "月", name: "month", widget: "string", hint: "例: 1月、2月" }
+          - { label: "年", name: "year", widget: "string", hint: "例: 2026" }
+          - { label: "メニュー名", name: "menuName", widget: "string", default: "桜桃" }
+          - { label: "読み方", name: "menuReading", widget: "string", default: "サクランボ" }
+          - { label: "価格", name: "price", widget: "number", default: 700 }
+          - label: "曜日別メニュー"
+            name: "schedule"
+            widget: "list"
+            fields:
+              - { label: "曜日", name: "day", widget: "select", options: ["月", "火", "水", "木", "金", "土"] }
+              - label: "おかず"
+                name: "items"
+                widget: "list"
+                field: { label: "品名", name: "item", widget: "string" }
+              - { label: "備考", name: "note", widget: "string", required: false, hint: "土曜日など特別な場合のメッセージ" }
+
+  # ========================================
+  # お知らせ（TOPページに表示される最新1件）
+  # ========================================
+  - name: "news"
+    label: "お知らせ"
+    files:
+      - name: "latest_news"
+        label: "最新のお知らせ（TOPページ表示）"
+        file: "public/data/news.json"
+        fields:
+          - { label: "タイトル", name: "title", widget: "string", hint: "TOPページに表示されるタイトル" }
+          - { label: "公開日", name: "date", widget: "datetime" }
+          - label: "カテゴリ"
+            name: "category"
+            widget: "select"
+            options:
+              - { label: "お知らせ", value: "news" }
+              - { label: "新メニュー", value: "new_menu" }
+              - { label: "休業日", value: "holiday" }
+              - { label: "キャンペーン", value: "campaign" }
+          - { label: "本文", name: "body", widget: "text", hint: "TOPページに表示される説明文" }
+
+  # ========================================
+  # メニュー価格・内容
+  # ========================================
+  - name: "menu"
+    label: "メニュー管理"
+    files:
+      - name: "menu_data"
+        label: "メニュー一覧"
+        file: "public/data/menu.json"
+        fields:
+          - label: "カテゴリ"
+            name: "categories"
+            widget: "list"
+            summary: "{{fields.name}}"
+            fields:
+              - { label: "ID", name: "id", widget: "string" }
+              - { label: "カテゴリ名", name: "name", widget: "string" }
+              - { label: "サブタイトル", name: "subTitle", widget: "string", required: false }
+              - { label: "説明", name: "description", widget: "text", required: false }
+              - { label: "注釈", name: "note", widget: "string", required: false }
+              - { label: "ハイライト", name: "highlight", widget: "boolean", required: false }
+          - label: "メニュー"
+            name: "items"
+            widget: "list"
+            summary: "{{fields.orderNumber}}. {{fields.name}} - ¥{{fields.price}}"
+            fields:
+              - { label: "ID", name: "id", widget: "string" }
+              - { label: "カテゴリID", name: "categoryId", widget: "select", options: ["kanban", "standard", "chef", "makunouchi", "premium"] }
+              - { label: "注文番号", name: "orderNumber", widget: "number", required: false }
+              - { label: "品名", name: "name", widget: "string" }
+              - { label: "読み方", name: "nameReading", widget: "string", required: false }
+              - { label: "価格", name: "price", widget: "number" }
+              - { label: "説明", name: "description", widget: "text" }
+              - { label: "画像ファイル名", name: "image", widget: "string", required: false }
+              - { label: "日替わり", name: "isDaily", widget: "boolean", required: false }
+              - { label: "大盛り可", name: "canOomori", widget: "boolean", default: true }
+              - { label: "要予約", name: "isReservationOnly", widget: "boolean", required: false }
+              - { label: "予約注釈", name: "reservationNote", widget: "string", required: false }
+              - { label: "最小注文数", name: "minQuantity", widget: "number", required: false }
+              - label: "トッピング"
+                name: "toppings"
+                widget: "list"
+                required: false
+                fields:
+                  - { label: "ID", name: "id", widget: "string" }
+                  - { label: "名前", name: "name", widget: "string" }
+                  - { label: "説明", name: "description", widget: "string" }
+                  - { label: "価格", name: "price", widget: "number" }
+          - label: "サイドメニュー"
+            name: "sideMenus"
+            widget: "object"
+            fields:
+              - { label: "注釈", name: "note", widget: "string" }
+              - label: "カテゴリ"
+                name: "categories"
+                widget: "list"
+                fields:
+                  - { label: "ID", name: "id", widget: "string" }
+                  - { label: "カテゴリ名", name: "name", widget: "string" }
+                  - label: "商品"
+                    name: "items"
+                    widget: "list"
+                    fields:
+                      - { label: "商品名", name: "name", widget: "string" }
+                      - { label: "価格", name: "price", widget: "number" }
+          - label: "オプション"
+            name: "options"
+            widget: "object"
+            fields:
+              - label: "大盛り"
+                name: "oomori"
+                widget: "object"
+                fields:
+                  - { label: "名前", name: "name", widget: "string", default: "ライス大盛り" }
+                  - { label: "価格", name: "price", widget: "number", default: 80 }
+                  - { label: "説明", name: "description", widget: "string" }

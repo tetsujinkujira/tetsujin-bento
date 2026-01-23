@@ -1,0 +1,397 @@
+{
+  "categories": [
+    {
+      "id": "kanban",
+      "name": "看板メニュー",
+      "description": "鉄人のスーパーガッツリ体育会系メニュー",
+      "highlight": true
+    },
+    {
+      "id": "standard",
+      "name": "スタンダードメニュー",
+      "subTitle": "花便り",
+      "description": "鉄人のスタンダードメニューです。+¥80でライス大盛\n注文番号１番の「桜桃（サクランボ）」は毎月の日替わりとなっています。\n詳しくはお電話にてお尋ねください！",
+      "note": "+¥80でライス大盛り可"
+    },
+    {
+      "id": "chef",
+      "name": "シェフおすすめボリューム弁当",
+      "subTitle": "鉄人シェフおすすめ",
+      "description": "鉄人シェフおすすめのボリューム弁当です。\nヘルシーチキンカツ、里芋煮、サラダがついています。\nお好みの味付きご飯をお選びください。"
+    },
+    {
+      "id": "makunouchi",
+      "name": "幕の内弁当",
+      "subTitle": "桜便り幕の内",
+      "description": "幕の内全品に鉄人自慢の「料亭の玉子焼き」が付いています。\n大根おろしでさっぱりとお召し上がりください。"
+    },
+    {
+      "id": "premium",
+      "name": "会席膳",
+      "description": "５名様より、二日前までにご予約ください。\nメニューにつきましてはお電話にてお問合せ、ご相談ください。"
+    }
+  ],
+  "items": [
+    {
+      "id": "great-tatsuta",
+      "categoryId": "kanban",
+      "name": "グレート竜田",
+      "price": 950,
+      "description": "大判サイズの竜田揚げ弁当。300g超のお肉にご飯の量も多めでボリューム満点！ニラ醤油とチリマヨソースで2度楽しめる。",
+      "image": "kanban.jpg",
+      "canOomori": true,
+      "toppings": [
+        {
+          "id": "oroshi",
+          "name": "おろしポン酢トッピング",
+          "description": "ニラ醤油＋おろしポン酢",
+          "price": 1000
+        },
+        {
+          "id": "tartar",
+          "name": "タルタルソーストッピング",
+          "description": "ニラ醤油＋タルタルソース",
+          "price": 1000
+        }
+      ]
+    },
+    {
+      "id": "sakuranbo",
+      "categoryId": "standard",
+      "orderNumber": 1,
+      "name": "桜桃",
+      "nameReading": "サクランボ",
+      "price": 700,
+      "description": "毎月の日替わりメニュー。詳しくはお電話にてお尋ねください。",
+      "image": null,
+      "isDaily": true,
+      "canOomori": true
+    },
+    {
+      "id": "tulip",
+      "categoryId": "standard",
+      "orderNumber": 2,
+      "name": "鬱金香",
+      "nameReading": "チューリップ",
+      "price": 750,
+      "description": "鶏むね肉のたれカツ・ソースカツ・サラダ",
+      "image": "M-02.jpg",
+      "canOomori": true
+    },
+    {
+      "id": "hozuki",
+      "categoryId": "standard",
+      "orderNumber": 3,
+      "name": "鬼灯",
+      "nameReading": "ホオズキ",
+      "price": 750,
+      "description": "カレーコロッケ・おじゃがコロッケ・肉団子・サラダ",
+      "image": "M-03.jpg",
+      "canOomori": true
+    },
+    {
+      "id": "wasabi",
+      "categoryId": "standard",
+      "orderNumber": 4,
+      "name": "山葵",
+      "nameReading": "ワサビ",
+      "price": 800,
+      "description": "若鶏唐揚げ・揚げタコ焼き（ねぎポン酢）・サラダ",
+      "image": "M-04.jpg",
+      "canOomori": true
+    },
+    {
+      "id": "saboten",
+      "categoryId": "standard",
+      "orderNumber": 5,
+      "name": "仙人掌",
+      "nameReading": "サボテン",
+      "price": 880,
+      "description": "豚肉スタミナ生姜焼き・揚げタコ焼き（ねぎポン酢）・サラダ",
+      "image": "M-05.jpg",
+      "canOomori": true
+    },
+    {
+      "id": "shiso",
+      "categoryId": "standard",
+      "orderNumber": 6,
+      "name": "紫蘇",
+      "nameReading": "シソ",
+      "price": 900,
+      "description": "特大海老＆鮭＆イカのフライ盛り合わせ（タルタルソース添え）",
+      "image": "M-06.jpg",
+      "canOomori": true
+    },
+    {
+      "id": "lemon",
+      "categoryId": "standard",
+      "orderNumber": 7,
+      "name": "檸檬",
+      "nameReading": "レモン",
+      "price": 900,
+      "description": "洋風ピリ辛ミートソースハンバーグ・オニオンリングフライ・サラダ",
+      "image": "M-07.jpg",
+      "canOomori": true
+    },
+    {
+      "id": "budou",
+      "categoryId": "standard",
+      "orderNumber": 8,
+      "name": "葡萄",
+      "nameReading": "ブドウ",
+      "price": 900,
+      "description": "和風舞茸ハンバーグ（大根おろし添え）・オニオンリングフライ・サラダ",
+      "image": "M-08.jpg",
+      "canOomori": true
+    },
+    {
+      "id": "shakunage",
+      "categoryId": "standard",
+      "orderNumber": 9,
+      "name": "石楠花",
+      "nameReading": "シャクナゲ",
+      "price": 950,
+      "description": "サワラ西京焼・帆立フライ・揚豆腐・煮物",
+      "image": "M-09.jpg",
+      "canOomori": true
+    },
+    {
+      "id": "tsutsuji",
+      "categoryId": "standard",
+      "orderNumber": 10,
+      "name": "映山紅",
+      "nameReading": "ツツジ",
+      "price": 950,
+      "description": "鮭照焼・帆立フライ・揚豆腐・煮物",
+      "image": "M-10.jpg",
+      "canOomori": true
+    },
+    {
+      "id": "bara",
+      "categoryId": "standard",
+      "orderNumber": 11,
+      "name": "薔薇",
+      "nameReading": "バラ",
+      "price": 930,
+      "description": "鶏モモ肉のおろしポン酢＆照焼・サラダ",
+      "image": "M-11.jpg",
+      "canOomori": true
+    },
+    {
+      "id": "nadeshiko",
+      "categoryId": "standard",
+      "orderNumber": 12,
+      "name": "撫子",
+      "nameReading": "ナデシコ",
+      "price": 980,
+      "description": "特大海老フライ2本（タルタルソース添え）・鶏唐揚げ（ネギポン酢）",
+      "image": "M-12.jpg",
+      "canOomori": true
+    },
+    {
+      "id": "himawari",
+      "categoryId": "chef",
+      "orderNumber": 13,
+      "name": "向日葵",
+      "nameReading": "ヒマワリ",
+      "price": 900,
+      "description": "そぼろご飯（鶏・玉子）",
+      "image": "M-13.jpg",
+      "canOomori": true
+    },
+    {
+      "id": "suisen",
+      "categoryId": "chef",
+      "orderNumber": 14,
+      "name": "水仙",
+      "nameReading": "スイセン",
+      "price": 900,
+      "description": "鮭そぼろご飯",
+      "image": "M-14.jpg",
+      "canOomori": true
+    },
+    {
+      "id": "suzuran",
+      "categoryId": "chef",
+      "orderNumber": 15,
+      "name": "鈴蘭",
+      "nameReading": "スズラン",
+      "price": 900,
+      "description": "山菜ご飯",
+      "image": "M-15.jpg",
+      "canOomori": true
+    },
+    {
+      "id": "asagao",
+      "categoryId": "chef",
+      "orderNumber": 16,
+      "name": "朝顔",
+      "nameReading": "アサガオ",
+      "price": 900,
+      "description": "ツナマヨご飯",
+      "image": "M-16.jpg",
+      "canOomori": true
+    },
+    {
+      "id": "renge",
+      "categoryId": "chef",
+      "orderNumber": 17,
+      "name": "蓮華",
+      "nameReading": "レンゲ",
+      "price": 950,
+      "description": "のり明太ご飯",
+      "image": "M-17.jpg",
+      "canOomori": true
+    },
+    {
+      "id": "shogetsu",
+      "categoryId": "makunouchi",
+      "orderNumber": 18,
+      "name": "松月",
+      "nameReading": "しょうげつ",
+      "price": 1000,
+      "description": "大葉巻きカツ・魚味噌焼き・特大海老フライ・煮物",
+      "image": "M-18.jpg",
+      "canOomori": true
+    },
+    {
+      "id": "edo",
+      "categoryId": "makunouchi",
+      "orderNumber": 19,
+      "name": "江戸",
+      "nameReading": "えど",
+      "price": 1150,
+      "description": "自家製まぐろメンチ・肉団子・帆立バター焼き・サラダ",
+      "image": "M-19.jpg",
+      "canOomori": true
+    },
+    {
+      "id": "suzaku",
+      "categoryId": "makunouchi",
+      "orderNumber": 20,
+      "name": "朱雀",
+      "nameReading": "すざく",
+      "price": 1200,
+      "description": "特上ヒレカツ・里芋煮・サラダ",
+      "image": "M-20.jpg",
+      "canOomori": true
+    },
+    {
+      "id": "ichiyo",
+      "categoryId": "makunouchi",
+      "orderNumber": 21,
+      "name": "一葉",
+      "nameReading": "いちよう",
+      "price": 1200,
+      "description": "ブリ照焼・煮物",
+      "image": "M-21.jpg",
+      "canOomori": true
+    },
+    {
+      "id": "amanogawa",
+      "categoryId": "makunouchi",
+      "orderNumber": 22,
+      "name": "天の川",
+      "nameReading": "あまのがわ",
+      "price": 1300,
+      "description": "特大ロースかつ・野菜サラダ",
+      "image": "M-22.jpg",
+      "canOomori": true
+    },
+    {
+      "id": "yaezakura",
+      "categoryId": "makunouchi",
+      "orderNumber": 23,
+      "name": "八重桜",
+      "nameReading": "やえざくら",
+      "price": 1500,
+      "description": "サワラ西京焼・大葉巻きカツ・カニ爪フライ・煮物・サラダ",
+      "image": "M-23.jpg",
+      "canOomori": true
+    },
+    {
+      "id": "oshidorizakura",
+      "categoryId": "makunouchi",
+      "orderNumber": 24,
+      "name": "鴛鴦桜",
+      "nameReading": "おしどりざくら",
+      "price": 1750,
+      "description": "自家製まぐろメンチ・鮭照焼・鶏と帆立のバター醤油焼き・煮物・サラダ",
+      "image": "M-24.jpg",
+      "canOomori": true
+    },
+    {
+      "id": "shidarezakura",
+      "categoryId": "makunouchi",
+      "orderNumber": 25,
+      "name": "枝垂桜",
+      "nameReading": "しだれざくら",
+      "price": 2000,
+      "description": "ブリ照焼・特大海老フライ・カニ爪フライ・煮物・鮭そぼろご飯",
+      "image": "M-25.jpg",
+      "canOomori": true
+    },
+    {
+      "id": "taiju",
+      "categoryId": "premium",
+      "orderNumber": 26,
+      "name": "大樹",
+      "nameReading": "タイジュ",
+      "price": 3000,
+      "description": "特別な日のための豪華弁当。メニューにつきましてはお電話にてお問合せ、ご相談ください。",
+      "image": null,
+      "isReservationOnly": true,
+      "reservationNote": "5名様以上、2日前までにご予約ください",
+      "minQuantity": 5,
+      "canOomori": false
+    }
+  ],
+  "sideMenus": {
+    "note": "お弁当注文時のみ適用",
+    "categories": [
+      {
+        "id": "side",
+        "name": "サイドメニュー",
+        "items": [
+          { "name": "緑茶（缶）", "price": 100 },
+          { "name": "ウーロン茶（缶）", "price": 100 },
+          { "name": "ライス（単品）", "price": 200 },
+          { "name": "サラダ", "price": 300 }
+        ]
+      },
+      {
+        "id": "sozai",
+        "name": "惣菜",
+        "items": [
+          { "name": "ジャガイモコロッケ", "price": 200 },
+          { "name": "カニクリームコロッケ（2ケ）", "price": 200 },
+          { "name": "鶏唐揚げ（2ケ）", "price": 200 },
+          { "name": "ホタテフライ", "price": 200 },
+          { "name": "厚焼き玉子（大根おろし付き）", "price": 250 }
+        ]
+      },
+      {
+        "id": "gohan-change",
+        "name": "ごはんチェンジ",
+        "items": [
+          { "name": "ソボロ（鶏＆玉子）", "price": 200 },
+          { "name": "鮭ソボロ", "price": 200 },
+          { "name": "山菜", "price": 200 },
+          { "name": "ツナマヨ", "price": 200 },
+          { "name": "のり明太子", "price": 250 }
+        ]
+      }
+    ]
+  },
+  "options": {
+    "oomori": {
+      "name": "ライス大盛り",
+      "price": 80,
+      "description": "ご飯の量を大盛りに変更"
+    }
+  },
+  "_meta": {
+    "lastUpdated": "2026-01-23",
+    "note": "クライアント確認済みの正式データ"
+  }
+}

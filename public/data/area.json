@@ -1,0 +1,193 @@
+{
+  "stores": [
+    {
+      "id": "shimbashi",
+      "name": "新橋店",
+      "address": "東京都港区新橋6-16-4 松永ビル1階",
+      "phone": "03-3432-3720",
+      "access": [
+        "都営三田線 御成門駅より徒歩3分",
+        "JR山手線 新橋駅より徒歩9分",
+        "都営大江戸線 大門駅より徒歩9分"
+      ]
+    },
+    {
+      "id": "shinagawa",
+      "name": "品川店",
+      "address": "（要確認）",
+      "phone": "03-5769-2722"
+    }
+  ],
+  "deliveryAreas": {
+    "minato": {
+      "name": "港区",
+      "areas": [
+        { "name": "赤坂1〜9丁目", "minAmount": null },
+        { "name": "麻布十番1〜4丁目", "minAmount": null },
+        { "name": "麻布台1〜3丁目", "minAmount": null },
+        { "name": "麻布永坂町", "minAmount": 650 },
+        { "name": "麻布狸穴町", "minAmount": null },
+        { "name": "愛宕1・2丁目", "minAmount": null },
+        { "name": "海岸1〜3丁目", "minAmount": null },
+        { "name": "北青山1〜3丁目", "minAmount": 5000 },
+        { "name": "港南1〜5丁目", "minAmount": null },
+        { "name": "芝1〜5丁目", "minAmount": null },
+        { "name": "芝浦1〜4丁目", "minAmount": 650 },
+        { "name": "芝公園1〜4丁目", "minAmount": null },
+        { "name": "芝大門1・2丁目", "minAmount": null },
+        { "name": "白金1〜6丁目", "minAmount": 2000 },
+        { "name": "白金台1〜5丁目", "minAmount": 650 },
+        { "name": "新橋1〜6丁目", "minAmount": 650 },
+        { "name": "台場1・2丁目", "minAmount": null },
+        { "name": "高輪1〜4丁目", "minAmount": null },
+        { "name": "虎ノ門1〜5丁目", "minAmount": 650 },
+        { "name": "西麻布1〜3丁目", "minAmount": null },
+        { "name": "西麻布2・4丁目", "minAmount": 2000 },
+        { "name": "西新橋1〜3丁目", "minAmount": 650 },
+        { "name": "浜松町1・2丁目", "minAmount": null },
+        { "name": "東麻布1〜3丁目", "minAmount": 650 },
+        { "name": "東新橋1〜5丁目", "minAmount": null },
+        { "name": "南青山1・2丁目", "minAmount": 2000 },
+        { "name": "南青山3〜7丁目", "minAmount": 5000 },
+        { "name": "南麻布1・2丁目", "minAmount": 650 },
+        { "name": "南麻布3〜5丁目", "minAmount": 2000 },
+        { "name": "元赤坂1丁目", "minAmount": null },
+        { "name": "元赤坂2丁目", "minAmount": 2000 },
+        { "name": "元麻布1〜3丁目", "minAmount": null },
+        { "name": "六本木1〜7丁目", "minAmount": 650 }
+      ]
+    },
+    "chiyoda": {
+      "name": "千代田区",
+      "areas": [
+        { "name": "一番町", "minAmount": 3000 },
+        { "name": "内幸町1・2丁目", "minAmount": 650 },
+        { "name": "大手町1・2丁目", "minAmount": 2000 },
+        { "name": "霞が関1〜3丁目", "minAmount": null },
+        { "name": "紀尾井町", "minAmount": 2000 },
+        { "name": "麹町1〜6丁目", "minAmount": null },
+        { "name": "五番町", "minAmount": null },
+        { "name": "千代田1丁目", "minAmount": null },
+        { "name": "永田町1・2丁目", "minAmount": 650 },
+        { "name": "日比谷公園", "minAmount": 650 },
+        { "name": "平河町1・2丁目", "minAmount": null },
+        { "name": "丸の内1〜3丁目", "minAmount": null },
+        { "name": "有楽町1・2丁目", "minAmount": null },
+        { "name": "四番町", "minAmount": 2000 },
+        { "name": "六番町", "minAmount": null }
+      ]
+    },
+    "chuo": {
+      "name": "中央区",
+      "areas": [
+        { "name": "明石町", "minAmount": 2000 },
+        { "name": "入船1〜3丁目", "minAmount": null },
+        { "name": "勝どき1〜6丁目", "minAmount": 3000 },
+        { "name": "京橋1〜3丁目", "minAmount": 650 },
+        { "name": "銀座1〜8丁目", "minAmount": 650 },
+        { "name": "新富1・2丁目", "minAmount": 2000 },
+        { "name": "築地1・2・4・5丁目", "minAmount": 650 },
+        { "name": "築地3・6・7丁目", "minAmount": 2000 },
+        { "name": "月島1〜4丁目", "minAmount": null },
+        { "name": "八丁堀1〜3丁目", "minAmount": 3000 },
+        { "name": "晴海", "minAmount": null },
+        { "name": "豊洲2丁目", "minAmount": null }
+      ]
+    },
+    "shibuya": {
+      "name": "渋谷区",
+      "areas": [
+        { "name": "恵比寿1〜4丁目", "minAmount": null },
+        { "name": "恵比寿南1〜3丁目", "minAmount": 2000 },
+        { "name": "渋谷1〜4丁目", "minAmount": null },
+        { "name": "神宮前1丁目", "minAmount": null },
+        { "name": "広尾1〜5丁目", "minAmount": 650 }
+      ]
+    },
+    "shinagawa": {
+      "name": "品川区",
+      "areas": [
+        { "name": "大崎1〜5丁目", "minAmount": 3000 },
+        { "name": "上大崎1〜4丁目", "minAmount": null },
+        { "name": "北品川1〜6丁目", "minAmount": 650 },
+        { "name": "五反田1・2丁目", "minAmount": 2000 },
+        { "name": "五反田7・8丁目", "minAmount": 3000 },
+        { "name": "東五反田1〜5丁目", "minAmount": null },
+        { "name": "東品川1〜5丁目", "minAmount": null },
+        { "name": "東八潮", "minAmount": null },
+        { "name": "南大井1〜6丁目", "minAmount": 3000 },
+        { "name": "南品川1〜5丁目", "minAmount": null },
+        { "name": "八潮2・5丁目", "minAmount": 5000 }
+      ]
+    },
+    "koto": {
+      "name": "江東区",
+      "areas": [
+        { "name": "青海1・2丁目", "minAmount": 2000 },
+        { "name": "有明3・4丁目", "minAmount": 3000 },
+        { "name": "東雲2丁目", "minAmount": null }
+      ]
+    },
+    "meguro": {
+      "name": "目黒区",
+      "areas": [
+        { "name": "下目黒1・2丁目", "minAmount": null },
+        { "name": "三田1丁目", "minAmount": 2000 }
+      ]
+    },
+    "ota": {
+      "name": "大田区",
+      "areas": [
+        { "name": "大森北", "minAmount": null },
+        { "name": "平和島", "minAmount": null }
+      ]
+    },
+    "shinjuku": {
+      "name": "新宿区",
+      "areas": [
+        { "name": "三栄町", "minAmount": null },
+        { "name": "信濃町", "minAmount": null },
+        { "name": "内藤町", "minAmount": null },
+        { "name": "本塩町", "minAmount": null },
+        { "name": "四谷1〜5丁目", "minAmount": null },
+        { "name": "四谷坂町", "minAmount": null },
+        { "name": "若葉", "minAmount": null }
+      ]
+    }
+  },
+  "deliveryTimeEstimates": [
+    { "minAmount": 650, "time": "40分" },
+    { "minAmount": 2000, "time": "60分〜" },
+    { "minAmount": 3000, "time": "70分〜" },
+    { "minAmount": 5000, "time": "90分〜" }
+  ],
+  "specialConditions": {
+    "outsideArea": {
+      "description": "上記以外のご住所",
+      "minOrderAmount": 15000,
+      "requiresReservation": true,
+      "reservationDeadline": "前日まで",
+      "coverage": [
+        "東京都（青梅市・奥多摩・檜原村を除く）",
+        "神奈川県（横浜市付近まで）",
+        "千葉県（千葉市付近まで）",
+        "埼玉県（さいたま市付近まで）"
+      ]
+    }
+  },
+  "businessHours": {
+    "phoneReception": {
+      "weekday": "9:00〜14:00、16:30〜21:00",
+      "saturday": "9:00〜14:00、16:30〜20:00",
+      "sunday": "予約のみ対応"
+    }
+  },
+  "paymentMethods": [
+    { "id": "cash", "name": "現金", "available": true },
+    { "id": "qr", "name": "QRコード決済", "available": true }
+  ],
+  "_meta": {
+    "lastUpdated": "2026-01-23",
+    "source": "haitatsu.jpg（配達エリア表）より抽出"
+  }
+}

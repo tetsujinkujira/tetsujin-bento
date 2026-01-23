@@ -1,0 +1,800 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* カスタムスタイル */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply text-secondary-800 bg-white;
+    overflow-x: hidden;
+  }
+
+  /* カスタムセレクション */
+  ::selection {
+    @apply bg-primary-500 text-white;
+  }
+}
+
+@layer components {
+  /* 電話ボタン */
+  .btn-phone {
+    @apply inline-flex items-center justify-center gap-2
+           bg-primary-600 hover:bg-primary-700
+           text-white font-bold
+           px-6 py-4 rounded-lg
+           transition-all duration-200
+           shadow-lg hover:shadow-xl
+           text-lg;
+  }
+
+  /* プライマリボタン */
+  .btn-primary {
+    @apply inline-flex items-center justify-center
+           bg-primary-600 hover:bg-primary-700
+           text-white font-bold
+           px-6 py-3 rounded-lg
+           transition-colors duration-200;
+  }
+
+  /* セカンダリボタン */
+  .btn-secondary {
+    @apply inline-flex items-center justify-center
+           bg-secondary-800 hover:bg-secondary-900
+           text-white font-bold
+           px-6 py-3 rounded-lg
+           transition-colors duration-200;
+  }
+
+  /* セクションタイトル */
+  .section-title {
+    @apply text-2xl md:text-3xl font-bold text-center mb-8
+           relative pb-4;
+  }
+
+  .section-title::after {
+    content: '';
+    @apply absolute bottom-0 left-1/2 -translate-x-1/2
+           w-16 h-1 bg-primary-600;
+  }
+
+  /* カード */
+  .card {
+    @apply bg-white rounded-xl shadow-md overflow-hidden
+           hover:shadow-lg transition-shadow duration-200;
+  }
+
+  /* メニューカード */
+  .menu-card {
+    @apply card flex flex-col;
+  }
+
+  .menu-card-image {
+    @apply aspect-[4/3] object-cover w-full;
+  }
+
+  .menu-card-body {
+    @apply p-4 flex flex-col flex-grow;
+  }
+
+  .menu-card-title {
+    @apply font-bold text-lg mb-1;
+  }
+
+  .menu-card-reading {
+    @apply text-sm text-secondary-500 mb-2;
+  }
+
+  .menu-card-price {
+    @apply text-primary-600 font-bold text-xl mt-auto;
+  }
+
+  /* ナビゲーション */
+  .nav-link {
+    @apply text-secondary-700 hover:text-primary-600
+           font-medium transition-colors duration-200;
+  }
+
+  .nav-link-active {
+    @apply text-primary-600 font-bold;
+  }
+}
+
+/* フェードインアニメーション */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.6s ease-out forwards;
+}
+
+/* 遅延フェードイン */
+.fade-in-delay-1 { animation-delay: 0.1s; }
+.fade-in-delay-2 { animation-delay: 0.2s; }
+.fade-in-delay-3 { animation-delay: 0.3s; }
+
+/* ヒーロー画像のアニメーション */
+@keyframes heroImageReveal {
+  0% {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes heroContentReveal {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hero-image-frame {
+  animation: heroImageReveal 1s ease-out forwards;
+  /* 額縁風の装飾 */
+  background: linear-gradient(145deg, #ffffff, #f0f0f0);
+  box-shadow:
+    0 25px 50px -12px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+}
+
+.hero-image-frame::before {
+  content: '';
+  position: absolute;
+  inset: 8px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  pointer-events: none;
+}
+
+.hero-content {
+  opacity: 0;
+  animation: heroContentReveal 0.8s ease-out 0.5s forwards;
+}
+
+/* 画像ホバーエフェクト */
+.hero-image-frame:hover {
+  transform: scale(1.01);
+  transition: transform 0.3s ease;
+}
+
+.hero-image-frame img {
+  transition: filter 0.3s ease;
+}
+
+.hero-image-frame:hover img {
+  filter: brightness(1.05);
+}
+
+/* ========================================
+   モダンアニメーション & エフェクト
+   ======================================== */
+
+/* グラデーション背景アニメーション */
+@keyframes gradientShift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+.animated-gradient {
+  background: linear-gradient(-45deg, #dc2626, #f59e0b, #dc2626, #b91c1c);
+  background-size: 400% 400%;
+  animation: gradientShift 8s ease infinite;
+}
+
+/* フローティングアニメーション */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+.float {
+  animation: float 3s ease-in-out infinite;
+}
+
+.float-delay-1 { animation-delay: 0.5s; }
+.float-delay-2 { animation-delay: 1s; }
+.float-delay-3 { animation-delay: 1.5s; }
+.float-delay-4 { animation-delay: 2s; }
+
+/* パルスアニメーション（電話ボタン用） */
+@keyframes pulse-ring {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.5);
+    opacity: 0;
+  }
+}
+
+.pulse-ring {
+  position: relative;
+}
+
+.pulse-ring::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: inherit;
+  animation: pulse-ring 2s ease-out infinite;
+  z-index: -1;
+}
+
+/* スクロールトリガーアニメーション */
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(60px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-60px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(60px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.scroll-animate {
+  opacity: 0;
+}
+
+.scroll-animate.visible {
+  animation-duration: 0.8s;
+  animation-fill-mode: forwards;
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.scroll-animate.visible.slide-up { animation-name: slideInUp; }
+.scroll-animate.visible.slide-left { animation-name: slideInLeft; }
+.scroll-animate.visible.slide-right { animation-name: slideInRight; }
+.scroll-animate.visible.scale-in { animation-name: scaleIn; }
+
+/* スタッガードアニメーション（子要素の連続表示） */
+.stagger-children.visible > * {
+  animation: slideInUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  opacity: 0;
+}
+
+.stagger-children.visible > *:nth-child(1) { animation-delay: 0.1s; }
+.stagger-children.visible > *:nth-child(2) { animation-delay: 0.2s; }
+.stagger-children.visible > *:nth-child(3) { animation-delay: 0.3s; }
+.stagger-children.visible > *:nth-child(4) { animation-delay: 0.4s; }
+.stagger-children.visible > *:nth-child(5) { animation-delay: 0.5s; }
+.stagger-children.visible > *:nth-child(6) { animation-delay: 0.6s; }
+.stagger-children.visible > *:nth-child(7) { animation-delay: 0.7s; }
+.stagger-children.visible > *:nth-child(8) { animation-delay: 0.8s; }
+
+/* カードホバーエフェクト（3D風） */
+.card-3d {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transform-style: preserve-3d;
+}
+
+.card-3d:hover {
+  transform: translateY(-8px) rotateX(2deg);
+  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.3);
+}
+
+/* グラスモーフィズム */
+.glass {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.glass-dark {
+  background: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* ボタンホバーエフェクト */
+.btn-bounce:hover {
+  animation: bounce 0.5s;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  25% { transform: translateY(-5px); }
+  50% { transform: translateY(0); }
+  75% { transform: translateY(-3px); }
+}
+
+/* シャイニーエフェクト（ボタン） */
+.btn-shiny {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-shiny::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    to right,
+    transparent 0%,
+    rgba(255, 255, 255, 0.3) 50%,
+    transparent 100%
+  );
+  transform: rotate(45deg) translateX(-100%);
+  transition: none;
+}
+
+.btn-shiny:hover::after {
+  transition: transform 0.6s ease;
+  transform: rotate(45deg) translateX(100%);
+}
+
+/* テキストグラデーション */
+.text-gradient {
+  background: linear-gradient(135deg, #dc2626, #f59e0b);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* カウントアップアニメーション用 */
+.count-up {
+  display: inline-block;
+}
+
+/* 波紋エフェクト（クリック時） */
+.ripple {
+  position: relative;
+  overflow: hidden;
+}
+
+.ripple::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  background-image: radial-gradient(circle, rgba(255,255,255,0.3) 10%, transparent 10.01%);
+  background-repeat: no-repeat;
+  background-position: 50%;
+  transform: scale(10);
+  opacity: 0;
+  transition: transform 0.5s, opacity 1s;
+}
+
+.ripple:active::after {
+  transform: scale(0);
+  opacity: 1;
+  transition: 0s;
+}
+
+/* スクロールバーのスタイリング */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #dc2626, #f59e0b);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #b91c1c, #d97706);
+}
+
+/* ページトランジション */
+.page-transition {
+  animation: pageIn 0.5s ease-out;
+}
+
+@keyframes pageIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 装飾用の背景パターン */
+.pattern-dots {
+  background-image: radial-gradient(#dc2626 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+.pattern-diagonal {
+  background-image: repeating-linear-gradient(
+    45deg,
+    transparent,
+    transparent 10px,
+    rgba(220, 38, 38, 0.05) 10px,
+    rgba(220, 38, 38, 0.05) 20px
+  );
+}
+
+/* ナビゲーションリンクのホバーアンダーライン */
+.nav-link {
+  position: relative;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #dc2626, #f59e0b);
+  transition: width 0.3s ease;
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+/* ヘッダーのスクロール時シャドウ */
+.header-scrolled {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* より大きなシャドウ */
+.shadow-3xl {
+  box-shadow: 0 35px 60px -15px rgba(0, 0, 0, 0.3);
+}
+
+/* ロゴホバーエフェクト */
+.logo-hover {
+  transition: transform 0.3s ease;
+}
+
+.logo-hover:hover {
+  transform: scale(1.05);
+}
+
+/* 画像のスケールイン */
+@keyframes imageReveal {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+    filter: blur(10px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+    filter: blur(0);
+  }
+}
+
+.image-reveal {
+  animation: imageReveal 0.8s ease-out forwards;
+}
+
+/* テキストタイピングエフェクト用 */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.cursor-blink::after {
+  content: '|';
+  animation: blink 1s infinite;
+}
+
+/* カードのグロー効果 */
+.card-glow {
+  transition: box-shadow 0.3s ease;
+}
+
+.card-glow:hover {
+  box-shadow: 0 0 30px rgba(220, 38, 38, 0.3);
+}
+
+/* ズームインアウトループ */
+@keyframes breathe {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.02); }
+}
+
+.breathe {
+  animation: breathe 4s ease-in-out infinite;
+}
+
+/* スピンアニメーション */
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.spin-slow {
+  animation: spin-slow 20s linear infinite;
+}
+
+/* カスタムカーソル */
+.custom-cursor {
+  position: fixed;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #dc2626;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: width 0.2s ease, height 0.2s ease, background-color 0.2s ease;
+  mix-blend-mode: difference;
+}
+
+.custom-cursor.cursor-hover {
+  width: 40px;
+  height: 40px;
+  background-color: rgba(220, 38, 38, 0.2);
+}
+
+/* モバイルではカスタムカーソルを非表示 */
+@media (max-width: 767px) {
+  .custom-cursor {
+    display: none;
+  }
+}
+
+/* ヘッダーのスクロール状態 */
+header {
+  transition: box-shadow 0.3s ease, background-color 0.3s ease;
+}
+
+header.header-scrolled {
+  background-color: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+/* スクロールバー非表示（横スクロールナビ用） */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* ========================================
+   ニュースティッカー（電光掲示板風）
+   ======================================== */
+#news-ticker {
+  position: relative;
+}
+
+.news-ticker-wrapper {
+  display: inline-flex;
+  white-space: nowrap;
+}
+
+.news-ticker-content {
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+  flex-shrink: 0;
+  animation: ticker-scroll var(--ticker-duration, 12s) linear infinite;
+}
+
+/* ホバーで一時停止 */
+#news-ticker:hover .news-ticker-content {
+  animation-play-state: paused;
+}
+
+@keyframes ticker-scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+/* 左右にグラデーションフェード */
+#news-ticker::before,
+#news-ticker::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 40px;
+  z-index: 10;
+  pointer-events: none;
+}
+
+#news-ticker::before {
+  left: 0;
+  background: linear-gradient(to right, #1f2937, transparent);
+}
+
+#news-ticker::after {
+  right: 0;
+  background: linear-gradient(to left, #1f2937, transparent);
+}
+
+/* ティッカー内のリンクスタイル */
+#news-ticker a {
+  transition: color 0.2s ease;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* ========================================
+   画像ライトボックス
+   ======================================== */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(0, 0, 0, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.lightbox.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.lightbox.hidden {
+  display: none;
+}
+
+.lightbox-content {
+  max-width: 90vw;
+  max-height: 90vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lightbox-content img {
+  max-width: 100%;
+  max-height: 90vh;
+  object-fit: contain;
+  border-radius: 8px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  transform: scale(0.9);
+  transition: transform 0.3s ease;
+}
+
+.lightbox.active .lightbox-content img {
+  transform: scale(1);
+}
+
+.lightbox-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  color: white;
+  background: rgba(0, 0, 0, 0.5);
+  border: none;
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+  z-index: 10000;
+}
+
+.lightbox-close:hover {
+  background: rgba(0, 0, 0, 0.8);
+  transform: scale(1.1);
+}
+
+/* クリック可能な画像のスタイル */
+.menu-card-image,
+.lightbox-trigger {
+  cursor: zoom-in;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.menu-card-image:hover,
+.lightbox-trigger:hover {
+  transform: scale(1.02);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* 注文番号バッジ */
+.order-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+  color: white;
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 0.25rem 0.6rem;
+  border-radius: 9999px;
+  white-space: nowrap;
+  box-shadow: 0 2px 4px rgba(220, 38, 38, 0.3);
+}
+
+/* モバイルでのタッチ操作最適化 */
+@media (max-width: 767px) {
+  /* タップターゲットの最小サイズ確保 */
+  .nav-link,
+  .menu-card,
+  a,
+  button {
+    min-height: 44px;
+  }
+
+  /* フォントサイズの最適化 */
+  html {
+    font-size: 16px; /* iOS Safariのズーム防止 */
+  }
+
+  /* 横スクロール防止 */
+  body {
+    overflow-x: hidden;
+  }
+}
