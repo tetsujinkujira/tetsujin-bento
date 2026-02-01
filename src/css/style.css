@@ -798,3 +798,21 @@ header.header-scrolled {
     overflow-x: hidden;
   }
 }
+
+/* ========================================
+   PWA インストールバナー
+   ======================================== */
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-slide-up {
+  animation: slideUp 0.3s ease-out;
+}

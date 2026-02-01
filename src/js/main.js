@@ -4,17 +4,78 @@ document.addEventListener('DOMContentLoaded', () => {
   const mobileMenu = document.getElementById('mobile-menu');
 
   if (menuBtn && mobileMenu) {
+    // メニュー内のフォーカス可能な要素を取得
+    const getFocusableElements = () => {
+      return mobileMenu.querySelectorAll('a[href], button:not([disabled])');
+    };
+
+    // メニューを開く
+    const openMenu = () => {
+      mobileMenu.classList.remove('hidden');
+      menuBtn.classList.add('active');
+      menuBtn.setAttribute('aria-expanded', 'true');
+      menuBtn.setAttribute('aria-label', 'メニューを閉じる');
+      // 最初のリンクにフォーカス
+      const firstLink = mobileMenu.querySelector('a');
+      if (firstLink) {
+        setTimeout(() => firstLink.focus(), 100);
+      }
+    };
+
+    // メニューを閉じる
+    const closeMenu = () => {
+      mobileMenu.classList.add('hidden');
+      menuBtn.classList.remove('active');
+      menuBtn.setAttribute('aria-expanded', 'false');
+      menuBtn.setAttribute('aria-label', 'メニューを開く');
+      menuBtn.focus();
+    };
+
+    // メニューが開いているか確認
+    const isMenuOpen = () => !mobileMenu.classList.contains('hidden');
+
     menuBtn.addEventListener('click', () => {
-      mobileMenu.classList.toggle('hidden');
-      // ハンバーガーアイコンのアニメーション
-      menuBtn.classList.toggle('active');
+      if (isMenuOpen()) {
+        closeMenu();
+      } else {
+        openMenu();
+      }
     });
 
     // メニュー外をクリックしたら閉じる
     document.addEventListener('click', (e) => {
-      if (!menuBtn.contains(e.target) && !mobileMenu.contains(e.target)) {
-        mobileMenu.classList.add('hidden');
-        menuBtn.classList.remove('active');
+      if (isMenuOpen() && !menuBtn.contains(e.target) && !mobileMenu.contains(e.target)) {
+        closeMenu();
+      }
+    });
+
+    // Escapeキーでメニューを閉じる
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && isMenuOpen()) {
+        closeMenu();
+      }
+    });
+
+    // タブキーでフォーカストラップ（メニュー内に留める）
+    mobileMenu.addEventListener('keydown', (e) => {
+      if (e.key !== 'Tab') return;
+
+      const focusableElements = getFocusableElements();
+      const firstElement = focusableElements[0];
+      const lastElement = focusableElements[focusableElements.length - 1];
+
+      if (e.shiftKey) {
+        // Shift + Tab
+        if (document.activeElement === firstElement) {
+          e.preventDefault();
+          lastElement.focus();
+        }
+      } else {
+        // Tab
+        if (document.activeElement === lastElement) {
+          e.preventDefault();
+          firstElement.focus();
+        }
       }
     });
   }
@@ -305,10 +366,111 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 
+// ベースパス（Vite の base 設定に対応）
+const BASE_PATH = import.meta.env.BASE_URL || '/';
+
+// ========================================
+// Service Worker 登録
+// ========================================
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', async () => {
+    try {
+      const registration = await navigator.serviceWorker.register(`${BASE_PATH}sw.js`);
+      console.log('Service Worker 登録成功:', registration.scope);
+    } catch (error) {
+      console.log('Service Worker 登録失敗:', error);
+    }
+  });
+}
+
+// ========================================
+// PWA インストールプロンプト
+// ========================================
+let deferredPrompt = null;
+
+window.addEventListener('beforeinstallprompt', (e) => {
+  // デフォルトのプロンプトを抑制
+  e.preventDefault();
+  deferredPrompt = e;
+
+  // 既に閉じたことがあるか確認（24時間以内は表示しない）
+  const dismissedTime = localStorage.getItem('pwa-install-dismissed');
+  if (dismissedTime) {
+    const hoursSinceDismissed = (Date.now() - parseInt(dismissedTime)) / (1000 * 60 * 60);
+    if (hoursSinceDismissed < 24) {
+      return;
+    }
+  }
+
+  // 3秒後にバナーを表示（ページ読み込み直後は邪魔になるため）
+  setTimeout(() => {
+    showInstallBanner();
+  }, 3000);
+});
+
+function showInstallBanner() {
+  const banner = document.getElementById('pwa-install-banner');
+  if (!banner || !deferredPrompt) return;
+
+  banner.classList.remove('hidden');
+}
+
+function hideInstallBanner() {
+  const banner = document.getElementById('pwa-install-banner');
+  if (banner) {
+    banner.classList.add('hidden');
+  }
+}
+
+// インストールボタン
+document.addEventListener('DOMContentLoaded', () => {
+  const installBtn = document.getElementById('pwa-install-btn');
+  const closeBtn = document.getElementById('pwa-install-close');
+  const laterBtn = document.getElementById('pwa-install-later');
+
+  if (installBtn) {
+    installBtn.addEventListener('click', async () => {
+      if (!deferredPrompt) return;
+
+      // インストールプロンプトを表示
+      deferredPrompt.prompt();
+
+      // ユーザーの選択を待つ
+      const { outcome } = await deferredPrompt.userChoice;
+      console.log('PWA インストール選択:', outcome);
+
+      // プロンプトは一度しか使えない
+      deferredPrompt = null;
+      hideInstallBanner();
+    });
+  }
+
+  if (closeBtn) {
+    closeBtn.addEventListener('click', () => {
+      localStorage.setItem('pwa-install-dismissed', Date.now().toString());
+      hideInstallBanner();
+    });
+  }
+
+  if (laterBtn) {
+    laterBtn.addEventListener('click', () => {
+      localStorage.setItem('pwa-install-dismissed', Date.now().toString());
+      hideInstallBanner();
+    });
+  }
+});
+
+// インストール完了時
+window.addEventListener('appinstalled', () => {
+  console.log('PWA インストール完了');
+  deferredPrompt = null;
+  hideInstallBanner();
+});
+
 // メニューデータの読み込み（動的ページ用）
 async function loadMenuData() {
   try {
-    const response = await fetch('/tetsujin-bento/data/menu.json');
+    const response = await fetch(`${BASE_PATH}data/menu.json`);
     if (!response.ok) throw new Error('Failed to load menu data');
     return await response.json();
   } catch (error) {
@@ -320,7 +482,7 @@ async function loadMenuData() {
 // サイト設定データの読み込み（お知らせ・日替わりメニュー）
 async function loadSiteConfig() {
   try {
-    const response = await fetch('/tetsujin-bento/data/site-config.json');
+    const response = await fetch(`${BASE_PATH}data/site-config.json`);
     if (!response.ok) throw new Error('Failed to load site config');
     return await response.json();
   } catch (error) {

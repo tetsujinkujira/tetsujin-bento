@@ -17,6 +17,8 @@ export default defineConfig({
         about: resolve(__dirname, 'src/about.html'),
         recruit: resolve(__dirname, 'src/recruit.html'),
         legal: resolve(__dirname, 'src/legal.html'),
+        privacy: resolve(__dirname, 'src/privacy.html'),
+        notFound: resolve(__dirname, 'src/404.html'),
       }
     }
   },

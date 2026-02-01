@@ -22,6 +22,8 @@ const PAGES = [
   { path: `${BASE_PATH}/about.html`, name: '鉄人とはページ', title: '鉄人とは' },
   { path: `${BASE_PATH}/recruit.html`, name: '採用情報ページ', title: '採用情報' },
   { path: `${BASE_PATH}/legal.html`, name: '特定商取引法ページ', title: '特定商取引法' },
+  { path: `${BASE_PATH}/privacy.html`, name: 'プライバシーポリシーページ', title: 'プライバシーポリシー' },
+  { path: `${BASE_PATH}/404.html`, name: '404エラーページ', title: 'ページが見つかりません' },
 ];
 
 // ========================================
@@ -71,7 +73,9 @@ test.describe('メタタグ確認', () => {
   });
 
   test('各ページにdescriptionが設定されている', async ({ page }) => {
-    for (const pageInfo of PAGES) {
+    // 404ページとプライバシーポリシーページはnoindexなのでdescription不要
+    const pagesWithDescription = PAGES.filter(p => !p.path.includes('404') && !p.path.includes('privacy'));
+    for (const pageInfo of pagesWithDescription) {
       await page.goto(pageInfo.path);
       const description = await page.getAttribute('meta[name="description"]', 'content');
       expect(description, `${pageInfo.name}のdescriptionがありません`).toBeTruthy();
@@ -238,14 +242,19 @@ test.describe('構造化データ確認', () => {
   test('JSON-LD構造化データが存在する', async ({ page }) => {
     await page.goto(`${BASE_PATH}/`);
 
-    const jsonLd = page.locator('script[type="application/ld+json"]');
-    await expect(jsonLd).toHaveCount(1);
+    const jsonLdScripts = page.locator('script[type="application/ld+json"]');
+    // 複数の構造化データが存在することを確認（Restaurant, WebSite等）
+    const count = await jsonLdScripts.count();
+    expect(count).toBeGreaterThanOrEqual(1);
 
-    // JSON-LDの内容を確認
-    const content = await jsonLd.textContent();
-    expect(content).toContain('@context');
-    expect(content).toContain('Restaurant');
-    expect(content).toContain('手作り弁当喰楽部 鉄人');
+    // Restaurantの構造化データが含まれることを確認
+    const allContent = await page.evaluate(() => {
+      const scripts = document.querySelectorAll('script[type="application/ld+json"]');
+      return Array.from(scripts).map(s => s.textContent).join('');
+    });
+    expect(allContent).toContain('@context');
+    expect(allContent).toContain('Restaurant');
+    expect(allContent).toContain('手作り弁当喰楽部 鉄人');
   });
 });
 

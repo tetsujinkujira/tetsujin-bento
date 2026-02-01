@@ -101,16 +101,35 @@
   }
   </script>
 
+  <!-- 構造化データ: WebSite（サイト内検索対応） -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "手作り弁当喰楽部 鉄人",
+    "url": "https://tetsujinkujira.github.io/tetsujin-bento/"
+  }
+  </script>
+
   <!-- Favicon -->
   <link rel="apple-touch-icon" sizes="180x180" href="/tetsujin-bento/apple-touch-icon.png?v=2">
   <link rel="icon" type="image/png" sizes="32x32" href="/tetsujin-bento/favicon-32x32.png?v=2">
   <link rel="icon" type="image/png" sizes="16x16" href="/tetsujin-bento/favicon-16x16.png?v=2">
   <link rel="icon" type="image/x-icon" href="/tetsujin-bento/favicon.ico?v=2">
 
-  <!-- Google Fonts -->
+  <!-- PWA -->
+  <link rel="manifest" href="/tetsujin-bento/manifest.json">
+  <meta name="theme-color" content="#ef4444">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="鉄人">
+
+  <!-- Google Fonts (optimized) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet"></noscript>
 
   <!-- CSS -->
   <link rel="stylesheet" href="./css/style.css">
@@ -119,6 +138,11 @@
   <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 </head>
 <body>
+  <!-- スキップリンク -->
+  <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-primary-600 text-white px-4 py-2 rounded z-[100]">
+    メインコンテンツへスキップ
+  </a>
+
   <!-- お知らせティッカー（電光掲示板風） -->
   <div id="news-ticker" class="bg-secondary-900 text-white py-2.5 overflow-hidden relative">
     <div class="news-ticker-wrapper" id="news-ticker-wrapper">
@@ -138,23 +162,23 @@
   </div>
 
   <!-- ヘッダー -->
-  <header class="bg-white shadow-sm sticky top-0 z-50">
+  <header class="bg-white shadow-sm sticky top-0 z-50" role="banner">
     <div class="container mx-auto px-4">
       <div class="flex items-center justify-between h-16 md:h-20">
         <!-- ロゴ -->
-        <a href="/" class="flex items-center gap-2 logo-hover">
+        <a href="/" class="flex items-center gap-2 logo-hover" aria-label="手作り弁当喰楽部 鉄人 トップページへ">
           <span class="text-xl md:text-2xl font-black text-gradient">鉄人</span>
           <span class="hidden sm:inline text-sm text-secondary-600">手作り弁当喰楽部</span>
         </a>
 
         <!-- デスクトップナビ -->
-        <nav class="hidden md:flex items-center gap-6">
+        <nav class="hidden md:flex items-center gap-6" role="navigation" aria-label="メインナビゲーション">
           <a href="./menu.html" class="nav-link">メニュー</a>
           <a href="./area.html" class="nav-link">配達エリア</a>
           <a href="./about.html" class="nav-link">鉄人とは</a>
-          <a href="./recruit.html" class="nav-link">採用情報</a>
-          <a href="tel:03-3432-3720" class="btn-phone text-base py-2 px-4">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <a href="./order.html" class="nav-link">ご注文方法</a>
+          <a href="tel:03-3432-3720" class="btn-phone text-base py-2 px-4" aria-label="電話で注文する 03-3432-3720">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
             </svg>
             注文する
@@ -162,8 +186,8 @@
         </nav>
 
         <!-- モバイルメニューボタン -->
-        <button id="mobile-menu-btn" class="md:hidden p-2" aria-label="メニューを開く">
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <button id="mobile-menu-btn" class="md:hidden p-2" aria-label="メニューを開く" aria-expanded="false" aria-controls="mobile-menu">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
           </svg>
         </button>
@@ -171,12 +195,12 @@
     </div>
 
     <!-- モバイルナビ -->
-    <nav id="mobile-menu" class="md:hidden hidden bg-white border-t">
+    <nav id="mobile-menu" class="md:hidden hidden bg-white border-t" role="navigation" aria-label="モバイルナビゲーション">
       <div class="container mx-auto px-4 py-4 space-y-4">
         <a href="./menu.html" class="block nav-link py-2">メニュー</a>
         <a href="./area.html" class="block nav-link py-2">配達エリア</a>
         <a href="./about.html" class="block nav-link py-2">鉄人とは</a>
-        <a href="./recruit.html" class="block nav-link py-2">採用情報</a>
+        <a href="./order.html" class="block nav-link py-2">ご注文方法</a>
         <a href="tel:03-3432-3720" class="btn-phone w-full justify-center">
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
@@ -187,7 +211,7 @@
     </nav>
   </header>
 
-  <main>
+  <main id="main-content" role="main">
     <!-- メインビジュアル（オーナー自慢の一枚） -->
     <section id="hero" class="relative bg-secondary-900">
       <!-- メイン画像 -->
@@ -196,7 +220,7 @@
           <!-- 画像を額縁のように表示 -->
           <div class="relative bg-white p-2 md:p-4 shadow-2xl rounded-lg hero-image-frame">
             <img
-              src="/tetsujin-bento/images/top/top.jpg"
+              src="/images/top/top.jpg"
               alt="手作り弁当喰楽部 鉄人"
               class="w-full h-auto rounded shadow-inner"
               id="hero-image"
@@ -229,6 +253,25 @@
             <p class="mt-6 text-sm text-white/60">
               受付時間: 平日 9:00〜14:00、16:30〜21:00
             </p>
+
+            <!-- SNSリンク -->
+            <div class="mt-8 pt-6 border-t border-white/20">
+              <p class="text-white/90 mb-4 font-medium">日々のお弁当や厨房の様子を発信中!</p>
+              <div class="flex justify-center gap-5">
+                <a href="https://www.instagram.com/tetsujin.bento/" target="_blank" rel="noopener noreferrer" class="group flex items-center gap-3 bg-gradient-to-r from-purple-500 via-pink-500 to-orange-400 px-6 py-3 rounded-full shadow-lg hover:shadow-xl transition-all hover:scale-110 hover:-translate-y-1" aria-label="Instagram">
+                  <svg class="w-7 h-7 text-white" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                  </svg>
+                  <span class="text-white font-bold text-base">Instagram</span>
+                </a>
+                <a href="https://x.com/tetsujin0141" target="_blank" rel="noopener noreferrer" class="group flex items-center gap-3 bg-black px-6 py-3 rounded-full shadow-lg hover:shadow-xl transition-all hover:scale-110 hover:-translate-y-1 border-2 border-white/30 hover:border-white/60" aria-label="X (Twitter)">
+                  <svg class="w-7 h-7 text-white" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                  </svg>
+                  <span class="text-white font-bold text-base">X</span>
+                </a>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -307,7 +350,7 @@
           <div class="bg-gradient-to-r from-accent-100 to-accent-50 rounded-2xl overflow-hidden shadow-2xl card-3d hover:shadow-3xl transition-shadow duration-300">
             <div class="md:flex">
               <div class="md:w-1/2 relative overflow-hidden group">
-                <img src="/tetsujin-bento/images/menu/kanban.jpg" alt="グレート竜田" class="w-full h-64 md:h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                <img src="/images/menu/kanban.webp" alt="グレート竜田" class="w-full h-64 md:h-full object-cover transition-transform duration-500 group-hover:scale-110" loading="lazy">
                 <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               </div>
               <div class="md:w-1/2 p-6 md:p-8 flex flex-col justify-center">
@@ -450,7 +493,7 @@
   </main>
 
   <!-- フッター -->
-  <footer class="bg-secondary-900 text-white py-12 relative overflow-hidden">
+  <footer class="bg-secondary-900 text-white py-12 relative overflow-hidden" role="contentinfo">
     <!-- 装飾 -->
     <div class="absolute top-0 left-0 right-0 h-1 animated-gradient"></div>
     <div class="container mx-auto px-4 relative z-10">
@@ -471,6 +514,19 @@
               TEL: 03-3432-3720
             </a>
           </address>
+          <!-- SNSリンク -->
+          <div class="flex gap-4 mt-5">
+            <a href="https://www.instagram.com/tetsujin.bento/" target="_blank" rel="noopener noreferrer" class="w-12 h-12 bg-gradient-to-br from-purple-500 via-pink-500 to-orange-400 rounded-xl flex items-center justify-center transition-all hover:scale-110 hover:shadow-lg hover:shadow-pink-500/30" aria-label="Instagram">
+              <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+              </svg>
+            </a>
+            <a href="https://x.com/tetsujin0141" target="_blank" rel="noopener noreferrer" class="w-12 h-12 bg-white text-black rounded-xl flex items-center justify-center transition-all hover:scale-110 hover:shadow-lg hover:shadow-white/30" aria-label="X (Twitter)">
+              <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+              </svg>
+            </a>
+          </div>
         </div>
         <!-- リンク -->
         <div>
@@ -487,6 +543,7 @@
             <li><a href="./about.html" class="hover:text-white hover:translate-x-1 transition-all inline-block">→ 鉄人とは</a></li>
             <li><a href="./recruit.html" class="hover:text-white hover:translate-x-1 transition-all inline-block">→ 採用情報</a></li>
             <li><a href="./legal.html" class="hover:text-white hover:translate-x-1 transition-all inline-block">→ 特定商取引法に基づく表記</a></li>
+            <li><a href="./privacy.html" class="hover:text-white hover:translate-x-1 transition-all inline-block">→ プライバシーポリシー</a></li>
           </ul>
         </div>
       </div>
@@ -502,6 +559,34 @@
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
     </svg>
   </a>
+
+  <!-- PWAインストールバナー（控えめ） -->
+  <div id="pwa-install-banner" class="hidden fixed bottom-20 md:bottom-4 left-4 right-4 md:left-auto md:right-4 md:w-80 bg-white rounded-xl shadow-lg border border-secondary-200 p-4 z-40 animate-slide-up">
+    <div class="flex items-start gap-3">
+      <div class="w-10 h-10 bg-primary-100 rounded-lg flex items-center justify-center flex-shrink-0">
+        <svg class="w-6 h-6 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/>
+        </svg>
+      </div>
+      <div class="flex-1 min-w-0">
+        <p class="font-bold text-secondary-900 text-sm">ホーム画面に追加</p>
+        <p class="text-xs text-secondary-500 mt-0.5">アプリのように素早くアクセスできます</p>
+      </div>
+      <button id="pwa-install-close" class="text-secondary-400 hover:text-secondary-600 p-1" aria-label="閉じる">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+        </svg>
+      </button>
+    </div>
+    <div class="flex gap-2 mt-3">
+      <button id="pwa-install-btn" class="flex-1 bg-primary-600 text-white text-sm font-bold py-2 px-4 rounded-lg hover:bg-primary-700 transition-colors">
+        追加する
+      </button>
+      <button id="pwa-install-later" class="text-secondary-500 text-sm py-2 px-3 hover:text-secondary-700 transition-colors">
+        後で
+      </button>
+    </div>
+  </div>
 
   <script type="module" src="./js/main.js"></script>
 
