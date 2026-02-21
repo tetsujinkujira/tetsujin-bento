@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="鉄人のお弁当ご注文方法。電話注文で1個から配達OK。受付時間・支払い方法（現金・au PAY・楽天ペイ・メルペイ・d払い）のご案内。">
+  <meta name="description" content="鉄人のお弁当ご注文方法。電話注文で1個から配達OK。受付時間・支払い方法（現金・au PAY・楽天ペイ・メルペイ・d払い・法人様は請求書払いも対応）のご案内。">
   <meta name="keywords" content="注文方法,弁当注文,電話注文,配達,支払い方法,QR決済">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://tetsujinkujira.github.io/tetsujin-bento/order.html">
@@ -11,7 +11,7 @@
 
   <!-- OGP -->
   <meta property="og:title" content="ご注文方法・お支払い | 手作り弁当喰楽部 鉄人">
-  <meta property="og:description" content="電話注文で1個から配達OK。現金・au PAY・楽天ペイ・メルペイ・d払い対応。">
+  <meta property="og:description" content="電話注文で1個から配達OK。現金・au PAY・楽天ペイ・メルペイ・d払い対応。法人様は請求書払いも可。">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://tetsujinkujira.github.io/tetsujin-bento/order.html">
   <meta property="og:image" content="https://tetsujinkujira.github.io/tetsujin-bento/images/top/top.jpg">
@@ -51,23 +51,17 @@
         "name": "配達時間はどのくらいですか？",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "ご注文確定から最短約40分でお届けします。時間指定の場合は、ご希望時間に合わせてお届けします。混雑状況・交通事情により前後する場合がございます。"
+          "text": "ご注文後、できるだけ早くお届けいたします。天候・時間帯・交通事情により、お届けまでのお時間が変動いたします。お早めのご注文をおすすめします。"
         }
       },
       {
         "@type": "Question",
-        "name": "最低注文金額はありますか？",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "配達エリアによって最低注文金額が異なります。港区（新橋・虎ノ門）は1個から配達可能です。詳しくは配達エリアページをご確認ください。"
-        }
-      },
       {
         "@type": "Question",
         "name": "支払い方法は何がありますか？",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "お届け時に現金、au PAY、楽天ペイ、メルペイ、d払いでお支払いいただけます。クレジットカードはご利用いただけません。"
+          "text": "お届け時に現金、QR決済（d払い・au PAY・楽天ペイ・J-Coin Pay・メルペイ）でお支払いいただけます。法人のお客様は請求書払いも可能です。クレジットカードはご利用いただけません。"
         }
       },
       {
@@ -99,7 +93,7 @@
         "name": "配達料はかかりますか？",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "配達料は無料です。ただし、エリアによって最低注文金額が設定されている場合がございます。"
+          "text": "配達料は無料です。配達エリアやご注文数についてはお気軽にお電話ください。"
         }
       }
     ]
@@ -247,16 +241,11 @@
                 <h3 class="text-xl font-bold mb-3">お届け・お支払い</h3>
                 <p class="text-secondary-600 mb-4">
                   ご指定の時間に、温かいお弁当をお届けします。<br>
-                  お届け時に<strong>現金</strong>または<strong>QR決済</strong>でお支払いください。
+                  お届け時に<strong>現金</strong>または<strong>QR決済</strong>でお支払いください。<br>
+                  <span class="text-sm text-secondary-500">※法人のお客様は<strong>請求書払い</strong>も承ります。</span>
                 </p>
-                <div class="bg-green-50 rounded-lg p-4 space-y-2">
-                  <p class="text-sm text-green-700">
-                    <span class="font-bold">今すぐお届け：</span>ご注文から<span class="font-bold text-green-800">最短約40分</span>でお届け
-                  </p>
-                  <p class="text-sm text-green-700">
-                    <span class="font-bold">時間指定：</span>ご希望時間に合わせてお届け
-                  </p>
-                  <p class="text-xs text-green-600">※混雑状況・交通事情により前後する場合がございます。</p>
+                <div class="bg-green-50 rounded-lg p-4">
+                  <p class="text-xs text-green-600">※天候・混雑状況・交通事情により、お届けまでのお時間が変動する場合がございます。お早めのご注文をおすすめします。</p>
                 </div>
               </div>
             </div>
@@ -279,30 +268,9 @@
               <h3 class="text-lg font-bold">ご注文のタイミング</h3>
             </div>
             <div class="space-y-3 text-secondary-600">
-              <div class="bg-primary-50 rounded-lg p-3">
-                <p class="font-bold text-primary-700 text-sm mb-1">▼ 今すぐお届け希望の場合</p>
-                <p class="text-sm">ご注文確定から<strong>最短約40分</strong>でお届けいたします。</p>
-              </div>
-              <div class="bg-accent-50 rounded-lg p-3">
-                <p class="font-bold text-accent-700 text-sm mb-1">▼ 時間指定でのご注文の場合</p>
-                <p class="text-sm">確実にお届けするため、ご希望時間の<strong>1時間前まで</strong>にご注文ください。</p>
-              </div>
-              <p class="text-xs text-secondary-500">※混雑状況・交通事情により、お時間をいただく場合がございます。</p>
+              <p class="text-sm">ご注文後、できるだけ早くお届けいたします。</p>
+              <p class="text-xs text-secondary-500">※天候・時間帯・交通事情により、お届けまでのお時間が変動いたします。お早めのご注文をおすすめします。</p>
             </div>
-          </div>
-
-          <div class="bg-white rounded-xl shadow-md p-6 card-3d">
-            <div class="flex items-center gap-4 mb-4">
-              <div class="w-12 h-12 bg-accent-100 rounded-full flex items-center justify-center">
-                <svg class="w-6 h-6 text-accent-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"/>
-                </svg>
-              </div>
-              <h3 class="text-lg font-bold">最低注文金額</h3>
-            </div>
-            <p class="text-secondary-600">
-              エリアにより最低注文金額が異なります。<a href="./area.html" class="text-primary-600 font-bold hover:underline">配達エリア</a>をご確認ください。
-            </p>
           </div>
 
           <div class="bg-white rounded-xl shadow-md p-6 card-3d">
@@ -314,9 +282,10 @@
               </div>
               <h3 class="text-lg font-bold">大口のご注文</h3>
             </div>
-            <p class="text-secondary-600">
-              20個以上のご注文は、<strong>前日まで</strong>にご連絡いただけると確実にご用意できます。
-            </p>
+            <div class="text-secondary-600 space-y-2">
+              <p>20個以上のご注文は、<strong>前日まで</strong>にご連絡いただけると確実にご用意できます。</p>
+              <p class="text-sm">突然お弁当が必要になった場合（会議・ロケなど）は、<strong>当日でもお気軽にご相談ください。</strong></p>
+            </div>
           </div>
 
           <div class="bg-white rounded-xl shadow-md p-6 card-3d">
@@ -351,8 +320,51 @@
                   <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M3 4h18v2H3V4zm0 7h18v2H3v-2zm0 7h18v2H3v-2z"/></svg>
                   d払い
                 </span>
+                <span class="inline-flex items-center gap-1 bg-purple-100 text-purple-700 text-sm font-bold px-3 py-1 rounded-full">
+                  <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M3 4h18v2H3V4zm0 7h18v2H3v-2zm0 7h18v2H3v-2z"/></svg>
+                  J-Coin Pay
+                </span>
+                <span class="inline-flex items-center gap-1 bg-gray-100 text-gray-700 text-sm font-bold px-3 py-1 rounded-full">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                  請求書払い<span class="text-xs ml-1">（法人様のみ）</span>
+                </span>
               </div>
-              <p class="text-sm text-secondary-500">※現金の場合、お釣りのないようご用意いただけると助かります。</p>
+              <div class="bg-amber-50 border border-amber-200 rounded-lg p-3 mt-3">
+                <p class="text-sm text-amber-800 font-bold mb-1">QR決済ご利用時のお願い</p>
+                <ul class="text-sm text-amber-700 space-y-1">
+                  <li>・ご注文時にQR決済ご希望の旨をお伝えください。</li>
+                  <li>・複数名分をまとめてご注文の場合、<strong>代表者様1名</strong>でのお支払いをお願いします（個別決済不可）。</li>
+                </ul>
+              </div>
+              <p class="text-sm text-secondary-500 mt-2">※クレジットカードはご利用いただけません。</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- エリア外・時間外配達 -->
+      <section class="max-w-4xl mx-auto mb-12 scroll-animate slide-up">
+        <div class="bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-2xl p-6 md:p-8">
+          <div class="flex items-start gap-4">
+            <div class="flex-shrink-0 w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center">
+              <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+              </svg>
+            </div>
+            <div>
+              <h3 class="text-lg font-bold mb-2">通常エリア外・時間外の配達について</h3>
+              <p class="text-secondary-700">
+                日曜・祝日などの定休日や、通常の配達エリア外でも、<strong>事前のご予約</strong>で配達を承ります。
+              </p>
+              <div class="mt-3 bg-white rounded-lg p-4 space-y-2">
+                <p class="text-secondary-700">
+                  <span class="font-bold text-blue-700">23区内：</span><span class="text-xl font-black text-blue-700">15,000円</span>（税込）より承ります
+                </p>
+                <p class="text-secondary-700">
+                  <span class="font-bold text-blue-700">都内近郊：</span><span class="text-xl font-black text-blue-700">20,000円</span>（税込）より承ります
+                </p>
+              </div>
+              <p class="text-sm text-secondary-500 mt-3">※詳しくはお電話にてご相談ください。</p>
             </div>
           </div>
         </div>
@@ -417,29 +429,12 @@
               </svg>
             </summary>
             <div class="px-5 pb-5 text-secondary-600">
-              <p>ご注文確定から<strong>最短約40分</strong>でお届けします。時間指定の場合は、ご希望時間に合わせてお届けします。</p>
-              <p class="text-sm text-secondary-500 mt-2">※混雑状況・交通事情により前後する場合がございます。</p>
+              <p>ご注文後、できるだけ早くお届けいたします。</p>
+              <p class="text-sm text-secondary-500 mt-2">※天候・時間帯・交通事情により、お届けまでのお時間が変動いたします。お早めのご注文をおすすめします。</p>
             </div>
           </details>
 
           <!-- FAQ 2 -->
-          <details class="bg-white rounded-xl shadow-md group">
-            <summary class="flex items-center justify-between p-5 cursor-pointer list-none font-bold text-secondary-800 hover:text-primary-600 transition-colors">
-              <span class="flex items-center gap-3">
-                <span class="w-8 h-8 bg-primary-100 text-primary-600 rounded-full flex items-center justify-center text-sm">Q</span>
-                最低注文金額はありますか？
-              </span>
-              <svg class="w-5 h-5 text-secondary-400 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-              </svg>
-            </summary>
-            <div class="px-5 pb-5 text-secondary-600">
-              <p>配達エリアによって最低注文金額が異なります。詳しくは<a href="./area.html" class="text-primary-600 font-bold hover:underline">配達エリアページ</a>をご確認ください。</p>
-              <p class="mt-2">例：港区（新橋・虎ノ門）は1個から配達可能です。</p>
-            </div>
-          </details>
-
-          <!-- FAQ 3 -->
           <details class="bg-white rounded-xl shadow-md group">
             <summary class="flex items-center justify-between p-5 cursor-pointer list-none font-bold text-secondary-800 hover:text-primary-600 transition-colors">
               <span class="flex items-center gap-3">
@@ -456,10 +451,12 @@
                 <li>・<strong>現金</strong></li>
                 <li>・<strong>au PAY</strong></li>
                 <li>・<strong>楽天ペイ</strong></li>
+                <li>・<strong>J-Coin Pay</strong></li>
                 <li>・<strong>メルペイ</strong></li>
                 <li>・<strong>d払い</strong></li>
+                <li>・<strong>請求書払い</strong>（法人のお客様のみ）</li>
               </ul>
-              <p class="text-sm text-secondary-500 mt-2">※クレジットカードはご利用いただけません。</p>
+              <p class="text-sm text-secondary-500 mt-2">※クレジットカードはご利用いただけません。<br>※QR決済はご注文時にお申し付けください。複数名分の場合は代表者様1名での決済をお願いします。</p>
             </div>
           </details>
 
@@ -529,7 +526,7 @@
             </summary>
             <div class="px-5 pb-5 text-secondary-600">
               <p><strong>配達料は無料</strong>です。</p>
-              <p class="mt-2">ただし、エリアによって最低注文金額が設定されている場合がございます。</p>
+              <p class="mt-2">配達エリアやご注文数についてはお気軽にお電話ください。</p>
             </div>
           </details>
         </div>
