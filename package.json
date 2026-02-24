@@ -8,8 +8,10 @@
     "build": "vite build",
     "preview": "vite preview",
     "test": "npm run build && npx playwright test",
+    "test:only": "npx playwright test",
     "test:ui": "npm run build && npx playwright test --ui",
-    "test:report": "npx playwright show-report test-results/html-report",
+    "test:report": "npx playwright show-report playwright-report",
+    "auto-push": "bash scripts/auto-push.sh",
     "prepare": "husky"
   },
   "devDependencies": {

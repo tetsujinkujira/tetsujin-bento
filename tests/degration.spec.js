@@ -259,19 +259,189 @@ test.describe('構造化データ確認', () => {
 });
 
 // ========================================
-// 10. コンソールエラー確認テスト
+// 10. コンソールエラー確認テスト（全ページ）
 // ========================================
 test.describe('コンソールエラー確認', () => {
-  test('TOPページでJavaScriptエラーが発生しない', async ({ page }) => {
-    const errors = [];
+  for (const pageInfo of PAGES) {
+    test(`${pageInfo.name}でJavaScriptエラーが発生しない`, async ({ page }) => {
+      const errors = [];
 
-    page.on('pageerror', (error) => {
-      errors.push(error.message);
+      page.on('pageerror', (error) => {
+        errors.push(error.message);
+      });
+
+      await page.goto(pageInfo.path);
+      await page.waitForTimeout(2000);
+
+      expect(errors, `${pageInfo.name}でJavaScriptエラー: ${errors.join(', ')}`).toHaveLength(0);
     });
+  }
+});
 
+// ========================================
+// 11. 全ページ内部リンク検証テスト
+// ========================================
+test.describe('内部リンク検証', () => {
+  // 主要ページのみ（404は除外）
+  const MAIN_PAGES = PAGES.filter(p => !p.path.includes('404'));
+
+  for (const pageInfo of MAIN_PAGES) {
+    test(`${pageInfo.name}の内部リンクが全て有効`, async ({ page, request }) => {
+      await page.goto(pageInfo.path);
+
+      // 全ての内部リンクを取得（tel:, mailto:, javascript:, #, 外部URLを除外）
+      const hrefs = await page.evaluate((basePath) => {
+        const links = document.querySelectorAll('a[href]');
+        return Array.from(links)
+          .map(a => a.getAttribute('href'))
+          .filter(href =>
+            href &&
+            !href.startsWith('tel:') &&
+            !href.startsWith('mailto:') &&
+            !href.startsWith('javascript:') &&
+            !href.startsWith('http://') &&
+            !href.startsWith('https://') &&
+            href !== '#'
+          )
+          // アンカーリンク(#xxx)のフラグメント部分を除去してページパスだけにする
+          .map(href => href.split('#')[0])
+          .filter(href => href.length > 0);
+      }, BASE_PATH);
+
+      // 重複を除去
+      const uniqueHrefs = [...new Set(hrefs)];
+
+      for (const href of uniqueHrefs) {
+        // 相対パスを絶対パスに変換
+        const url = new URL(href, `http://localhost:4173${pageInfo.path}`);
+        const response = await request.get(url.pathname);
+        expect(response.status(), `${pageInfo.name}のリンク「${href}」が404`).toBe(200);
+      }
+    });
+  }
+});
+
+// ========================================
+// 12. 電話番号の一貫性テスト
+// ========================================
+test.describe('電話番号の一貫性', () => {
+  const EXPECTED_TEL = 'tel:03-3432-3720';
+  const MAIN_PAGES = PAGES.filter(p => !p.path.includes('404'));
+
+  for (const pageInfo of MAIN_PAGES) {
+    test(`${pageInfo.name}の電話番号が正しい`, async ({ page }) => {
+      await page.goto(pageInfo.path);
+
+      const phoneLinks = page.locator('a[href^="tel:"]');
+      const count = await phoneLinks.count();
+
+      if (count > 0) {
+        for (let i = 0; i < count; i++) {
+          const href = await phoneLinks.nth(i).getAttribute('href');
+          expect(href, `${pageInfo.name}で不正な電話番号: ${href}`).toBe(EXPECTED_TEL);
+        }
+      }
+    });
+  }
+});
+
+// ========================================
+// 13. モバイル電話ボタンの存在確認テスト
+// ========================================
+test.describe('モバイル電話ボタン確認', () => {
+  test.use({ viewport: { width: 375, height: 667 } });
+
+  // 404ページ以外の全ページ
+  const MAIN_PAGES = PAGES.filter(p => !p.path.includes('404'));
+
+  for (const pageInfo of MAIN_PAGES) {
+    test(`${pageInfo.name}にモバイル電話ボタンがある`, async ({ page }) => {
+      await page.goto(pageInfo.path);
+
+      // 固定電話ボタン（fixed + tel:リンク）の存在確認
+      const phoneButton = page.locator('a[href="tel:03-3432-3720"].fixed, a[href="tel:03-3432-3720"] .fixed');
+      const directFixed = page.locator('a.fixed[href="tel:03-3432-3720"]');
+
+      const count = await directFixed.count();
+      expect(count, `${pageInfo.name}にモバイル固定電話ボタンがありません`).toBeGreaterThan(0);
+
+      // ボタンが表示されることを確認
+      await expect(directFixed.first()).toBeVisible();
+    });
+  }
+});
+
+// ========================================
+// 14. 決済方法の整合性テスト
+// ========================================
+test.describe('決済方法の整合性', () => {
+  const EXPECTED_PAYMENTS = ['現金', 'au PAY', '楽天ペイ', 'メルペイ', 'd払い', 'J-Coin Pay', '請求書払い'];
+
+  test('TOPページに全決済方法が表示されている', async ({ page }) => {
     await page.goto(`${BASE_PATH}/`);
-    await page.waitForTimeout(2000); // アニメーション等の処理を待つ
 
-    expect(errors, `JavaScriptエラー: ${errors.join(', ')}`).toHaveLength(0);
+    const paymentSection = await page.textContent('body');
+    for (const payment of EXPECTED_PAYMENTS) {
+      expect(paymentSection, `TOPページに「${payment}」がありません`).toContain(payment);
+    }
   });
+
+  test('ご注文方法ページに全決済方法が表示されている', async ({ page }) => {
+    await page.goto(`${BASE_PATH}/order.html`);
+
+    const paymentSection = await page.textContent('body');
+    for (const payment of EXPECTED_PAYMENTS) {
+      expect(paymentSection, `ご注文方法ページに「${payment}」がありません`).toContain(payment);
+    }
+  });
+
+  test('TOPページとご注文方法ページの決済方法が一致する', async ({ page }) => {
+    // TOPページの決済方法を取得
+    await page.goto(`${BASE_PATH}/`);
+    const topText = await page.textContent('body');
+
+    // ご注文方法ページの決済方法を取得
+    await page.goto(`${BASE_PATH}/order.html`);
+    const orderText = await page.textContent('body');
+
+    // 両ページに同じ決済手段が含まれることを確認
+    for (const payment of EXPECTED_PAYMENTS) {
+      const inTop = topText.includes(payment);
+      const inOrder = orderText.includes(payment);
+      expect(inTop, `TOPページに「${payment}」がありません`).toBe(true);
+      expect(inOrder, `ご注文方法ページに「${payment}」がありません`).toBe(true);
+    }
+  });
+});
+
+// ========================================
+// 15. 構造化データのJSON有効性テスト
+// ========================================
+test.describe('構造化データJSON有効性', () => {
+  const PAGES_WITH_JSONLD = PAGES.filter(p => !p.path.includes('404') && !p.path.includes('privacy'));
+
+  for (const pageInfo of PAGES_WITH_JSONLD) {
+    test(`${pageInfo.name}のJSON-LDが有効なJSON`, async ({ page }) => {
+      await page.goto(pageInfo.path);
+
+      const jsonLdContents = await page.evaluate(() => {
+        const scripts = document.querySelectorAll('script[type="application/ld+json"]');
+        return Array.from(scripts).map(s => s.textContent);
+      });
+
+      for (let i = 0; i < jsonLdContents.length; i++) {
+        const content = jsonLdContents[i];
+        let parsed;
+        try {
+          parsed = JSON.parse(content);
+        } catch (e) {
+          throw new Error(`${pageInfo.name}の${i + 1}番目のJSON-LDがパースエラー: ${e.message}`);
+        }
+        // @contextが含まれることを確認
+        expect(parsed['@context'], `${pageInfo.name}のJSON-LDに@contextがありません`).toBeTruthy();
+        // @typeが含まれることを確認
+        expect(parsed['@type'], `${pageInfo.name}のJSON-LDに@typeがありません`).toBeTruthy();
+      }
+    });
+  }
 });

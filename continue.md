@@ -12,6 +12,30 @@
 
 ---
 
+## 未コミットの変更（次回最初にコミットすること）
+
+以下の変更が未コミット状態です：
+
+### 1. ナビゲーション変更（全7ページ）
+- **ヘッダー**: 「採用情報」→「ご注文方法」に変更
+- **フッター**: 変更なし（採用情報は元々「その他」セクションにある）
+- 対象ファイル: `src/index.html`, `src/menu.html`, `src/area.html`, `src/about.html`, `src/order.html`, `src/recruit.html`, `src/legal.html`
+
+### 2. 画像・データパス修正
+- `src="/tetsujin-bento/images/..."` → `src="/images/..."`
+- `fetch('/tetsujin-bento/data/...')` → `fetch('/data/...')`
+- Viteのbaseパス設定でパスが二重になる問題を修正
+- 対象ファイル: `src/index.html`, `src/menu.html`, `src/about.html`, `src/js/main.js`
+
+```bash
+# コミットコマンド例
+git add -A
+git commit -m "Fix: ナビゲーション変更（採用情報→ご注文方法）& 画像パス修正"
+git push
+```
+
+---
+
 ## 完了した作業
 
 ### 1. 既存サイト分析（完了）

@@ -1,18 +1,42 @@
 #!/bin/sh
 
-echo "🔍 コミット前のデグレチェックを実行中..."
+echo "🔍 コミット前チェックを実行中..."
 echo ""
 
-# テストを実行
-npm run test
+# ステップ1: ビルドチェック
+echo "📦 ステップ1: vite build でビルドチェック..."
+BUILD_OUTPUT=$(npm run build 2>&1)
+BUILD_EXIT=$?
 
-# テスト結果を確認
-if [ $? -ne 0 ]; then
+if [ $BUILD_EXIT -ne 0 ]; then
+  echo ""
+  echo "❌ ビルドが失敗しました。コミットを中止します。"
+  echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+  echo "$BUILD_OUTPUT" | tail -30
+  echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+  echo ""
+  echo "💡 HTMLの構文エラー等を確認してください。"
+  exit 1
+fi
+
+echo "✅ ビルド成功"
+echo ""
+
+# ステップ2: Playwrightテスト実行
+echo "🧪 ステップ2: Playwrightテスト実行..."
+TEST_OUTPUT=$(npx playwright test 2>&1)
+TEST_EXIT=$?
+
+if [ $TEST_EXIT -ne 0 ]; then
   echo ""
   echo "❌ テストが失敗しました。コミットを中止します。"
-  echo "   エラーを修正してから再度コミットしてください。"
+  echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+  echo "$TEST_OUTPUT" | grep -E "(✘|FAILED|Error|失敗|×)" | head -20
+  echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+  echo ""
+  echo "💡 詳細: npx playwright show-report"
   exit 1
 fi
 
 echo ""
-echo "✅ 全テストがパスしました。コミットを続行します。"
+echo "✅ 全チェック完了。コミットを続行します。"
