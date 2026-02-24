@@ -1,8 +1,10 @@
 // Service Worker for 手作り弁当喰楽部 鉄人
-const CACHE_NAME = 'tetsujin-bento-v1';
+// CACHE_VERSION はビルド時に自動更新される
+const CACHE_VERSION = '__BUILD_TIMESTAMP__';
+const CACHE_NAME = `tetsujin-bento-${CACHE_VERSION}`;
 const BASE_PATH = '/tetsujin-bento';
 
-// キャッシュするファイル
+// キャッシュするファイル（静的アセットのみ）
 const urlsToCache = [
   `${BASE_PATH}/`,
   `${BASE_PATH}/menu.html`,
@@ -12,12 +14,18 @@ const urlsToCache = [
   `${BASE_PATH}/manifest.json`
 ];
 
+// キャッシュしないパス（常に最新を取得）
+const NO_CACHE_PATTERNS = [
+  '/data/',   // JSONデータファイル
+  'sw.js'     // Service Worker自身
+];
+
 // インストール時
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME)
       .then((cache) => {
-        console.log('キャッシュを開きました');
+        console.log('キャッシュを開きました:', CACHE_NAME);
         return cache.addAll(urlsToCache);
       })
       .catch((error) => {
@@ -28,7 +36,7 @@ self.addEventListener('install', (event) => {
   self.skipWaiting();
 });
 
-// アクティベート時（古いキャッシュを削除）
+// アクティベート時（古いキャッシュを全て削除）
 self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches.keys().then((cacheNames) => {
@@ -46,17 +54,27 @@ self.addEventListener('activate', (event) => {
   self.clients.claim();
 });
 
-// フェッチ時（ネットワークファースト、失敗時はキャッシュ）
+// フェッチ時
 self.addEventListener('fetch', (event) => {
   // 外部リソースはスキップ
   if (!event.request.url.startsWith(self.location.origin)) {
     return;
   }
 
+  // キャッシュしないパターンに該当する場合は常にネットワークから取得
+  const shouldSkipCache = NO_CACHE_PATTERNS.some(pattern =>
+    event.request.url.includes(pattern)
+  );
+
+  if (shouldSkipCache) {
+    event.respondWith(fetch(event.request));
+    return;
+  }
+
+  // その他：ネットワークファースト、失敗時はキャッシュ
   event.respondWith(
     fetch(event.request)
       .then((response) => {
-        // 成功したらキャッシュを更新
         if (response.status === 200) {
           const responseClone = response.clone();
           caches.open(CACHE_NAME).then((cache) => {
@@ -66,7 +84,6 @@ self.addEventListener('fetch', (event) => {
         return response;
       })
       .catch(() => {
-        // オフライン時はキャッシュから
         return caches.match(event.request);
       })
   );

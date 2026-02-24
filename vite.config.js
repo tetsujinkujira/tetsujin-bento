@@ -1,5 +1,25 @@
 import { defineConfig } from 'vite'
 import { resolve } from 'path'
+import { readFileSync, writeFileSync } from 'fs'
+
+// ビルド後にsw.jsのタイムスタンプを更新するプラグイン
+function swVersionPlugin() {
+  return {
+    name: 'sw-version',
+    closeBundle() {
+      const swPath = resolve(__dirname, 'dist/sw.js')
+      try {
+        let content = readFileSync(swPath, 'utf-8')
+        const timestamp = Date.now().toString()
+        content = content.replace('__BUILD_TIMESTAMP__', timestamp)
+        writeFileSync(swPath, content)
+        console.log(`sw.js のキャッシュバージョンを更新: ${timestamp}`)
+      } catch (e) {
+        // dev時はdistがないのでスキップ
+      }
+    }
+  }
+}
 
 export default defineConfig({
   base: '/tetsujin-bento/',
@@ -22,6 +42,7 @@ export default defineConfig({
       }
     }
   },
+  plugins: [swVersionPlugin()],
   server: {
     open: true
   }
