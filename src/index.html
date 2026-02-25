@@ -31,7 +31,12 @@
     "@context": "https://schema.org",
     "@type": "Restaurant",
     "name": "手作り弁当喰楽部 鉄人",
-    "image": "https://tetsujinkujira.github.io/tetsujin-bento/images/top/top.jpg",
+    "alternateName": "鉄人",
+    "description": "新橋・港区エリアの配達弁当専門店。ボリューム満点の手作り弁当を1個から配達。",
+    "image": [
+      "https://tetsujinkujira.github.io/tetsujin-bento/images/top/top.jpg",
+      "https://tetsujinkujira.github.io/tetsujin-bento/images/menu/kanban.jpg"
+    ],
     "url": "https://tetsujinkujira.github.io/tetsujin-bento/",
     "telephone": "03-3432-3720",
     "address": {
@@ -70,17 +75,29 @@
     "servesCuisine": "日本料理",
     "priceRange": "¥700〜¥3,000",
     "paymentAccepted": "現金, au PAY, 楽天ペイ, J-Coin Pay, メルペイ, d払い, 請求書払い（法人のみ）",
-    "areaServed": {
-      "@type": "GeoCircle",
-      "geoMidpoint": {
-        "@type": "GeoCoordinates",
-        "latitude": 35.6584,
-        "longitude": 139.7526
-      },
-      "geoRadius": "5000"
+    "currenciesAccepted": "JPY",
+    "areaServed": [
+      {"@type": "City", "name": "港区", "addressRegion": "東京都"},
+      {"@type": "City", "name": "千代田区", "addressRegion": "東京都"},
+      {"@type": "City", "name": "中央区", "addressRegion": "東京都"},
+      {"@type": "City", "name": "渋谷区", "addressRegion": "東京都"},
+      {"@type": "City", "name": "品川区", "addressRegion": "東京都"},
+      {"@type": "City", "name": "新宿区", "addressRegion": "東京都"}
+    ],
+    "sameAs": [
+      "https://www.instagram.com/tetsujin.bento/",
+      "https://x.com/tetsujin0141"
+    ],
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "telephone": "+81-3-3432-3720",
+      "contactType": "customer service",
+      "areaServed": "JP",
+      "availableLanguage": "Japanese"
     },
     "hasMenu": {
       "@type": "Menu",
+      "url": "https://tetsujinkujira.github.io/tetsujin-bento/menu.html",
       "hasMenuSection": [
         {
           "@type": "MenuSection",
@@ -95,19 +112,64 @@
               "priceCurrency": "JPY"
             }
           }
+        },
+        {
+          "@type": "MenuSection",
+          "name": "日替わり弁当",
+          "hasMenuItem": {
+            "@type": "MenuItem",
+            "name": "日替わり弁当 桜桃（サクランボ）",
+            "description": "毎月内容が変わる日替わりメニュー。曜日ごとに異なるおかず",
+            "offers": {
+              "@type": "Offer",
+              "price": "700",
+              "priceCurrency": "JPY"
+            }
+          }
         }
       ]
     }
   }
   </script>
 
-  <!-- 構造化データ: WebSite（サイト内検索対応） -->
+  <!-- 構造化データ: WebSite -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "WebSite",
     "name": "手作り弁当喰楽部 鉄人",
+    "alternateName": "鉄人",
     "url": "https://tetsujinkujira.github.io/tetsujin-bento/"
+  }
+  </script>
+
+  <!-- 構造化データ: Organization -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "手作り弁当喰楽部 鉄人",
+    "url": "https://tetsujinkujira.github.io/tetsujin-bento/",
+    "logo": "https://tetsujinkujira.github.io/tetsujin-bento/apple-touch-icon.png",
+    "telephone": "03-3432-3720",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "新橋6-16-4 松永ビル1階",
+      "addressLocality": "港区",
+      "addressRegion": "東京都",
+      "postalCode": "105-0004",
+      "addressCountry": "JP"
+    },
+    "sameAs": [
+      "https://www.instagram.com/tetsujin.bento/",
+      "https://x.com/tetsujin0141"
+    ],
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "telephone": "+81-3-3432-3720",
+      "contactType": "customer service",
+      "availableLanguage": "Japanese"
+    }
   }
   </script>
 
@@ -125,11 +187,16 @@
   <meta name="apple-mobile-web-app-title" content="鉄人">
 
   <!-- Google Fonts (optimized) -->
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+  <link rel="dns-prefetch" href="https://fonts.gstatic.com">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap">
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
   <noscript><link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet"></noscript>
+
+  <!-- LCP対策: ヒーロー画像のプリロード -->
+  <link rel="preload" as="image" href="/tetsujin-bento/images/top/top.webp" type="image/webp">
 
   <!-- CSS -->
   <link rel="stylesheet" href="./css/style.css">
@@ -219,12 +286,17 @@
         <div class="max-w-5xl mx-auto">
           <!-- 画像を額縁のように表示 -->
           <div class="relative bg-white p-2 md:p-4 shadow-2xl rounded-lg hero-image-frame">
-            <img
-              src="/images/top/top.jpg"
-              alt="手作り弁当喰楽部 鉄人"
-              class="w-full h-auto rounded shadow-inner"
-              id="hero-image"
-            >
+            <picture>
+              <source srcset="/images/top/top.webp" type="image/webp">
+              <img
+                src="/images/top/top.jpg"
+                alt="手作り弁当喰楽部 鉄人 - ボリューム満点の手作り弁当"
+                class="w-full h-auto rounded shadow-inner"
+                id="hero-image"
+                width="940"
+                height="500"
+              >
+            </picture>
           </div>
 
           <!-- キャッチコピー -->
@@ -359,7 +431,10 @@
           <div class="bg-gradient-to-r from-accent-100 to-accent-50 rounded-2xl overflow-hidden shadow-2xl card-3d hover:shadow-3xl transition-shadow duration-300">
             <div class="md:flex">
               <div class="md:w-1/2 relative overflow-hidden group">
-                <img src="/images/menu/kanban.webp" alt="グレート竜田" class="w-full h-64 md:h-full object-cover transition-transform duration-500 group-hover:scale-110" loading="lazy">
+                <picture>
+                  <source srcset="/images/menu/kanban.webp" type="image/webp">
+                  <img src="/images/menu/kanban.jpg" alt="グレート竜田" class="w-full h-64 md:h-full object-cover transition-transform duration-500 group-hover:scale-110" loading="lazy" width="320" height="240">
+                </picture>
                 <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               </div>
               <div class="md:w-1/2 p-6 md:p-8 flex flex-col justify-center">

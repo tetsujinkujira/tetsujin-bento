@@ -18,6 +18,12 @@
   <meta property="og:site_name" content="手作り弁当喰楽部 鉄人">
   <meta property="og:locale" content="ja_JP">
 
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="採用情報・求人 | 手作り弁当喰楽部 鉄人">
+  <meta name="twitter:description" content="新橋で配達スタッフ・調理スタッフを募集中。アルバイト・パート歓迎。">
+  <meta name="twitter:image" content="https://tetsujinkujira.github.io/tetsujin-bento/images/top/top.jpg">
+
   <!-- 構造化データ: パンくずリスト -->
   <script type="application/ld+json">
   {
@@ -40,6 +46,38 @@
   }
   </script>
 
+  <!-- 構造化データ: JobPosting（配達スタッフ） -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "JobPosting",
+    "title": "配達スタッフ",
+    "description": "手作り弁当の配達業務。新橋・港区エリアでお弁当をお届けするお仕事です。未経験歓迎、シフト相談可。",
+    "datePosted": "2026-02-01",
+    "hiringOrganization": {
+      "@type": "Organization",
+      "name": "手作り弁当喰楽部 鉄人",
+      "sameAs": "https://tetsujinkujira.github.io/tetsujin-bento/"
+    },
+    "jobLocation": {
+      "@type": "Place",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "新橋6-16-4 松永ビル1階",
+        "addressLocality": "港区",
+        "addressRegion": "東京都",
+        "postalCode": "105-0004",
+        "addressCountry": "JP"
+      }
+    },
+    "employmentType": ["PART_TIME"],
+    "applicantLocationRequirements": {
+      "@type": "Country",
+      "name": "Japan"
+    }
+  }
+  </script>
+
   <!-- Favicon -->
   <link rel="apple-touch-icon" sizes="180x180" href="/tetsujin-bento/apple-touch-icon.png?v=2">
   <link rel="icon" type="image/png" sizes="32x32" href="/tetsujin-bento/favicon-32x32.png?v=2">
@@ -54,6 +92,8 @@
   <meta name="apple-mobile-web-app-title" content="鉄人">
 
   <!-- Google Fonts (optimized) -->
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+  <link rel="dns-prefetch" href="https://fonts.gstatic.com">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap">

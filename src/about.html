@@ -18,6 +18,12 @@
   <meta property="og:site_name" content="手作り弁当喰楽部 鉄人">
   <meta property="og:locale" content="ja_JP">
 
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="鉄人とは・店舗情報 | 手作り弁当喰楽部 鉄人">
+  <meta name="twitter:description" content="新橋で創業。感謝の気持ちを忘れずに温かい手作りのお弁当を1個よりお届けします。">
+  <meta name="twitter:image" content="https://tetsujinkujira.github.io/tetsujin-bento/images/top/top.jpg">
+
   <!-- 構造化データ: パンくずリスト -->
   <script type="application/ld+json">
   {
@@ -94,6 +100,8 @@
   <meta name="apple-mobile-web-app-title" content="鉄人">
 
   <!-- Google Fonts (optimized) -->
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+  <link rel="dns-prefetch" href="https://fonts.gstatic.com">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap">
@@ -171,7 +179,10 @@
 
         <div class="relative">
           <div class="bg-white p-3 md:p-4 shadow-2xl rounded-lg hero-image-frame max-w-2xl mx-auto">
-            <img src="/images/top/top.jpg" alt="手作り弁当喰楽部 鉄人" class="w-full h-auto rounded">
+            <picture>
+              <source srcset="/images/top/top.webp" type="image/webp">
+              <img src="/images/top/top.jpg" alt="手作り弁当喰楽部 鉄人" class="w-full h-auto rounded" width="940" height="500">
+            </picture>
           </div>
         </div>
       </section>
@@ -224,7 +235,10 @@
         <div class="bg-gradient-to-r from-accent-50 to-accent-100 rounded-2xl p-8 md:p-12">
           <div class="md:flex items-center gap-8">
             <div class="md:w-1/2 mb-6 md:mb-0">
-              <img src="/images/menu/kanban.jpg" alt="ボリューム満点のお弁当" class="rounded-xl shadow-lg">
+              <picture>
+                <source srcset="/images/menu/kanban.webp" type="image/webp">
+                <img src="/images/menu/kanban.jpg" alt="ボリューム満点のお弁当" class="rounded-xl shadow-lg" width="320" height="240">
+              </picture>
             </div>
             <div class="md:w-1/2">
               <h2 class="text-2xl md:text-3xl font-black mb-4">
