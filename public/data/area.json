@@ -18,162 +18,113 @@
       "phone": "03-5769-2722"
     }
   ],
-  "deliveryAreas": {
-    "minato": {
-      "name": "港区",
+  "deliveryTiers": [
+    {
+      "minAmount": 700,
+      "label": "700円〜",
       "areas": [
-        { "name": "赤坂1〜9丁目", "minAmount": null },
-        { "name": "麻布十番1〜4丁目", "minAmount": null },
-        { "name": "麻布台1〜3丁目", "minAmount": null },
-        { "name": "麻布永坂町", "minAmount": 650 },
-        { "name": "麻布狸穴町", "minAmount": null },
-        { "name": "愛宕1・2丁目", "minAmount": null },
-        { "name": "海岸1〜3丁目", "minAmount": null },
-        { "name": "北青山1〜3丁目", "minAmount": 5000 },
-        { "name": "港南1〜5丁目", "minAmount": null },
-        { "name": "芝1〜5丁目", "minAmount": null },
-        { "name": "芝浦1〜4丁目", "minAmount": 650 },
-        { "name": "芝公園1〜4丁目", "minAmount": null },
-        { "name": "芝大門1・2丁目", "minAmount": null },
-        { "name": "白金1〜6丁目", "minAmount": 2000 },
-        { "name": "白金台1〜5丁目", "minAmount": 650 },
-        { "name": "新橋1〜6丁目", "minAmount": 650 },
-        { "name": "台場1・2丁目", "minAmount": null },
-        { "name": "高輪1〜4丁目", "minAmount": null },
-        { "name": "虎ノ門1〜5丁目", "minAmount": 650 },
-        { "name": "西麻布1〜3丁目", "minAmount": null },
-        { "name": "西麻布2・4丁目", "minAmount": 2000 },
-        { "name": "西新橋1〜3丁目", "minAmount": 650 },
-        { "name": "浜松町1・2丁目", "minAmount": null },
-        { "name": "東麻布1〜3丁目", "minAmount": 650 },
-        { "name": "東新橋1〜5丁目", "minAmount": null },
-        { "name": "南青山1・2丁目", "minAmount": 2000 },
-        { "name": "南青山3〜7丁目", "minAmount": 5000 },
-        { "name": "南麻布1・2丁目", "minAmount": 650 },
-        { "name": "南麻布3〜5丁目", "minAmount": 2000 },
-        { "name": "元赤坂1丁目", "minAmount": null },
-        { "name": "元赤坂2丁目", "minAmount": 2000 },
-        { "name": "元麻布1〜3丁目", "minAmount": null },
-        { "name": "六本木1〜7丁目", "minAmount": 650 }
+        "赤坂１〜７丁目",
+        "麻布十番",
+        "麻布台",
+        "麻布永坂町",
+        "麻布狸穴町",
+        "愛宕",
+        "内幸町",
+        "海岸１・２丁目",
+        "霞ヶ関",
+        "銀座",
+        "芝",
+        "芝浦１・２丁目",
+        "芝公園",
+        "芝大門",
+        "新橋",
+        "築地１・２・４・５丁目",
+        "虎ノ門",
+        "西新橋",
+        "浜松町",
+        "東麻布",
+        "東新橋",
+        "日比谷公園",
+        "丸の内３丁目",
+        "三田（港区）",
+        "有楽町",
+        "六本木"
       ]
     },
-    "chiyoda": {
-      "name": "千代田区",
+    {
+      "minAmount": 1400,
+      "label": "1,400円〜",
       "areas": [
-        { "name": "一番町", "minAmount": 3000 },
-        { "name": "内幸町1・2丁目", "minAmount": 650 },
-        { "name": "大手町1・2丁目", "minAmount": 2000 },
-        { "name": "霞が関1〜3丁目", "minAmount": null },
-        { "name": "紀尾井町", "minAmount": 2000 },
-        { "name": "麹町1〜6丁目", "minAmount": null },
-        { "name": "五番町", "minAmount": null },
-        { "name": "千代田1丁目", "minAmount": null },
-        { "name": "永田町1・2丁目", "minAmount": 650 },
-        { "name": "日比谷公園", "minAmount": 650 },
-        { "name": "平河町1・2丁目", "minAmount": null },
-        { "name": "丸の内1〜3丁目", "minAmount": null },
-        { "name": "有楽町1・2丁目", "minAmount": null },
-        { "name": "四番町", "minAmount": 2000 },
-        { "name": "六番町", "minAmount": null }
+        "赤坂８・９丁目",
+        "明石町",
+        "大手町",
+        "海岸３丁目",
+        "紀尾井町",
+        "皇居外苑",
+        "港南",
+        "芝浦３・４丁目",
+        "白金１・２丁目",
+        "白金台１・２丁目",
+        "新富",
+        "高輪",
+        "築地３・６・７丁目",
+        "永田町",
+        "西麻布１・３丁目",
+        "丸の内１・２丁目",
+        "南青山１丁目",
+        "南麻布１・２・３・５丁目",
+        "元赤坂",
+        "元麻布"
       ]
     },
-    "chuo": {
-      "name": "中央区",
+    {
+      "minAmount": 2000,
+      "label": "2,000円〜",
       "areas": [
-        { "name": "明石町", "minAmount": 2000 },
-        { "name": "入船1〜3丁目", "minAmount": null },
-        { "name": "勝どき1〜6丁目", "minAmount": 3000 },
-        { "name": "京橋1〜3丁目", "minAmount": 650 },
-        { "name": "銀座1〜8丁目", "minAmount": 650 },
-        { "name": "新富1・2丁目", "minAmount": 2000 },
-        { "name": "築地1・2・4・5丁目", "minAmount": 650 },
-        { "name": "築地3・6・7丁目", "minAmount": 2000 },
-        { "name": "月島1〜4丁目", "minAmount": null },
-        { "name": "八丁堀1〜3丁目", "minAmount": 3000 },
-        { "name": "晴海", "minAmount": null },
-        { "name": "豊洲2丁目", "minAmount": null }
+        "大崎１丁目",
+        "勝どき",
+        "北品川",
+        "白金３〜５丁目",
+        "西麻布２・４丁目",
+        "西五反田１・２丁目",
+        "隼町",
+        "東五反田",
+        "東品川１〜３丁目",
+        "平河町",
+        "南麻布４丁目",
+        "南品川１・２丁目"
       ]
     },
-    "shibuya": {
-      "name": "渋谷区",
+    {
+      "minAmount": 2500,
+      "label": "2,500円〜",
       "areas": [
-        { "name": "恵比寿1〜4丁目", "minAmount": null },
-        { "name": "恵比寿南1〜3丁目", "minAmount": 2000 },
-        { "name": "渋谷1〜4丁目", "minAmount": null },
-        { "name": "神宮前1丁目", "minAmount": null },
-        { "name": "広尾1〜5丁目", "minAmount": 650 }
+        "青海１・２丁目",
+        "有明１丁目",
+        "上大崎１丁目",
+        "白金６丁目",
+        "白金台３〜５丁目",
+        "台場",
+        "月島",
+        "南青山２丁目"
       ]
     },
-    "shinagawa": {
-      "name": "品川区",
+    {
+      "minAmount": 3000,
+      "label": "3,000円〜",
       "areas": [
-        { "name": "大崎1〜5丁目", "minAmount": 3000 },
-        { "name": "上大崎1〜4丁目", "minAmount": null },
-        { "name": "北品川1〜6丁目", "minAmount": 650 },
-        { "name": "五反田1・2丁目", "minAmount": 2000 },
-        { "name": "五反田7・8丁目", "minAmount": 3000 },
-        { "name": "東五反田1〜5丁目", "minAmount": null },
-        { "name": "東品川1〜5丁目", "minAmount": null },
-        { "name": "東八潮", "minAmount": null },
-        { "name": "南大井1〜6丁目", "minAmount": 3000 },
-        { "name": "南品川1〜5丁目", "minAmount": null },
-        { "name": "八潮2・5丁目", "minAmount": 5000 }
-      ]
-    },
-    "koto": {
-      "name": "江東区",
-      "areas": [
-        { "name": "青海1・2丁目", "minAmount": 2000 },
-        { "name": "有明3・4丁目", "minAmount": 3000 },
-        { "name": "東雲2丁目", "minAmount": null }
-      ]
-    },
-    "meguro": {
-      "name": "目黒区",
-      "areas": [
-        { "name": "下目黒1・2丁目", "minAmount": null },
-        { "name": "三田1丁目", "minAmount": 2000 }
-      ]
-    },
-    "ota": {
-      "name": "大田区",
-      "areas": [
-        { "name": "大森北", "minAmount": null },
-        { "name": "平和島", "minAmount": null }
-      ]
-    },
-    "shinjuku": {
-      "name": "新宿区",
-      "areas": [
-        { "name": "三栄町", "minAmount": null },
-        { "name": "信濃町", "minAmount": null },
-        { "name": "内藤町", "minAmount": null },
-        { "name": "本塩町", "minAmount": null },
-        { "name": "四谷1〜5丁目", "minAmount": null },
-        { "name": "四谷坂町", "minAmount": null },
-        { "name": "若葉", "minAmount": null }
+        "青海３・４丁目",
+        "麹町",
+        "西五反田７・８丁目",
+        "南品川４丁目"
       ]
     }
-  },
-  "deliveryTimeEstimates": [
-    { "minAmount": 650, "time": "40分" },
-    { "minAmount": 2000, "time": "60分〜" },
-    { "minAmount": 3000, "time": "70分〜" },
-    { "minAmount": 5000, "time": "90分〜" }
   ],
-  "specialConditions": {
-    "outsideArea": {
-      "description": "上記以外のご住所",
-      "minOrderAmount": 15000,
-      "requiresReservation": true,
-      "reservationDeadline": "前日まで",
-      "coverage": [
-        "東京都（青梅市・奥多摩・檜原村を除く）",
-        "神奈川県（横浜市付近まで）",
-        "千葉県（千葉市付近まで）",
-        "埼玉県（さいたま市付近まで）"
-      ]
-    }
+  "outsideArea": {
+    "within23ku": { "minAmount": 15000, "description": "23区内" },
+    "suburbs": { "minAmount": 20000, "description": "都内近郊" },
+    "requiresReservation": true,
+    "reservationDeadline": "前日まで"
   },
   "businessHours": {
     "phoneReception": {
@@ -187,7 +138,7 @@
     { "id": "qr", "name": "QRコード決済", "available": true }
   ],
   "_meta": {
-    "lastUpdated": "2026-01-23",
-    "source": "haitatsu.jpg（配達エリア表）より抽出"
+    "lastUpdated": "2026-02-27",
+    "source": "配達エリア料金表（2026年2月更新）"
   }
 }

@@ -415,7 +415,50 @@ test.describe('決済方法の整合性', () => {
 });
 
 // ========================================
-// 15. 構造化データのJSON有効性テスト
+// 15. 配達エリア料金表テスト
+// ========================================
+test.describe('配達エリア料金表', () => {
+  test('料金表セクションが表示される', async ({ page }) => {
+    await page.goto(`${BASE_PATH}/area.html`);
+
+    const pricingSection = page.locator('#delivery-pricing');
+    await expect(pricingSection).toBeVisible();
+  });
+
+  test('全5ティアの料金が表示されている', async ({ page }) => {
+    await page.goto(`${BASE_PATH}/area.html`);
+
+    const sectionText = await page.locator('#delivery-pricing').textContent();
+    expect(sectionText).toContain('700円〜');
+    expect(sectionText).toContain('1,400円〜');
+    expect(sectionText).toContain('2,000円〜');
+    expect(sectionText).toContain('2,500円〜');
+    expect(sectionText).toContain('3,000円〜');
+  });
+
+  test('エリア外料金が表示されている', async ({ page }) => {
+    await page.goto(`${BASE_PATH}/area.html`);
+
+    const sectionText = await page.locator('#delivery-pricing').textContent();
+    expect(sectionText).toContain('15,000円');
+    expect(sectionText).toContain('20,000円');
+  });
+
+  test('主要地名が表示されている', async ({ page }) => {
+    await page.goto(`${BASE_PATH}/area.html`);
+
+    const sectionText = await page.locator('#delivery-pricing').textContent();
+    // 各ティアから代表的な地名をチェック
+    expect(sectionText).toContain('新橋');
+    expect(sectionText).toContain('銀座');
+    expect(sectionText).toContain('六本木');
+    expect(sectionText).toContain('大手町');
+    expect(sectionText).toContain('北品川');
+  });
+});
+
+// ========================================
+// 16. 構造化データのJSON有効性テスト
 // ========================================
 test.describe('構造化データJSON有効性', () => {
   const PAGES_WITH_JSONLD = PAGES.filter(p => !p.path.includes('404') && !p.path.includes('privacy'));
