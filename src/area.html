@@ -133,6 +133,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
   <noscript><link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet"></noscript>
   <link rel="stylesheet" href="./css/style.css">
+  <!-- Leaflet (配達エリアマップ用) -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
 </head>
 <body>
   <!-- スキップリンク -->
@@ -208,68 +210,180 @@
       <!-- エリア別 最低注文金額 -->
       <section id="delivery-pricing" class="max-w-4xl mx-auto mb-12 scroll-animate slide-up">
         <h2 class="text-2xl font-bold mb-6 text-center">エリア別 最低注文金額</h2>
+        <p class="text-center text-secondary-500 text-sm mb-8">配達料は無料です。金額は最低注文金額を表しています。</p>
 
-        <div class="space-y-4">
+        <!-- 配達エリアマップ -->
+        <div class="mb-8">
+          <div id="delivery-map" class="w-full h-[350px] md:h-[450px] rounded-2xl shadow-md z-0"></div>
+          <p class="text-xs text-secondary-400 text-center mt-2">※ 地図上のエリア境界はおおよその目安です。実際の料金は地名ごとに異なります。</p>
+        </div>
+
+        <div class="space-y-6">
           <!-- 700円〜 -->
-          <div class="bg-white rounded-xl shadow-md overflow-hidden">
-            <div class="bg-primary-600 text-white px-6 py-3 flex items-center gap-2">
-              <span class="text-lg font-black">700円〜</span>
-              <span class="text-sm opacity-90">メインエリア</span>
+          <div class="bg-white rounded-2xl shadow-md overflow-hidden">
+            <div class="flex items-center gap-4 px-6 py-4 border-b border-secondary-100">
+              <span class="text-3xl font-black text-primary-600">700<span class="text-base font-bold">円〜</span></span>
+              <span class="bg-primary-100 text-primary-700 text-xs font-bold px-3 py-1 rounded-full">メインエリア</span>
             </div>
-            <div class="px-6 py-4">
-              <p class="text-secondary-700 text-sm leading-relaxed">赤坂１〜７丁目 / 麻布十番 / 麻布台 / 麻布永坂町 / 麻布狸穴町 / 愛宕 / 内幸町 / 海岸１・２丁目 / 霞ヶ関 / 銀座 / 芝 / 芝浦１・２丁目 / 芝公園 / 芝大門 / 新橋 / 築地１・２・４・５丁目 / 虎ノ門 / 西新橋 / 浜松町 / 東麻布 / 東新橋 / 日比谷公園 / 丸の内３丁目 / 三田（港区） / 有楽町 / 六本木</p>
+            <div class="px-6 py-5">
+              <div class="flex flex-wrap gap-2">
+                <span class="inline-block bg-primary-50 text-primary-800 text-sm px-3 py-1.5 rounded-lg border border-primary-100">赤坂１〜７丁目</span>
+                <span class="inline-block bg-primary-50 text-primary-800 text-sm px-3 py-1.5 rounded-lg border border-primary-100">麻布十番</span>
+                <span class="inline-block bg-primary-50 text-primary-800 text-sm px-3 py-1.5 rounded-lg border border-primary-100">麻布台</span>
+                <span class="inline-block bg-primary-50 text-primary-800 text-sm px-3 py-1.5 rounded-lg border border-primary-100">麻布永坂町</span>
+                <span class="inline-block bg-primary-50 text-primary-800 text-sm px-3 py-1.5 rounded-lg border border-primary-100">麻布狸穴町</span>
+                <span class="inline-block bg-primary-50 text-primary-800 text-sm px-3 py-1.5 rounded-lg border border-primary-100">愛宕</span>
+                <span class="inline-block bg-primary-50 text-primary-800 text-sm px-3 py-1.5 rounded-lg border border-primary-100">内幸町</span>
+                <span class="inline-block bg-primary-50 text-primary-800 text-sm px-3 py-1.5 rounded-lg border border-primary-100">海岸１・２丁目</span>
+                <span class="inline-block bg-primary-50 text-primary-800 text-sm px-3 py-1.5 rounded-lg border border-primary-100">霞ヶ関</span>
+                <span class="inline-block bg-primary-50 text-primary-800 text-sm px-3 py-1.5 rounded-lg border border-primary-100">銀座</span>
+                <span class="inline-block bg-primary-50 text-primary-800 text-sm px-3 py-1.5 rounded-lg border border-primary-100">芝</span>
+                <span class="inline-block bg-primary-50 text-primary-800 text-sm px-3 py-1.5 rounded-lg border border-primary-100">芝浦１・２丁目</span>
+                <span class="inline-block bg-primary-50 text-primary-800 text-sm px-3 py-1.5 rounded-lg border border-primary-100">芝公園</span>
+                <span class="inline-block bg-primary-50 text-primary-800 text-sm px-3 py-1.5 rounded-lg border border-primary-100">芝大門</span>
+                <span class="inline-block bg-primary-50 text-primary-800 text-sm px-3 py-1.5 rounded-lg border border-primary-100">新橋</span>
+                <span class="inline-block bg-primary-50 text-primary-800 text-sm px-3 py-1.5 rounded-lg border border-primary-100">築地１・２・４・５丁目</span>
+                <span class="inline-block bg-primary-50 text-primary-800 text-sm px-3 py-1.5 rounded-lg border border-primary-100">虎ノ門</span>
+                <span class="inline-block bg-primary-50 text-primary-800 text-sm px-3 py-1.5 rounded-lg border border-primary-100">西新橋</span>
+                <span class="inline-block bg-primary-50 text-primary-800 text-sm px-3 py-1.5 rounded-lg border border-primary-100">浜松町</span>
+                <span class="inline-block bg-primary-50 text-primary-800 text-sm px-3 py-1.5 rounded-lg border border-primary-100">東麻布</span>
+                <span class="inline-block bg-primary-50 text-primary-800 text-sm px-3 py-1.5 rounded-lg border border-primary-100">東新橋</span>
+                <span class="inline-block bg-primary-50 text-primary-800 text-sm px-3 py-1.5 rounded-lg border border-primary-100">日比谷公園</span>
+                <span class="inline-block bg-primary-50 text-primary-800 text-sm px-3 py-1.5 rounded-lg border border-primary-100">丸の内３丁目</span>
+                <span class="inline-block bg-primary-50 text-primary-800 text-sm px-3 py-1.5 rounded-lg border border-primary-100">三田（港区）</span>
+                <span class="inline-block bg-primary-50 text-primary-800 text-sm px-3 py-1.5 rounded-lg border border-primary-100">有楽町</span>
+                <span class="inline-block bg-primary-50 text-primary-800 text-sm px-3 py-1.5 rounded-lg border border-primary-100">六本木</span>
+              </div>
             </div>
           </div>
 
           <!-- 1,400円〜 -->
-          <div class="bg-white rounded-xl shadow-md overflow-hidden">
-            <div class="bg-primary-500 text-white px-6 py-3">
-              <span class="text-lg font-black">1,400円〜</span>
+          <div class="bg-white rounded-2xl shadow-md overflow-hidden">
+            <div class="flex items-center gap-4 px-6 py-4 border-b border-secondary-100">
+              <span class="text-3xl font-black text-primary-500">1,400<span class="text-base font-bold">円〜</span></span>
             </div>
-            <div class="px-6 py-4">
-              <p class="text-secondary-700 text-sm leading-relaxed">赤坂８・９丁目 / 明石町 / 大手町 / 海岸３丁目 / 紀尾井町 / 皇居外苑 / 港南 / 芝浦３・４丁目 / 白金１・２丁目 / 白金台１・２丁目 / 新富 / 高輪 / 築地３・６・７丁目 / 永田町 / 西麻布１・３丁目 / 丸の内１・２丁目 / 南青山１丁目 / 南麻布１・２・３・５丁目 / 元赤坂 / 元麻布</p>
+            <div class="px-6 py-5">
+              <div class="flex flex-wrap gap-2">
+                <span class="inline-block bg-primary-50 text-primary-800 text-sm px-3 py-1.5 rounded-lg border border-primary-100">赤坂８・９丁目</span>
+                <span class="inline-block bg-primary-50 text-primary-800 text-sm px-3 py-1.5 rounded-lg border border-primary-100">明石町</span>
+                <span class="inline-block bg-primary-50 text-primary-800 text-sm px-3 py-1.5 rounded-lg border border-primary-100">大手町</span>
+                <span class="inline-block bg-primary-50 text-primary-800 text-sm px-3 py-1.5 rounded-lg border border-primary-100">海岸３丁目</span>
+                <span class="inline-block bg-primary-50 text-primary-800 text-sm px-3 py-1.5 rounded-lg border border-primary-100">紀尾井町</span>
+                <span class="inline-block bg-primary-50 text-primary-800 text-sm px-3 py-1.5 rounded-lg border border-primary-100">皇居外苑</span>
+                <span class="inline-block bg-primary-50 text-primary-800 text-sm px-3 py-1.5 rounded-lg border border-primary-100">港南</span>
+                <span class="inline-block bg-primary-50 text-primary-800 text-sm px-3 py-1.5 rounded-lg border border-primary-100">芝浦３・４丁目</span>
+                <span class="inline-block bg-primary-50 text-primary-800 text-sm px-3 py-1.5 rounded-lg border border-primary-100">白金１・２丁目</span>
+                <span class="inline-block bg-primary-50 text-primary-800 text-sm px-3 py-1.5 rounded-lg border border-primary-100">白金台１・２丁目</span>
+                <span class="inline-block bg-primary-50 text-primary-800 text-sm px-3 py-1.5 rounded-lg border border-primary-100">新富</span>
+                <span class="inline-block bg-primary-50 text-primary-800 text-sm px-3 py-1.5 rounded-lg border border-primary-100">高輪</span>
+                <span class="inline-block bg-primary-50 text-primary-800 text-sm px-3 py-1.5 rounded-lg border border-primary-100">築地３・６・７丁目</span>
+                <span class="inline-block bg-primary-50 text-primary-800 text-sm px-3 py-1.5 rounded-lg border border-primary-100">永田町</span>
+                <span class="inline-block bg-primary-50 text-primary-800 text-sm px-3 py-1.5 rounded-lg border border-primary-100">西麻布１・３丁目</span>
+                <span class="inline-block bg-primary-50 text-primary-800 text-sm px-3 py-1.5 rounded-lg border border-primary-100">丸の内１・２丁目</span>
+                <span class="inline-block bg-primary-50 text-primary-800 text-sm px-3 py-1.5 rounded-lg border border-primary-100">南青山１丁目</span>
+                <span class="inline-block bg-primary-50 text-primary-800 text-sm px-3 py-1.5 rounded-lg border border-primary-100">南麻布１・２・３・５丁目</span>
+                <span class="inline-block bg-primary-50 text-primary-800 text-sm px-3 py-1.5 rounded-lg border border-primary-100">元赤坂</span>
+                <span class="inline-block bg-primary-50 text-primary-800 text-sm px-3 py-1.5 rounded-lg border border-primary-100">元麻布</span>
+              </div>
             </div>
           </div>
 
           <!-- 2,000円〜 -->
-          <div class="bg-white rounded-xl shadow-md overflow-hidden">
-            <div class="bg-accent-500 text-white px-6 py-3">
-              <span class="text-lg font-black">2,000円〜</span>
+          <div class="bg-white rounded-2xl shadow-md overflow-hidden">
+            <div class="flex items-center gap-4 px-6 py-4 border-b border-secondary-100">
+              <span class="text-3xl font-black text-accent-500">2,000<span class="text-base font-bold">円〜</span></span>
             </div>
-            <div class="px-6 py-4">
-              <p class="text-secondary-700 text-sm leading-relaxed">大崎１丁目 / 勝どき / 北品川 / 白金３〜５丁目 / 西麻布２・４丁目 / 西五反田１・２丁目 / 隼町 / 東五反田 / 東品川１〜３丁目 / 平河町 / 南麻布４丁目 / 南品川１・２丁目</p>
+            <div class="px-6 py-5">
+              <div class="flex flex-wrap gap-2">
+                <span class="inline-block bg-accent-50 text-accent-800 text-sm px-3 py-1.5 rounded-lg border border-accent-100">大崎１丁目</span>
+                <span class="inline-block bg-accent-50 text-accent-800 text-sm px-3 py-1.5 rounded-lg border border-accent-100">勝どき</span>
+                <span class="inline-block bg-accent-50 text-accent-800 text-sm px-3 py-1.5 rounded-lg border border-accent-100">北品川</span>
+                <span class="inline-block bg-accent-50 text-accent-800 text-sm px-3 py-1.5 rounded-lg border border-accent-100">白金３〜５丁目</span>
+                <span class="inline-block bg-accent-50 text-accent-800 text-sm px-3 py-1.5 rounded-lg border border-accent-100">西麻布２・４丁目</span>
+                <span class="inline-block bg-accent-50 text-accent-800 text-sm px-3 py-1.5 rounded-lg border border-accent-100">西五反田１・２丁目</span>
+                <span class="inline-block bg-accent-50 text-accent-800 text-sm px-3 py-1.5 rounded-lg border border-accent-100">隼町</span>
+                <span class="inline-block bg-accent-50 text-accent-800 text-sm px-3 py-1.5 rounded-lg border border-accent-100">東五反田</span>
+                <span class="inline-block bg-accent-50 text-accent-800 text-sm px-3 py-1.5 rounded-lg border border-accent-100">東品川１〜３丁目</span>
+                <span class="inline-block bg-accent-50 text-accent-800 text-sm px-3 py-1.5 rounded-lg border border-accent-100">平河町</span>
+                <span class="inline-block bg-accent-50 text-accent-800 text-sm px-3 py-1.5 rounded-lg border border-accent-100">南麻布４丁目</span>
+                <span class="inline-block bg-accent-50 text-accent-800 text-sm px-3 py-1.5 rounded-lg border border-accent-100">南品川１・２丁目</span>
+              </div>
             </div>
           </div>
 
           <!-- 2,500円〜 -->
-          <div class="bg-white rounded-xl shadow-md overflow-hidden">
-            <div class="bg-accent-600 text-white px-6 py-3">
-              <span class="text-lg font-black">2,500円〜</span>
+          <div class="bg-white rounded-2xl shadow-md overflow-hidden">
+            <div class="flex items-center gap-4 px-6 py-4 border-b border-secondary-100">
+              <span class="text-3xl font-black text-accent-600">2,500<span class="text-base font-bold">円〜</span></span>
             </div>
-            <div class="px-6 py-4">
-              <p class="text-secondary-700 text-sm leading-relaxed">青海１・２丁目 / 有明１丁目 / 上大崎１丁目 / 白金６丁目 / 白金台３〜５丁目 / 台場 / 月島 / 南青山２丁目</p>
+            <div class="px-6 py-5">
+              <div class="flex flex-wrap gap-2">
+                <span class="inline-block bg-accent-50 text-accent-800 text-sm px-3 py-1.5 rounded-lg border border-accent-100">青海１・２丁目</span>
+                <span class="inline-block bg-accent-50 text-accent-800 text-sm px-3 py-1.5 rounded-lg border border-accent-100">有明１丁目</span>
+                <span class="inline-block bg-accent-50 text-accent-800 text-sm px-3 py-1.5 rounded-lg border border-accent-100">上大崎１丁目</span>
+                <span class="inline-block bg-accent-50 text-accent-800 text-sm px-3 py-1.5 rounded-lg border border-accent-100">白金６丁目</span>
+                <span class="inline-block bg-accent-50 text-accent-800 text-sm px-3 py-1.5 rounded-lg border border-accent-100">白金台３〜５丁目</span>
+                <span class="inline-block bg-accent-50 text-accent-800 text-sm px-3 py-1.5 rounded-lg border border-accent-100">台場</span>
+                <span class="inline-block bg-accent-50 text-accent-800 text-sm px-3 py-1.5 rounded-lg border border-accent-100">月島</span>
+                <span class="inline-block bg-accent-50 text-accent-800 text-sm px-3 py-1.5 rounded-lg border border-accent-100">南青山２丁目</span>
+              </div>
             </div>
           </div>
 
           <!-- 3,000円〜 -->
-          <div class="bg-white rounded-xl shadow-md overflow-hidden">
-            <div class="bg-secondary-600 text-white px-6 py-3">
-              <span class="text-lg font-black">3,000円〜</span>
+          <div class="bg-white rounded-2xl shadow-md overflow-hidden">
+            <div class="flex items-center gap-4 px-6 py-4 border-b border-secondary-100">
+              <span class="text-3xl font-black text-secondary-600">3,000<span class="text-base font-bold">円〜</span></span>
             </div>
-            <div class="px-6 py-4">
-              <p class="text-secondary-700 text-sm leading-relaxed">青海３・４丁目 / 麹町 / 西五反田７・８丁目 / 南品川４丁目</p>
+            <div class="px-6 py-5">
+              <div class="flex flex-wrap gap-2">
+                <span class="inline-block bg-secondary-50 text-secondary-800 text-sm px-3 py-1.5 rounded-lg border border-secondary-200">青海３・４丁目</span>
+                <span class="inline-block bg-secondary-50 text-secondary-800 text-sm px-3 py-1.5 rounded-lg border border-secondary-200">麹町</span>
+                <span class="inline-block bg-secondary-50 text-secondary-800 text-sm px-3 py-1.5 rounded-lg border border-secondary-200">西五反田７・８丁目</span>
+                <span class="inline-block bg-secondary-50 text-secondary-800 text-sm px-3 py-1.5 rounded-lg border border-secondary-200">南品川４丁目</span>
+              </div>
             </div>
           </div>
         </div>
 
         <!-- エリア外 -->
-        <div class="mt-6 bg-secondary-50 rounded-xl p-6 border border-secondary-200">
-          <h3 class="font-bold text-secondary-800 mb-2">上記以外のエリア</h3>
-          <ul class="space-y-1 text-secondary-700 text-sm">
-            <li>● <strong>23区内</strong>：15,000円〜（前日までにご予約）</li>
-            <li>● <strong>都内近郊</strong>：20,000円〜（前日までにご予約）</li>
+        <div class="mt-6 bg-secondary-50 rounded-2xl p-6 border border-secondary-200">
+          <h3 class="font-bold text-secondary-800 mb-3">上記以外のエリア</h3>
+          <div class="grid sm:grid-cols-2 gap-3">
+            <div class="bg-white rounded-xl p-4 border border-secondary-200">
+              <p class="text-sm text-secondary-500 mb-1">23区内</p>
+              <p class="text-2xl font-black text-secondary-700">15,000<span class="text-sm font-bold">円〜</span></p>
+              <p class="text-xs text-secondary-500 mt-1">前日までにご予約</p>
+            </div>
+            <div class="bg-white rounded-xl p-4 border border-secondary-200">
+              <p class="text-sm text-secondary-500 mb-1">都内近郊</p>
+              <p class="text-2xl font-black text-secondary-700">20,000<span class="text-sm font-bold">円〜</span></p>
+              <p class="text-xs text-secondary-500 mt-1">前日までにご予約</p>
+            </div>
+          </div>
+          <p class="mt-4 text-xs text-secondary-500 text-center">※ 配達料は無料です。金額は最低注文金額を表しています。</p>
+        </div>
+
+        <!-- 料金についての補足 -->
+        <div class="mt-6 bg-white rounded-2xl shadow-sm p-6 border border-secondary-100">
+          <h3 class="font-bold text-secondary-800 mb-3 flex items-center gap-2">
+            <svg class="w-5 h-5 text-accent-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+            最低注文金額について
+          </h3>
+          <p class="text-sm text-secondary-600 leading-relaxed mb-3">
+            最低注文金額は単純な距離だけでなく、以下の要素を総合的に考慮して設定しています。同じ町名でも丁目によって金額が異なる場合がありますので、ご了承ください。
+          </p>
+          <ul class="grid sm:grid-cols-2 gap-x-6 gap-y-1.5 text-sm text-secondary-600">
+            <li class="flex items-start gap-2"><span class="text-accent-500 mt-0.5">&#9679;</span>交通事情・道路の混雑状況</li>
+            <li class="flex items-start gap-2"><span class="text-accent-500 mt-0.5">&#9679;</span>橋・運河など配達ルートの制約</li>
+            <li class="flex items-start gap-2"><span class="text-accent-500 mt-0.5">&#9679;</span>坂道・狭い道路などの地形</li>
+            <li class="flex items-start gap-2"><span class="text-accent-500 mt-0.5">&#9679;</span>実際の配達所要時間</li>
           </ul>
-          <p class="mt-3 text-xs text-secondary-500">※ 配達料は無料です。金額は最低注文金額を表しています。</p>
+          <p class="text-sm text-secondary-600 mt-3">
+            ご不明な点はお気軽に<a href="tel:03-3432-3720" class="text-primary-600 font-bold hover:underline">お電話</a>でお問い合わせください。
+          </p>
         </div>
       </section>
 
@@ -435,5 +549,121 @@
   </a>
 
   <script type="module" src="./js/main.js"></script>
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script>
+  (function() {
+    var mapEl = document.getElementById('delivery-map');
+    if (!mapEl) return;
+
+    var map = L.map('delivery-map', {
+      scrollWheelZoom: false,
+      tap: false
+    }).setView([35.6555, 139.7500], 13);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+      maxZoom: 18
+    }).addTo(map);
+
+    // ティアごとの配達エリア（おおよその境界）
+    // 外側（高額）から内側（低額）の順に描画し、内側が上に表示される
+    var tiers = [
+      {
+        label: '3,000円〜',
+        color: '#4b5563',
+        coords: [
+          [35.6900, 139.7350], [35.6895, 139.7450], [35.6870, 139.7550],
+          [35.6800, 139.7650], [35.6700, 139.7750], [35.6600, 139.7850],
+          [35.6450, 139.7900], [35.6300, 139.7870], [35.6100, 139.7500],
+          [35.6100, 139.7400], [35.6180, 139.7120], [35.6350, 139.7130],
+          [35.6500, 139.7150], [35.6700, 139.7170], [35.6800, 139.7250]
+        ]
+      },
+      {
+        label: '2,500円〜',
+        color: '#ea580c',
+        coords: [
+          [35.6860, 139.7360], [35.6850, 139.7460], [35.6830, 139.7560],
+          [35.6750, 139.7650], [35.6680, 139.7740], [35.6600, 139.7830],
+          [35.6430, 139.7870], [35.6310, 139.7840], [35.6180, 139.7530],
+          [35.6180, 139.7400], [35.6250, 139.7180], [35.6350, 139.7180],
+          [35.6500, 139.7180], [35.6680, 139.7200], [35.6780, 139.7280]
+        ]
+      },
+      {
+        label: '2,000円〜',
+        color: '#f59e0b',
+        coords: [
+          [35.6840, 139.7400], [35.6830, 139.7500], [35.6800, 139.7580],
+          [35.6720, 139.7650], [35.6620, 139.7720], [35.6560, 139.7790],
+          [35.6430, 139.7790], [35.6320, 139.7700], [35.6180, 139.7530],
+          [35.6200, 139.7400], [35.6280, 139.7220], [35.6380, 139.7220],
+          [35.6500, 139.7210], [35.6650, 139.7230], [35.6750, 139.7310]
+        ]
+      },
+      {
+        label: '1,400円〜',
+        color: '#ef4444',
+        coords: [
+          [35.6820, 139.7380], [35.6830, 139.7500], [35.6870, 139.7640],
+          [35.6830, 139.7680], [35.6700, 139.7750], [35.6630, 139.7730],
+          [35.6560, 139.7700], [35.6420, 139.7570], [35.6350, 139.7460],
+          [35.6350, 139.7350], [35.6380, 139.7260], [35.6450, 139.7220],
+          [35.6550, 139.7220], [35.6650, 139.7230], [35.6730, 139.7280],
+          [35.6790, 139.7320]
+        ]
+      },
+      {
+        label: '700円〜',
+        color: '#dc2626',
+        coords: [
+          [35.6770, 139.7380], [35.6770, 139.7490], [35.6760, 139.7560],
+          [35.6750, 139.7640], [35.6700, 139.7690], [35.6640, 139.7700],
+          [35.6580, 139.7650], [35.6500, 139.7620], [35.6430, 139.7570],
+          [35.6430, 139.7490], [35.6450, 139.7420], [35.6480, 139.7370],
+          [35.6530, 139.7340], [35.6580, 139.7320], [35.6640, 139.7300],
+          [35.6700, 139.7310], [35.6740, 139.7340]
+        ]
+      }
+    ];
+
+    tiers.forEach(function(tier) {
+      L.polygon(tier.coords, {
+        color: tier.color,
+        weight: 2,
+        fillColor: tier.color,
+        fillOpacity: 0.18
+      }).addTo(map).bindPopup('<strong>' + tier.label + '</strong>');
+    });
+
+    // 店舗マーカー
+    var storeIcon = L.divIcon({
+      className: '',
+      html: '<div style="background:#dc2626;color:#fff;width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:14px;border:3px solid #fff;box-shadow:0 2px 8px rgba(0,0,0,.3);">鉄人</div>',
+      iconSize: [36, 36],
+      iconAnchor: [18, 18]
+    });
+    L.marker([35.6578, 139.7481], { icon: storeIcon })
+      .addTo(map)
+      .bindPopup('<strong>新橋店</strong><br>港区新橋6-16-4<br>TEL: 03-3432-3720');
+
+    // 凡例
+    var legend = L.control({ position: 'bottomright' });
+    legend.onAdd = function() {
+      var div = L.DomUtil.create('div');
+      div.style.cssText = 'background:#fff;padding:10px 14px;border-radius:10px;box-shadow:0 2px 8px rgba(0,0,0,.15);font-size:12px;line-height:1.8;';
+      div.innerHTML =
+        '<div style="font-weight:700;margin-bottom:4px;">最低注文金額</div>' +
+        '<div><span style="display:inline-block;width:14px;height:14px;background:#dc2626;border-radius:3px;vertical-align:middle;margin-right:6px;opacity:.6;"></span>700円〜</div>' +
+        '<div><span style="display:inline-block;width:14px;height:14px;background:#ef4444;border-radius:3px;vertical-align:middle;margin-right:6px;opacity:.6;"></span>1,400円〜</div>' +
+        '<div><span style="display:inline-block;width:14px;height:14px;background:#f59e0b;border-radius:3px;vertical-align:middle;margin-right:6px;opacity:.6;"></span>2,000円〜</div>' +
+        '<div><span style="display:inline-block;width:14px;height:14px;background:#ea580c;border-radius:3px;vertical-align:middle;margin-right:6px;opacity:.6;"></span>2,500円〜</div>' +
+        '<div><span style="display:inline-block;width:14px;height:14px;background:#4b5563;border-radius:3px;vertical-align:middle;margin-right:6px;opacity:.6;"></span>3,000円〜</div>';
+      return div;
+    };
+    legend.addTo(map);
+  })();
+  </script>
 </body>
 </html>
