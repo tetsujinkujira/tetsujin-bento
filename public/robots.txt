@@ -1,11 +1,11 @@
 # robots.txt for 手作り弁当喰楽部 鉄人
-# https://tetsujin-kujira.com/
+# https://www.tetsujin-kujira.com/
 
 User-agent: *
 Allow: /
 
 # Sitemap location
-Sitemap: https://tetsujin-kujira.com/sitemap.xml
+Sitemap: https://www.tetsujin-kujira.com/sitemap.xml
 
 # Disallow admin area
 Disallow: /admin/
