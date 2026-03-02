@@ -1,11 +1,11 @@
 # robots.txt for 手作り弁当喰楽部 鉄人
-# https://tetsujinkujira.github.io/tetsujin-bento/
+# https://tetsujin-kujira.com/
 
 User-agent: *
 Allow: /
 
 # Sitemap location
-Sitemap: https://tetsujinkujira.github.io/tetsujin-bento/sitemap.xml
+Sitemap: https://tetsujin-kujira.com/sitemap.xml
 
 # Disallow admin area
-Disallow: /tetsujin-bento/admin/
+Disallow: /admin/

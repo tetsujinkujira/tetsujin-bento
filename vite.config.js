@@ -22,7 +22,7 @@ function swVersionPlugin() {
 }
 
 export default defineConfig({
-  base: '/tetsujin-bento/',
+  base: '/',
   root: 'src',
   publicDir: '../public',
   build: {

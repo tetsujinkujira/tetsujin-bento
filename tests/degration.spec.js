@@ -12,7 +12,7 @@ import { test, expect } from '@playwright/test';
 // テスト対象ページ一覧
 // ========================================
 // GitHub Pages用のbaseパス
-const BASE_PATH = '/tetsujin-bento';
+const BASE_PATH = '';
 
 const PAGES = [
   { path: `${BASE_PATH}/`, name: 'TOPページ', title: '手作り弁当喰楽部 鉄人' },

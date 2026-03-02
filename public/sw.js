@@ -2,7 +2,7 @@
 // CACHE_VERSION はビルド時に自動更新される
 const CACHE_VERSION = '__BUILD_TIMESTAMP__';
 const CACHE_NAME = `tetsujin-bento-${CACHE_VERSION}`;
-const BASE_PATH = '/tetsujin-bento';
+const BASE_PATH = '';
 
 // キャッシュするファイル（静的アセットのみ）
 const urlsToCache = [
