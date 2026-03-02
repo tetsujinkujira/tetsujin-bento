@@ -39,6 +39,8 @@
       "price": 950,
       "description": "大判サイズの竜田揚げ弁当。300g超のお肉にご飯の量も多めでボリューム満点！ニラ醤油とチリマヨソースで2度楽しめる。",
       "image": "kanban.jpg",
+      "imageWidth": 320,
+      "imageHeight": 240,
       "canOomori": true,
       "toppings": [
         {
@@ -76,6 +78,8 @@
       "price": 750,
       "description": "鶏むね肉のたれカツ・ソースカツ・サラダ",
       "image": "M-02.jpg",
+      "imageWidth": 250,
+      "imageHeight": 269,
       "canOomori": true
     },
     {
@@ -87,6 +91,8 @@
       "price": 750,
       "description": "カレーコロッケ・おじゃがコロッケ・肉団子・サラダ",
       "image": "M-03.jpg",
+      "imageWidth": 250,
+      "imageHeight": 259,
       "canOomori": true
     },
     {
@@ -98,6 +104,8 @@
       "price": 800,
       "description": "若鶏唐揚げ・揚げタコ焼き（ねぎポン酢）・サラダ",
       "image": "M-04.jpg",
+      "imageWidth": 250,
+      "imageHeight": 257,
       "canOomori": true
     },
     {
@@ -109,6 +117,8 @@
       "price": 880,
       "description": "豚肉スタミナ生姜焼き・揚げタコ焼き（ねぎポン酢）・サラダ",
       "image": "M-05.jpg",
+      "imageWidth": 250,
+      "imageHeight": 167,
       "canOomori": true
     },
     {
@@ -120,6 +130,8 @@
       "price": 900,
       "description": "特大海老＆鮭＆鯵のフライ盛り合わせ（タルタルソース添え）",
       "image": "M-06.jpg",
+      "imageWidth": 250,
+      "imageHeight": 172,
       "canOomori": true
     },
     {
@@ -131,6 +143,8 @@
       "price": 900,
       "description": "洋風ピリ辛ミートソースハンバーグ・オニオンリングフライ・サラダ",
       "image": "M-07.jpg",
+      "imageWidth": 250,
+      "imageHeight": 161,
       "canOomori": true
     },
     {
@@ -142,6 +156,8 @@
       "price": 900,
       "description": "和風舞茸ハンバーグ（大根おろし添え）・オニオンリングフライ・サラダ",
       "image": "M-08.jpg",
+      "imageWidth": 250,
+      "imageHeight": 164,
       "canOomori": true
     },
     {
@@ -153,6 +169,8 @@
       "price": 950,
       "description": "サワラ西京焼・帆立フライ・揚豆腐・煮物",
       "image": "M-09.jpg",
+      "imageWidth": 250,
+      "imageHeight": 173,
       "canOomori": true
     },
     {
@@ -164,6 +182,8 @@
       "price": 950,
       "description": "鮭照焼・帆立フライ・揚豆腐・煮物",
       "image": "M-10.jpg",
+      "imageWidth": 250,
+      "imageHeight": 165,
       "canOomori": true
     },
     {
@@ -175,6 +195,8 @@
       "price": 930,
       "description": "鶏モモ肉のおろしポン酢＆照焼・サラダ",
       "image": "M-11.jpg",
+      "imageWidth": 250,
+      "imageHeight": 164,
       "canOomori": true
     },
     {
@@ -186,6 +208,8 @@
       "price": 980,
       "description": "特大海老フライ2本（タルタルソース添え）・鶏唐揚げ（ネギポン酢）",
       "image": "M-12.jpg",
+      "imageWidth": 250,
+      "imageHeight": 184,
       "canOomori": true
     },
     {
@@ -197,6 +221,8 @@
       "price": 900,
       "description": "そぼろご飯（鶏・玉子）",
       "image": "M-13.jpg",
+      "imageWidth": 250,
+      "imageHeight": 160,
       "canOomori": true
     },
     {
@@ -208,6 +234,8 @@
       "price": 900,
       "description": "鮭そぼろご飯",
       "image": "M-14.jpg",
+      "imageWidth": 250,
+      "imageHeight": 179,
       "canOomori": true
     },
     {
@@ -219,6 +247,8 @@
       "price": 900,
       "description": "山菜ご飯",
       "image": "M-15.jpg",
+      "imageWidth": 250,
+      "imageHeight": 173,
       "canOomori": true
     },
     {
@@ -230,6 +260,8 @@
       "price": 900,
       "description": "ツナマヨご飯",
       "image": "M-16.jpg",
+      "imageWidth": 250,
+      "imageHeight": 160,
       "canOomori": true
     },
     {
@@ -241,6 +273,8 @@
       "price": 950,
       "description": "のり明太ご飯",
       "image": "M-17.jpg",
+      "imageWidth": 250,
+      "imageHeight": 167,
       "canOomori": true
     },
     {
@@ -252,6 +286,8 @@
       "price": 1000,
       "description": "大葉巻きカツ・魚味噌焼き・特大海老フライ・煮物",
       "image": "M-18.jpg",
+      "imageWidth": 250,
+      "imageHeight": 204,
       "canOomori": true
     },
     {
@@ -263,6 +299,8 @@
       "price": 1150,
       "description": "自家製まぐろメンチ・肉団子・帆立バター焼き・サラダ",
       "image": "M-19.jpg",
+      "imageWidth": 250,
+      "imageHeight": 188,
       "canOomori": true
     },
     {
@@ -274,6 +312,8 @@
       "price": 1200,
       "description": "特上ヒレカツ・里芋煮・サラダ",
       "image": "M-20.jpg",
+      "imageWidth": 250,
+      "imageHeight": 191,
       "canOomori": true
     },
     {
@@ -285,6 +325,8 @@
       "price": 1200,
       "description": "ブリ照焼・煮物",
       "image": "M-21.jpg",
+      "imageWidth": 250,
+      "imageHeight": 190,
       "canOomori": true
     },
     {
@@ -296,6 +338,8 @@
       "price": 1300,
       "description": "特大ロースかつ・野菜サラダ",
       "image": "M-22.jpg",
+      "imageWidth": 250,
+      "imageHeight": 179,
       "canOomori": true
     },
     {
@@ -307,6 +351,8 @@
       "price": 1500,
       "description": "サワラ西京焼・大葉巻きカツ・カニ爪フライ・煮物・サラダ",
       "image": "M-23.jpg",
+      "imageWidth": 250,
+      "imageHeight": 211,
       "canOomori": true
     },
     {
@@ -318,6 +364,8 @@
       "price": 1750,
       "description": "自家製まぐろメンチ・鮭照焼・鶏と帆立のバター醤油焼き・煮物・サラダ",
       "image": "M-24.jpg",
+      "imageWidth": 250,
+      "imageHeight": 189,
       "canOomori": true
     },
     {
@@ -329,6 +377,8 @@
       "price": 2000,
       "description": "ブリ照焼・特大海老フライ・カニ爪フライ・煮物・鮭そぼろご飯",
       "image": "M-25.jpg",
+      "imageWidth": 250,
+      "imageHeight": 218,
       "canOomori": true
     },
     {

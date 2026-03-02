@@ -144,6 +144,9 @@ test.describe('画像読み込み確認', () => {
   test('メニューページの画像が読み込まれる', async ({ page }) => {
     await page.goto(`${BASE_PATH}/menu.html`);
 
+    // 動的レンダリング完了を待つ
+    await page.waitForSelector('.menu-card-image', { timeout: 10000 });
+
     // 画像要素が存在することを確認
     const images = page.locator('img');
     const count = await images.count();
@@ -487,4 +490,74 @@ test.describe('構造化データJSON有効性', () => {
       }
     });
   }
+});
+
+// ========================================
+// 17. メニューページ動的レンダリングテスト
+// ========================================
+test.describe('メニューページ動的レンダリング', () => {
+  test('メニューカードがJSONから動的に生成される', async ({ page }) => {
+    await page.goto(`${BASE_PATH}/menu.html`);
+
+    // 動的レンダリング完了を待つ
+    await page.waitForSelector('#standard-content .menu-card', { timeout: 10000 });
+
+    // スタンダードメニュー: 11品（桜桃/日替わり除く）
+    const standardCards = page.locator('#standard-content .menu-card');
+    await expect(standardCards).toHaveCount(11);
+
+    // シェフおすすめ: 5品
+    const chefCards = page.locator('#chef-content .menu-card');
+    await expect(chefCards).toHaveCount(5);
+
+    // 幕の内: 8品
+    const makunouchiCards = page.locator('#makunouchi-content .menu-card');
+    await expect(makunouchiCards).toHaveCount(8);
+  });
+
+  test('看板メニューが正しく表示される', async ({ page }) => {
+    await page.goto(`${BASE_PATH}/menu.html`);
+
+    // 動的レンダリング完了を待つ
+    await page.waitForSelector('#kanban-content .lightbox-trigger', { timeout: 10000 });
+
+    // 看板メニュー画像が存在
+    const kanbanImage = page.locator('#kanban-content .lightbox-trigger');
+    await expect(kanbanImage).toBeVisible();
+
+    // 価格が表示されている
+    const kanbanText = await page.locator('#kanban-content').textContent();
+    expect(kanbanText).toContain('¥950');
+    expect(kanbanText).toContain('グレート竜田');
+  });
+
+  test('サイドメニューが正しく表示される', async ({ page }) => {
+    await page.goto(`${BASE_PATH}/menu.html`);
+
+    // 動的レンダリング完了を待つ
+    await page.waitForSelector('#side-content table', { timeout: 10000 });
+
+    // 3つのテーブル（サイドメニュー、惣菜、ごはんチェンジ）
+    const tables = page.locator('#side-content table');
+    await expect(tables).toHaveCount(3);
+
+    // サイドメニュー内容が存在する
+    const sideText = await page.locator('#side-content').textContent();
+    expect(sideText).toContain('緑茶');
+    expect(sideText).toContain('ジャガイモコロッケ');
+    expect(sideText).toContain('ソボロ');
+  });
+
+  test('会席膳が正しく表示される', async ({ page }) => {
+    await page.goto(`${BASE_PATH}/menu.html`);
+
+    // 動的レンダリング完了を待つ
+    await page.waitForSelector('#premium-content .order-badge', { timeout: 10000 });
+
+    // 会席膳の内容確認
+    const premiumText = await page.locator('#premium-content').textContent();
+    expect(premiumText).toContain('大樹');
+    expect(premiumText).toContain('¥3,000');
+    expect(premiumText).toContain('5名様以上');
+  });
 });

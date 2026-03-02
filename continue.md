@@ -1,6 +1,6 @@
 # 手作り弁当喰楽部 鉄人 Webサイトリニューアル - 作業継続ファイル
 
-最終更新: 2026年2月25日
+最終更新: 2026年3月2日
 
 ---
 
@@ -9,6 +9,7 @@
 **Phase 1: 要件定義・素材収集** → 完了
 **Phase 2: 実装・公開** → 完了
 **Phase 3: 運用準備** → 完了
+**Phase 4: カスタムドメイン設定** → 完了（2026年3月2日）
 
 ---
 
@@ -49,7 +50,7 @@
 - [x] 内部リンク強化
 
 ### 6. テスト・CI/CD（完了）
-- [x] Playwright E2Eテスト 66件
+- [x] Playwright E2Eテスト 70件
 - [x] pre-commit フック（ビルド→テスト 2段階）
 - [x] pre-push フック（テスト実行）
 - [x] GitHub Actionsにテストステップ追加（デプロイ前検証）
@@ -65,90 +66,101 @@
 - [x] スマホ更新手順書作成（`docs/スマホ更新手順.md`）
 - [x] README作成（著作権・改変禁止表記）
 
+### 9. カスタムドメイン設定（完了 - 2026年3月2日）
+- [x] ドメイン取得: tetsujin-kujira.com
+- [x] DNS設定（ムームードメイン）
+  - Aレコード4つ（185.199.108-111.153）※サブドメイン欄は空欄
+  - CNAMEレコード（www → tetsujinkujira.github.io）
+  - ネームサーバ: ムームーDNSを使用
+- [x] GitHub Pages カスタムドメイン設定
+- [x] TLS証明書発行・Enforce HTTPS有効化
+- [x] サイト内URL一括変更（15ファイル）
+  - 全HTMLのcanonical / OGP / Twitter Card / 構造化データURL
+  - sitemap.xml, robots.txt, manifest.json
+  - vite.config.js の base パス（`/tetsujin-bento/` → `/`）
+  - Service Worker / テストの BASE_PATH
+- [x] テスト全70件通過確認
+
+### 10. メニュー修正（2026年3月2日）
+- [x] 紫蘇（シソ）の説明文修正: 「イカ」→「鯵」に変更
+
+### 11. レスポンシブ改善（2026年3月2日）
+- [x] メニューページのスマホ表示を2列グリッドに変更（定番・シェフおすすめ・幕の内の3セクション）
+
+### 12. メニューページ動的レンダリング化（2026年3月2日）
+- [x] menu.json にimage寸法（imageWidth/imageHeight）を追加（CLS防止）
+- [x] menu.html のハードコードされたメニューカードを動的コンテナに置換
+  - 看板メニュー / スタンダード / シェフおすすめ / 幕の内 / 会席膳 / サイドメニュー
+  - 各コンテナにローディングスケルトン配置
+- [x] main.js にメニューレンダリングエンジンを追加
+  - renderMenuCard / renderKanbanSection / renderPremiumSection / renderSideMenus 等
+  - ライトボックスをイベント委譲方式に変更（動的コンテンツ対応）
+- [x] E2Eテスト修正・追加（74件に増加）
+  - 画像テストに waitForSelector 追加
+  - 動的レンダリングテスト4件追加（カード数検証、看板、サイド、会席膳）
+- [x] 編集マニュアルに menu.json の編集手順を追記
+
 ---
 
 ## 公開URL
 
-**本番サイト**: https://tetsujinkujira.github.io/tetsujin-bento/
+**本番サイト**: https://www.tetsujin-kujira.com/
+**旧URL**: https://tetsujinkujira.github.io/tetsujin-bento/ （自動リダイレクト）
 
 ---
 
-## ドメイン取得後にやること
+## ドメイン設定（完了）
 
-### 1. DNS設定（ドメイン管理サービス側）
+### 設定内容（ムームードメイン）
 
-ドメイン管理サービス（お名前.com、ムームードメイン等）で以下のDNSレコードを設定する。
+**ネームサーバ:** ムームーDNSを使用（※「ムームーDNS」でないとカスタムDNS設定が反映されない）
 
-**Aレコード（4つすべて追加）:**
+**Aレコード（4つ）:** ※サブドメイン欄は `@` ではなく **空欄** にする
 
-| ホスト名 | タイプ | 値 |
-|---------|--------|-----|
-| @ | A | 185.199.108.153 |
-| @ | A | 185.199.109.153 |
-| @ | A | 185.199.110.153 |
-| @ | A | 185.199.111.153 |
+| サブドメイン | タイプ | 値 |
+|------------|--------|-----|
+| （空欄） | A | 185.199.108.153 |
+| （空欄） | A | 185.199.109.153 |
+| （空欄） | A | 185.199.110.153 |
+| （空欄） | A | 185.199.111.153 |
 
-**CNAMEレコード（wwwサブドメイン用）:**
+**CNAMEレコード:**
 
-| ホスト名 | タイプ | 値 |
-|---------|--------|-----|
+| サブドメイン | タイプ | 値 |
+|------------|--------|-----|
 | www | CNAME | tetsujinkujira.github.io |
 
-### 2. GitHub Pages側の設定
+### GitHub Pages設定
 
-1. リポジトリの **Settings** → **Pages** を開く
-2. **Custom domain** に取得したドメインを入力（例: `tetsujin-kujira.com`）
-3. **Save** を押す
-4. DNS反映後（数分〜数時間）、**Enforce HTTPS** にチェックを入れる
+- Custom domain: `www.tetsujin-kujira.com`
+- Enforce HTTPS: 有効
 
-### 3. サイト内URLの一括変更
+### 今後やること
 
-以下のファイル内で `tetsujinkujira.github.io/tetsujin-bento` を新ドメインに変更する。
-
-**対象箇所:**
-- [ ] 全HTMLファイルの `<link rel="canonical">` （9ファイル）
-- [ ] 全HTMLファイルの `<meta property="og:url">` （8ファイル）
-- [ ] 全HTMLファイルの `<meta property="og:image">` （8ファイル）
-- [ ] 全HTMLファイルの `<meta name="twitter:image">` （8ファイル）
-- [ ] 構造化データ（JSON-LD）内のURL（index.html, menu.html, about.html, area.html, order.html, recruit.html）
-- [ ] `public/sitemap.xml` 内の全URL
-- [ ] `public/manifest.json` の `start_url` / `scope`
-- [ ] `vite.config.js` の `base` パス（`/tetsujin-bento/` → `/`）
-
-**作業コマンド例（Claude Codeに依頼）:**
-```
-「ドメインを tetsujin-kujira.com に変更して。全ファイルのURLを一括更新して。」
-```
-
-### 4. Google Search Console登録
-
-1. https://search.google.com/search-console にアクセス
-2. 「プロパティを追加」→「ドメイン」→ ドメインを入力
-3. DNS TXTレコードで所有権確認
-4. 確認後、「サイトマップ」→ `https://新ドメイン/sitemap.xml` を送信
-
-### 5. 確認事項
-
-- [ ] `https://新ドメイン/` でサイトが表示される
-- [ ] `https://www.新ドメイン/` がリダイレクトされる
-- [ ] HTTPS（鍵マーク）が表示される
-- [ ] 旧URL（github.io）からのリダイレクトが動作する
-- [ ] OGPデバッガーで確認（https://developers.facebook.com/tools/debug/）
-- [ ] テスト全通過（`npm test`）
+- [x] Google Search Console登録（2026年3月2日完了）
+  - ドメインプロパティ: tetsujin-kujira.com
+  - DNS TXTレコードで所有権確認済み
+  - サイトマップ送信済み: https://www.tetsujin-kujira.com/sitemap.xml
+  - 全ページのインデックス登録リクエスト済み
+- [x] Googleビジネスプロフィール登録（2026年3月2日完了）
+  - ビジネスの説明文追加済み
+- OGPデバッガー確認 → スキップ（必要時に実施）
 
 ---
 
 ## コンテンツ編集方法
 
-### 編集対象ファイル（1つだけ）
+### 編集対象ファイル
 
-```
-public/data/site-config.json
-```
+| ファイル | 内容 | 更新頻度 |
+|---------|------|---------|
+| `public/data/site-config.json` | お知らせ・日替わりメニュー | 毎月 |
+| `public/data/menu.json` | メニュー品目・価格・説明・サイドメニュー | まれに |
 
 ### 編集ページURL
 
-https://github.com/tetsujinkujira/tetsujin-bento/blob/main/public/data/site-config.json
+- site-config.json: https://github.com/tetsujinkujira/tetsujin-bento/blob/main/public/data/site-config.json
+- menu.json: https://github.com/tetsujinkujira/tetsujin-bento/blob/main/public/data/menu.json
 
 ### マニュアル
 
@@ -188,7 +200,7 @@ https://github.com/tetsujinkujira/tetsujin-bento/blob/main/public/data/site-conf
 │   ├── css/style.css
 │   └── js/main.js
 ├── tests/
-│   └── degration.spec.js  ← E2Eテスト（66件）
+│   └── degration.spec.js  ← E2Eテスト（74件）
 ├── scripts/
 │   └── auto-push.sh       ← 自動テスト&プッシュ
 ├── .husky/
@@ -227,5 +239,6 @@ https://github.com/tetsujinkujira/tetsujin-bento/blob/main/public/data/site-conf
 - 編集はスマホからGitHubアプリで可能（手順書あり）
 - 店舗住所: 東京都港区新橋6-16-4 松永ビル1階
 - 電話番号: 03-3432-3720
-- テスト: 66件（Playwright）
+- ドメイン: tetsujin-kujira.com（ムームードメイン管理）
+- テスト: 74件（Playwright）
 - 画像: 各メニューに JPG + WebP の2形式を用意

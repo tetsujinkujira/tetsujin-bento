@@ -312,28 +312,26 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ========================================
-  // 画像ライトボックス
+  // 画像ライトボックス（イベント委譲方式 — 動的コンテンツ対応）
   // ========================================
   const lightbox = document.getElementById('lightbox');
   const lightboxImg = document.getElementById('lightbox-img');
   const lightboxClose = document.getElementById('lightbox-close');
 
   if (lightbox && lightboxImg) {
-    // クリック可能な画像を取得（メニューカード画像 + lightbox-triggerクラス）
-    const clickableImages = document.querySelectorAll('.menu-card-image, .lightbox-trigger');
+    // イベント委譲: document レベルで画像クリックを検知
+    document.addEventListener('click', (e) => {
+      const img = e.target.closest('.menu-card-image, .lightbox-trigger');
+      if (!img) return;
 
-    clickableImages.forEach(img => {
-      img.addEventListener('click', (e) => {
-        e.preventDefault();
-        lightboxImg.src = img.src;
-        lightboxImg.alt = img.alt;
-        lightbox.classList.remove('hidden');
-        // 少し遅延してactiveクラスを追加（アニメーション用）
-        requestAnimationFrame(() => {
-          lightbox.classList.add('active');
-        });
-        document.body.style.overflow = 'hidden';
+      e.preventDefault();
+      lightboxImg.src = img.currentSrc || img.src;
+      lightboxImg.alt = img.alt;
+      lightbox.classList.remove('hidden');
+      requestAnimationFrame(() => {
+        lightbox.classList.add('active');
       });
+      document.body.style.overflow = 'hidden';
     });
 
     // 閉じるボタン
@@ -554,10 +552,282 @@ async function loadDailyMenu() {
   }
 }
 
-// ページ読み込み時に日替わりメニューとお知らせを読み込む
+// ========================================
+// メニューページ動的レンダリングエンジン
+// ========================================
+
+// 画像ファイル名から webp/jpg パスを生成
+function getImagePaths(filename) {
+  const baseName = filename.replace(/\.[^.]+$/, '');
+  return {
+    webp: `/images/menu/${baseName}.webp`,
+    jpg: `/images/menu/${filename}`,
+  };
+}
+
+// 標準メニューカードHTML生成（standard/chef/makunouchi共通）
+function renderMenuCard(item) {
+  if (!item.image) return ''; // 画像なしアイテム（日替わり等）はスキップ
+
+  const paths = getImagePaths(item.image);
+  const widthAttr = item.imageWidth ? ` width="${item.imageWidth}"` : '';
+  const heightAttr = item.imageHeight ? ` height="${item.imageHeight}"` : '';
+
+  return `
+    <div class="menu-card">
+      <picture><source srcset="${paths.webp}" type="image/webp"><img src="${paths.jpg}" alt="${item.name}" class="menu-card-image" loading="lazy"${widthAttr}${heightAttr}></picture>
+      <div class="menu-card-body">
+        <span class="order-badge">注文番号：${item.orderNumber}</span>
+        <p class="menu-card-title">${item.name}</p>
+        ${item.nameReading ? `<p class="menu-card-reading">${item.nameReading}</p>` : ''}
+        <p class="text-sm text-secondary-600 mb-3">${item.description}</p>
+        <p class="menu-card-price">${formatPrice(item.price)}</p>
+      </div>
+    </div>
+  `;
+}
+
+// 看板メニュー専用レイアウト
+function renderKanbanSection(item) {
+  const paths = getImagePaths(item.image);
+  const widthAttr = item.imageWidth ? ` width="${item.imageWidth}"` : '';
+  const heightAttr = item.imageHeight ? ` height="${item.imageHeight}"` : '';
+
+  // 基本価格カード
+  let priceCards = `
+    <div class="bg-white rounded-lg p-4 shadow-sm">
+      <div class="flex justify-between items-center">
+        <div>
+          <p class="font-bold">${item.name}（基本）</p>
+          <p class="text-sm text-secondary-500">ニラ醤油＋チリマヨソース</p>
+        </div>
+        <p class="text-xl font-black text-primary-600">${formatPrice(item.price)}</p>
+      </div>
+    </div>
+  `;
+
+  // トッピングカード
+  if (item.toppings) {
+    priceCards += item.toppings.map(t => `
+      <div class="bg-white rounded-lg p-4 shadow-sm">
+        <div class="flex justify-between items-center">
+          <div>
+            <p class="font-bold">${t.name}</p>
+            <p class="text-sm text-secondary-500">${t.description}</p>
+          </div>
+          <p class="text-xl font-black text-primary-600">${formatPrice(t.price)}</p>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  return `
+    <div class="bg-gradient-to-r from-accent-50 to-accent-100 rounded-2xl p-6 md:p-8">
+      <div class="md:flex gap-8">
+        <div class="md:w-1/2 mb-6 md:mb-0">
+          <picture>
+            <source srcset="${paths.webp}" type="image/webp">
+            <img src="${paths.jpg}" alt="${item.name}" class="w-full rounded-xl shadow-lg lightbox-trigger" loading="lazy"${widthAttr}${heightAttr}>
+          </picture>
+        </div>
+        <div class="md:w-1/2">
+          <p class="text-lg mb-6">${item.description}</p>
+          <div class="space-y-4">
+            ${priceCards}
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+// カテゴリ別グリッド生成
+function renderCardGrid(containerId, items, gridClass) {
+  const container = document.getElementById(containerId);
+  if (!container) return;
+
+  if (items.length === 0) {
+    container.innerHTML = '<p class="text-secondary-500">メニューデータがありません。</p>';
+    return;
+  }
+
+  container.innerHTML = `
+    <div class="${gridClass}">
+      ${items.map(item => renderMenuCard(item)).join('')}
+    </div>
+  `;
+}
+
+// 会席膳専用レイアウト
+function renderPremiumSection(item) {
+  return `
+    <div class="bg-gradient-to-r from-yellow-50 to-yellow-100 rounded-2xl p-6 md:p-8 max-w-2xl">
+      <div class="text-center">
+        <span class="order-badge mb-2">注文番号：${item.orderNumber}</span>
+        <h3 class="text-3xl font-black mb-2">${item.name}</h3>
+        ${item.nameReading ? `<p class="text-secondary-500 mb-4">${item.nameReading}</p>` : ''}
+        <p class="text-4xl font-black text-primary-600 mb-4">${formatPrice(item.price)}</p>
+        <p class="text-secondary-600 mb-6">特別な日のための豪華弁当</p>
+        <div class="bg-white rounded-lg p-4 text-left">
+          <p class="font-bold mb-2">ご予約について</p>
+          <ul class="text-sm text-secondary-600 space-y-1">
+            <li>・${item.minQuantity || 5}名様以上から承ります</li>
+            <li>・2日前までにご予約ください</li>
+            <li>・メニュー内容はご相談ください</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+// サイドメニューテーブル生成
+function renderSideMenus(sideMenus) {
+  const container = document.getElementById('side-content');
+  if (!container) return;
+
+  const tablesHtml = sideMenus.categories.map(cat => {
+    const rows = cat.items.map(item => `
+      <tr class="hover:bg-secondary-50">
+        <td class="px-4 py-3">${item.name}</td>
+        <td class="px-4 py-3 text-right font-bold text-primary-600">${formatPrice(item.price)}</td>
+      </tr>
+    `).join('');
+
+    return `
+      <div>
+        <h3 class="font-bold text-lg mb-4 flex items-center gap-2">
+          <span class="text-primary-600">☆</span> ${cat.name}
+        </h3>
+        <div class="bg-white rounded-lg shadow-sm overflow-hidden">
+          <table class="w-full">
+            <tbody class="divide-y divide-secondary-100">
+              ${rows}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  container.innerHTML = `<div class="grid md:grid-cols-3 gap-8">${tablesHtml}</div>`;
+}
+
+// エラー時のフォールバック表示
+function renderMenuError(containerIds) {
+  const errorHtml = `
+    <div class="bg-white rounded-lg p-6 shadow-sm text-center">
+      <p class="text-secondary-500">メニューの読み込みに失敗しました。<br>お電話にてご確認ください。</p>
+      <a href="tel:03-3432-3720" class="inline-block mt-4 text-primary-600 font-bold hover:underline">03-3432-3720</a>
+    </div>
+  `;
+
+  containerIds.forEach(id => {
+    const container = document.getElementById(id);
+    if (container) {
+      container.innerHTML = errorHtml;
+    }
+  });
+}
+
+// メニューページ全体のオーケストレーター
+async function renderMenuPage() {
+  // メニューページかどうか判定（看板コンテナの存在で判断）
+  const kanbanContent = document.getElementById('kanban-content');
+  if (!kanbanContent) return;
+
+  const containerIds = ['kanban-content', 'standard-content', 'chef-content', 'makunouchi-content', 'premium-content', 'side-content'];
+
+  try {
+    const menuData = await loadMenuData();
+    if (!menuData) throw new Error('Failed to load menu data');
+
+    const { items, sideMenus } = menuData;
+
+    // 看板メニュー
+    const kanbanItems = items.filter(i => i.categoryId === 'kanban');
+    if (kanbanItems.length > 0) {
+      kanbanContent.innerHTML = renderKanbanSection(kanbanItems[0]);
+    }
+
+    // スタンダードメニュー（日替わり=isDaily除外）
+    const standardItems = items.filter(i => i.categoryId === 'standard' && !i.isDaily);
+    renderCardGrid('standard-content', standardItems, 'grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-6');
+
+    // シェフおすすめ
+    const chefItems = items.filter(i => i.categoryId === 'chef');
+    renderCardGrid('chef-content', chefItems, 'grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-3 sm:gap-6');
+
+    // 幕の内
+    const makunouchiItems = items.filter(i => i.categoryId === 'makunouchi');
+    renderCardGrid('makunouchi-content', makunouchiItems, 'grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-6');
+
+    // 会席膳
+    const premiumItems = items.filter(i => i.categoryId === 'premium');
+    const premiumContent = document.getElementById('premium-content');
+    if (premiumContent && premiumItems.length > 0) {
+      premiumContent.innerHTML = renderPremiumSection(premiumItems[0]);
+    }
+
+    // サイドメニュー
+    if (sideMenus) {
+      renderSideMenus(sideMenus);
+    }
+
+  } catch (error) {
+    console.error('Error rendering menu page:', error);
+    renderMenuError(containerIds);
+  }
+}
+
+// TOPページの看板メニュー価格・説明文 + カテゴリ価格を menu.json から更新
+async function updateTopPagePrices() {
+  // TOPページかどうか判定
+  const kanbanPrice = document.getElementById('kanban-price');
+  if (!kanbanPrice) return;
+
+  try {
+    const menuData = await loadMenuData();
+    if (!menuData) return;
+
+    const { items } = menuData;
+
+    // 看板メニューの価格・説明文
+    const kanbanItem = items.find(i => i.categoryId === 'kanban');
+    if (kanbanItem) {
+      kanbanPrice.textContent = `${formatPrice(kanbanItem.price)}〜`;
+      const kanbanDesc = document.getElementById('kanban-description');
+      if (kanbanDesc) kanbanDesc.textContent = kanbanItem.description;
+    }
+
+    // カテゴリ別の最低価格を計算して更新
+    const categoryPriceMap = {
+      standard: { elementId: 'category-price-standard', suffix: '〜' },
+      chef: { elementId: 'category-price-chef', suffix: '〜' },
+      makunouchi: { elementId: 'category-price-makunouchi', suffix: '〜' },
+      premium: { elementId: 'category-price-premium', suffix: '〜（要予約）' },
+    };
+
+    for (const [catId, config] of Object.entries(categoryPriceMap)) {
+      const catItems = items.filter(i => i.categoryId === catId && !i.isDaily);
+      if (catItems.length === 0) continue;
+
+      const minPrice = Math.min(...catItems.map(i => i.price));
+      const el = document.getElementById(config.elementId);
+      if (el) el.textContent = `${formatPrice(minPrice)}${config.suffix}`;
+    }
+  } catch (error) {
+    // エラー時はHTMLのフォールバック値がそのまま表示される
+    console.error('Error updating top page prices:', error);
+  }
+}
+
+// ページ読み込み時に日替わりメニュー・お知らせ・メニューページ・TOP価格を読み込む
 document.addEventListener('DOMContentLoaded', () => {
   loadDailyMenu();
   loadLatestNews();
+  renderMenuPage();
+  updateTopPagePrices();
 });
 
 // 最新のお知らせをティッカーに表示

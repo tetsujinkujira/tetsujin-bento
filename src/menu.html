@@ -203,45 +203,18 @@
         </div>
         <p class="text-secondary-600 mb-6">鉄人のスーパーガッツリ体育会系メニュー</p>
 
-        <div class="bg-gradient-to-r from-accent-50 to-accent-100 rounded-2xl p-6 md:p-8">
-          <div class="md:flex gap-8">
-            <div class="md:w-1/2 mb-6 md:mb-0">
-              <picture>
-                <source srcset="/images/menu/kanban.webp" type="image/webp">
-                <img src="/images/menu/kanban.jpg" alt="グレート竜田" class="w-full rounded-xl shadow-lg lightbox-trigger" loading="lazy" width="320" height="240">
-              </picture>
-            </div>
-            <div class="md:w-1/2">
-              <p class="text-lg mb-6">大判サイズの竜田揚げ弁当。300g超のお肉にご飯の量も多めでボリューム満点！ニラ醤油とチリマヨソースで2度楽しめる。</p>
-
-              <div class="space-y-4">
-                <div class="bg-white rounded-lg p-4 shadow-sm">
-                  <div class="flex justify-between items-center">
-                    <div>
-                      <p class="font-bold">グレート竜田（基本）</p>
-                      <p class="text-sm text-secondary-500">ニラ醤油＋チリマヨソース</p>
-                    </div>
-                    <p class="text-xl font-black text-primary-600">¥950</p>
-                  </div>
-                </div>
-                <div class="bg-white rounded-lg p-4 shadow-sm">
-                  <div class="flex justify-between items-center">
-                    <div>
-                      <p class="font-bold">おろしポン酢トッピング</p>
-                      <p class="text-sm text-secondary-500">ニラ醤油＋おろしポン酢</p>
-                    </div>
-                    <p class="text-xl font-black text-primary-600">¥1,000</p>
-                  </div>
-                </div>
-                <div class="bg-white rounded-lg p-4 shadow-sm">
-                  <div class="flex justify-between items-center">
-                    <div>
-                      <p class="font-bold">タルタルソーストッピング</p>
-                      <p class="text-sm text-secondary-500">ニラ醤油＋タルタルソース</p>
-                    </div>
-                    <p class="text-xl font-black text-primary-600">¥1,000</p>
-                  </div>
-                </div>
+        <div id="kanban-content">
+          <!-- ローディングスケルトン -->
+          <div class="bg-gradient-to-r from-accent-50 to-accent-100 rounded-2xl p-6 md:p-8 animate-pulse">
+            <div class="md:flex gap-8">
+              <div class="md:w-1/2 mb-6 md:mb-0">
+                <div class="bg-secondary-200 rounded-xl w-full" style="aspect-ratio: 320/240;"></div>
+              </div>
+              <div class="md:w-1/2 space-y-4">
+                <div class="h-6 bg-secondary-200 rounded w-3/4"></div>
+                <div class="h-4 bg-secondary-100 rounded w-full"></div>
+                <div class="bg-white rounded-lg p-4 shadow-sm"><div class="h-6 bg-secondary-200 rounded w-1/2"></div></div>
+                <div class="bg-white rounded-lg p-4 shadow-sm"><div class="h-6 bg-secondary-200 rounded w-1/2"></div></div>
               </div>
             </div>
           </div>
@@ -286,137 +259,13 @@
         </div>
         <p class="text-secondary-600 mb-6">鉄人のスタンダードメニューです。+¥80でライス大盛り</p>
 
-        <div class="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-6">
-          <!-- 鬱金香 -->
-          <div class="menu-card">
-            <picture><source srcset="/images/menu/M-02.webp" type="image/webp"><img src="/images/menu/M-02.jpg" alt="鬱金香" class="menu-card-image" loading="lazy" width="250" height="269"></picture>
-            <div class="menu-card-body">
-              <span class="order-badge">注文番号：2</span>
-              <p class="menu-card-title">鬱金香</p>
-              <p class="menu-card-reading">チューリップ</p>
-              <p class="text-sm text-secondary-600 mb-3">鶏むね肉のたれカツ・ソースカツ・サラダ</p>
-              <p class="menu-card-price">¥750</p>
-            </div>
-          </div>
-
-          <!-- 鬼灯 -->
-          <div class="menu-card">
-            <picture><source srcset="/images/menu/M-03.webp" type="image/webp"><img src="/images/menu/M-03.jpg" alt="鬼灯" class="menu-card-image" loading="lazy" width="250" height="259"></picture>
-            <div class="menu-card-body">
-              <span class="order-badge">注文番号：3</span>
-              <p class="menu-card-title">鬼灯</p>
-              <p class="menu-card-reading">ホオズキ</p>
-              <p class="text-sm text-secondary-600 mb-3">カレーコロッケ・おじゃがコロッケ・肉団子・サラダ</p>
-              <p class="menu-card-price">¥750</p>
-            </div>
-          </div>
-
-          <!-- 山葵 -->
-          <div class="menu-card">
-            <picture><source srcset="/images/menu/M-04.webp" type="image/webp"><img src="/images/menu/M-04.jpg" alt="山葵" class="menu-card-image" loading="lazy" width="250" height="257"></picture>
-            <div class="menu-card-body">
-              <span class="order-badge">注文番号：4</span>
-              <p class="menu-card-title">山葵</p>
-              <p class="menu-card-reading">ワサビ</p>
-              <p class="text-sm text-secondary-600 mb-3">若鶏唐揚げ・揚げタコ焼き（ねぎポン酢）・サラダ</p>
-              <p class="menu-card-price">¥800</p>
-            </div>
-          </div>
-
-          <!-- 仙人掌 -->
-          <div class="menu-card">
-            <picture><source srcset="/images/menu/M-05.webp" type="image/webp"><img src="/images/menu/M-05.jpg" alt="仙人掌" class="menu-card-image" loading="lazy" width="250" height="167"></picture>
-            <div class="menu-card-body">
-              <span class="order-badge">注文番号：5</span>
-              <p class="menu-card-title">仙人掌</p>
-              <p class="menu-card-reading">サボテン</p>
-              <p class="text-sm text-secondary-600 mb-3">豚肉スタミナ生姜焼き・揚げタコ焼き（ねぎポン酢）・サラダ</p>
-              <p class="menu-card-price">¥880</p>
-            </div>
-          </div>
-
-          <!-- 紫蘇 -->
-          <div class="menu-card">
-            <picture><source srcset="/images/menu/M-06.webp" type="image/webp"><img src="/images/menu/M-06.jpg" alt="紫蘇" class="menu-card-image" loading="lazy" width="250" height="172"></picture>
-            <div class="menu-card-body">
-              <span class="order-badge">注文番号：6</span>
-              <p class="menu-card-title">紫蘇</p>
-              <p class="menu-card-reading">シソ</p>
-              <p class="text-sm text-secondary-600 mb-3">特大海老＆鮭＆鯵のフライ盛り合わせ（タルタルソース添え）</p>
-              <p class="menu-card-price">¥900</p>
-            </div>
-          </div>
-
-          <!-- 檸檬 -->
-          <div class="menu-card">
-            <picture><source srcset="/images/menu/M-07.webp" type="image/webp"><img src="/images/menu/M-07.jpg" alt="檸檬" class="menu-card-image" loading="lazy" width="250" height="161"></picture>
-            <div class="menu-card-body">
-              <span class="order-badge">注文番号：7</span>
-              <p class="menu-card-title">檸檬</p>
-              <p class="menu-card-reading">レモン</p>
-              <p class="text-sm text-secondary-600 mb-3">洋風ピリ辛ミートソースハンバーグ・オニオンリングフライ・サラダ</p>
-              <p class="menu-card-price">¥900</p>
-            </div>
-          </div>
-
-          <!-- 葡萄 -->
-          <div class="menu-card">
-            <picture><source srcset="/images/menu/M-08.webp" type="image/webp"><img src="/images/menu/M-08.jpg" alt="葡萄" class="menu-card-image" loading="lazy" width="250" height="164"></picture>
-            <div class="menu-card-body">
-              <span class="order-badge">注文番号：8</span>
-              <p class="menu-card-title">葡萄</p>
-              <p class="menu-card-reading">ブドウ</p>
-              <p class="text-sm text-secondary-600 mb-3">和風舞茸ハンバーグ（大根おろし添え）・オニオンリングフライ・サラダ</p>
-              <p class="menu-card-price">¥900</p>
-            </div>
-          </div>
-
-          <!-- 石楠花 -->
-          <div class="menu-card">
-            <picture><source srcset="/images/menu/M-09.webp" type="image/webp"><img src="/images/menu/M-09.jpg" alt="石楠花" class="menu-card-image" loading="lazy" width="250" height="173"></picture>
-            <div class="menu-card-body">
-              <span class="order-badge">注文番号：9</span>
-              <p class="menu-card-title">石楠花</p>
-              <p class="menu-card-reading">シャクナゲ</p>
-              <p class="text-sm text-secondary-600 mb-3">サワラ西京焼・帆立フライ・揚豆腐・煮物</p>
-              <p class="menu-card-price">¥950</p>
-            </div>
-          </div>
-
-          <!-- 映山紅 -->
-          <div class="menu-card">
-            <picture><source srcset="/images/menu/M-10.webp" type="image/webp"><img src="/images/menu/M-10.jpg" alt="映山紅" class="menu-card-image" loading="lazy" width="250" height="165"></picture>
-            <div class="menu-card-body">
-              <span class="order-badge">注文番号：10</span>
-              <p class="menu-card-title">映山紅</p>
-              <p class="menu-card-reading">ツツジ</p>
-              <p class="text-sm text-secondary-600 mb-3">鮭照焼・帆立フライ・揚豆腐・煮物</p>
-              <p class="menu-card-price">¥950</p>
-            </div>
-          </div>
-
-          <!-- 薔薇 -->
-          <div class="menu-card">
-            <picture><source srcset="/images/menu/M-11.webp" type="image/webp"><img src="/images/menu/M-11.jpg" alt="薔薇" class="menu-card-image" loading="lazy" width="250" height="164"></picture>
-            <div class="menu-card-body">
-              <span class="order-badge">注文番号：11</span>
-              <p class="menu-card-title">薔薇</p>
-              <p class="menu-card-reading">バラ</p>
-              <p class="text-sm text-secondary-600 mb-3">鶏モモ肉のおろしポン酢＆照焼・サラダ</p>
-              <p class="menu-card-price">¥930</p>
-            </div>
-          </div>
-
-          <!-- 撫子 -->
-          <div class="menu-card">
-            <picture><source srcset="/images/menu/M-12.webp" type="image/webp"><img src="/images/menu/M-12.jpg" alt="撫子" class="menu-card-image" loading="lazy" width="250" height="184"></picture>
-            <div class="menu-card-body">
-              <span class="order-badge">注文番号：12</span>
-              <p class="menu-card-title">撫子</p>
-              <p class="menu-card-reading">ナデシコ</p>
-              <p class="text-sm text-secondary-600 mb-3">特大海老フライ2本（タルタルソース添え）・鶏唐揚げ（ネギポン酢）</p>
-              <p class="menu-card-price">¥980</p>
-            </div>
+        <div id="standard-content">
+          <!-- ローディングスケルトン -->
+          <div class="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-6">
+            <div class="menu-card animate-pulse"><div class="bg-secondary-200 w-full" style="aspect-ratio: 250/200;"></div><div class="p-3 space-y-2"><div class="h-4 bg-secondary-200 rounded w-1/3"></div><div class="h-5 bg-secondary-200 rounded w-1/2"></div><div class="h-4 bg-secondary-100 rounded w-full"></div><div class="h-5 bg-secondary-200 rounded w-1/4"></div></div></div>
+            <div class="menu-card animate-pulse"><div class="bg-secondary-200 w-full" style="aspect-ratio: 250/200;"></div><div class="p-3 space-y-2"><div class="h-4 bg-secondary-200 rounded w-1/3"></div><div class="h-5 bg-secondary-200 rounded w-1/2"></div><div class="h-4 bg-secondary-100 rounded w-full"></div><div class="h-5 bg-secondary-200 rounded w-1/4"></div></div></div>
+            <div class="menu-card animate-pulse hidden lg:block"><div class="bg-secondary-200 w-full" style="aspect-ratio: 250/200;"></div><div class="p-3 space-y-2"><div class="h-4 bg-secondary-200 rounded w-1/3"></div><div class="h-5 bg-secondary-200 rounded w-1/2"></div><div class="h-4 bg-secondary-100 rounded w-full"></div><div class="h-5 bg-secondary-200 rounded w-1/4"></div></div></div>
+            <div class="menu-card animate-pulse hidden xl:block"><div class="bg-secondary-200 w-full" style="aspect-ratio: 250/200;"></div><div class="p-3 space-y-2"><div class="h-4 bg-secondary-200 rounded w-1/3"></div><div class="h-5 bg-secondary-200 rounded w-1/2"></div><div class="h-4 bg-secondary-100 rounded w-full"></div><div class="h-5 bg-secondary-200 rounded w-1/4"></div></div></div>
           </div>
         </div>
       </section>
@@ -429,60 +278,11 @@
         </div>
         <p class="text-secondary-600 mb-6">鉄人シェフおすすめのボリューム弁当です。<br>ヘルシーチキンカツ、里芋煮、サラダがついています。お好みの味付きご飯をお選びください。</p>
 
-        <div class="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-3 sm:gap-6">
-          <div class="menu-card">
-            <picture><source srcset="/images/menu/M-13.webp" type="image/webp"><img src="/images/menu/M-13.jpg" alt="向日葵" class="menu-card-image" loading="lazy" width="250" height="160"></picture>
-            <div class="menu-card-body">
-              <span class="order-badge">注文番号：13</span>
-              <p class="menu-card-title">向日葵</p>
-              <p class="menu-card-reading">ヒマワリ</p>
-              <p class="text-sm text-secondary-600 mb-3">そぼろご飯（鶏・玉子）</p>
-              <p class="menu-card-price">¥900</p>
-            </div>
-          </div>
-
-          <div class="menu-card">
-            <picture><source srcset="/images/menu/M-14.webp" type="image/webp"><img src="/images/menu/M-14.jpg" alt="水仙" class="menu-card-image" loading="lazy" width="250" height="179"></picture>
-            <div class="menu-card-body">
-              <span class="order-badge">注文番号：14</span>
-              <p class="menu-card-title">水仙</p>
-              <p class="menu-card-reading">スイセン</p>
-              <p class="text-sm text-secondary-600 mb-3">鮭そぼろご飯</p>
-              <p class="menu-card-price">¥900</p>
-            </div>
-          </div>
-
-          <div class="menu-card">
-            <picture><source srcset="/images/menu/M-15.webp" type="image/webp"><img src="/images/menu/M-15.jpg" alt="鈴蘭" class="menu-card-image" loading="lazy" width="250" height="173"></picture>
-            <div class="menu-card-body">
-              <span class="order-badge">注文番号：15</span>
-              <p class="menu-card-title">鈴蘭</p>
-              <p class="menu-card-reading">スズラン</p>
-              <p class="text-sm text-secondary-600 mb-3">山菜ご飯</p>
-              <p class="menu-card-price">¥900</p>
-            </div>
-          </div>
-
-          <div class="menu-card">
-            <picture><source srcset="/images/menu/M-16.webp" type="image/webp"><img src="/images/menu/M-16.jpg" alt="朝顔" class="menu-card-image" loading="lazy" width="250" height="160"></picture>
-            <div class="menu-card-body">
-              <span class="order-badge">注文番号：16</span>
-              <p class="menu-card-title">朝顔</p>
-              <p class="menu-card-reading">アサガオ</p>
-              <p class="text-sm text-secondary-600 mb-3">ツナマヨご飯</p>
-              <p class="menu-card-price">¥900</p>
-            </div>
-          </div>
-
-          <div class="menu-card">
-            <picture><source srcset="/images/menu/M-17.webp" type="image/webp"><img src="/images/menu/M-17.jpg" alt="蓮華" class="menu-card-image" loading="lazy" width="250" height="167"></picture>
-            <div class="menu-card-body">
-              <span class="order-badge">注文番号：17</span>
-              <p class="menu-card-title">蓮華</p>
-              <p class="menu-card-reading">レンゲ</p>
-              <p class="text-sm text-secondary-600 mb-3">のり明太ご飯</p>
-              <p class="menu-card-price">¥950</p>
-            </div>
+        <div id="chef-content">
+          <!-- ローディングスケルトン -->
+          <div class="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-3 sm:gap-6">
+            <div class="menu-card animate-pulse"><div class="bg-secondary-200 w-full" style="aspect-ratio: 250/170;"></div><div class="p-3 space-y-2"><div class="h-4 bg-secondary-200 rounded w-1/3"></div><div class="h-5 bg-secondary-200 rounded w-1/2"></div><div class="h-4 bg-secondary-100 rounded w-full"></div><div class="h-5 bg-secondary-200 rounded w-1/4"></div></div></div>
+            <div class="menu-card animate-pulse"><div class="bg-secondary-200 w-full" style="aspect-ratio: 250/170;"></div><div class="p-3 space-y-2"><div class="h-4 bg-secondary-200 rounded w-1/3"></div><div class="h-5 bg-secondary-200 rounded w-1/2"></div><div class="h-4 bg-secondary-100 rounded w-full"></div><div class="h-5 bg-secondary-200 rounded w-1/4"></div></div></div>
           </div>
         </div>
       </section>
@@ -496,93 +296,13 @@
         </div>
         <p class="text-secondary-600 mb-6">幕の内全品に鉄人自慢の「料亭の玉子焼き」が付いています。大根おろしでさっぱりとお召し上がりください。</p>
 
-        <div class="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-6">
-          <div class="menu-card">
-            <picture><source srcset="/images/menu/M-18.webp" type="image/webp"><img src="/images/menu/M-18.jpg" alt="松月" class="menu-card-image" loading="lazy" width="250" height="204"></picture>
-            <div class="menu-card-body">
-              <span class="order-badge">注文番号：18</span>
-              <p class="menu-card-title">松月</p>
-              <p class="menu-card-reading">しょうげつ</p>
-              <p class="text-sm text-secondary-600 mb-3">大葉巻きカツ・魚味噌焼き・特大海老フライ・煮物</p>
-              <p class="menu-card-price">¥1,000</p>
-            </div>
-          </div>
-
-          <div class="menu-card">
-            <picture><source srcset="/images/menu/M-19.webp" type="image/webp"><img src="/images/menu/M-19.jpg" alt="江戸" class="menu-card-image" loading="lazy" width="250" height="188"></picture>
-            <div class="menu-card-body">
-              <span class="order-badge">注文番号：19</span>
-              <p class="menu-card-title">江戸</p>
-              <p class="menu-card-reading">えど</p>
-              <p class="text-sm text-secondary-600 mb-3">自家製まぐろメンチ・肉団子・帆立バター焼き・サラダ</p>
-              <p class="menu-card-price">¥1,150</p>
-            </div>
-          </div>
-
-          <div class="menu-card">
-            <picture><source srcset="/images/menu/M-20.webp" type="image/webp"><img src="/images/menu/M-20.jpg" alt="朱雀" class="menu-card-image" loading="lazy" width="250" height="191"></picture>
-            <div class="menu-card-body">
-              <span class="order-badge">注文番号：20</span>
-              <p class="menu-card-title">朱雀</p>
-              <p class="menu-card-reading">すざく</p>
-              <p class="text-sm text-secondary-600 mb-3">特上ヒレカツ・里芋煮・サラダ</p>
-              <p class="menu-card-price">¥1,200</p>
-            </div>
-          </div>
-
-          <div class="menu-card">
-            <picture><source srcset="/images/menu/M-21.webp" type="image/webp"><img src="/images/menu/M-21.jpg" alt="一葉" class="menu-card-image" loading="lazy" width="250" height="190"></picture>
-            <div class="menu-card-body">
-              <span class="order-badge">注文番号：21</span>
-              <p class="menu-card-title">一葉</p>
-              <p class="menu-card-reading">いちよう</p>
-              <p class="text-sm text-secondary-600 mb-3">ブリ照焼・煮物</p>
-              <p class="menu-card-price">¥1,200</p>
-            </div>
-          </div>
-
-          <div class="menu-card">
-            <picture><source srcset="/images/menu/M-22.webp" type="image/webp"><img src="/images/menu/M-22.jpg" alt="天の川" class="menu-card-image" loading="lazy" width="250" height="179"></picture>
-            <div class="menu-card-body">
-              <span class="order-badge">注文番号：22</span>
-              <p class="menu-card-title">天の川</p>
-              <p class="menu-card-reading">あまのがわ</p>
-              <p class="text-sm text-secondary-600 mb-3">特大ロースかつ・野菜サラダ</p>
-              <p class="menu-card-price">¥1,300</p>
-            </div>
-          </div>
-
-          <div class="menu-card">
-            <picture><source srcset="/images/menu/M-23.webp" type="image/webp"><img src="/images/menu/M-23.jpg" alt="八重桜" class="menu-card-image" loading="lazy" width="250" height="211"></picture>
-            <div class="menu-card-body">
-              <span class="order-badge">注文番号：23</span>
-              <p class="menu-card-title">八重桜</p>
-              <p class="menu-card-reading">やえざくら</p>
-              <p class="text-sm text-secondary-600 mb-3">サワラ西京焼・大葉巻きカツ・カニ爪フライ・煮物・サラダ</p>
-              <p class="menu-card-price">¥1,500</p>
-            </div>
-          </div>
-
-          <div class="menu-card">
-            <picture><source srcset="/images/menu/M-24.webp" type="image/webp"><img src="/images/menu/M-24.jpg" alt="鴛鴦桜" class="menu-card-image" loading="lazy" width="250" height="189"></picture>
-            <div class="menu-card-body">
-              <span class="order-badge">注文番号：24</span>
-              <p class="menu-card-title">鴛鴦桜</p>
-              <p class="menu-card-reading">おしどりざくら</p>
-              <p class="text-sm text-secondary-600 mb-3">自家製まぐろメンチ・鮭照焼・鶏と帆立のバター醤油焼き・煮物・サラダ</p>
-              <p class="menu-card-price">¥1,750</p>
-            </div>
-          </div>
-
-          <div class="menu-card">
-            <picture><source srcset="/images/menu/M-25.webp" type="image/webp"><img src="/images/menu/M-25.jpg" alt="枝垂桜" class="menu-card-image" loading="lazy" width="250" height="218"></picture>
-            <div class="menu-card-body">
-              <span class="order-badge">注文番号：25</span>
-              <p class="menu-card-title">枝垂桜</p>
-              <p class="menu-card-reading">しだれざくら</p>
-              <p class="text-sm text-secondary-600 mb-3">ブリ照焼・特大海老フライ・カニ爪フライ・煮物・鮭そぼろご飯</p>
-              <p class="menu-card-price">¥2,000</p>
-            </div>
+        <div id="makunouchi-content">
+          <!-- ローディングスケルトン -->
+          <div class="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-6">
+            <div class="menu-card animate-pulse"><div class="bg-secondary-200 w-full" style="aspect-ratio: 250/200;"></div><div class="p-3 space-y-2"><div class="h-4 bg-secondary-200 rounded w-1/3"></div><div class="h-5 bg-secondary-200 rounded w-1/2"></div><div class="h-4 bg-secondary-100 rounded w-full"></div><div class="h-5 bg-secondary-200 rounded w-1/4"></div></div></div>
+            <div class="menu-card animate-pulse"><div class="bg-secondary-200 w-full" style="aspect-ratio: 250/200;"></div><div class="p-3 space-y-2"><div class="h-4 bg-secondary-200 rounded w-1/3"></div><div class="h-5 bg-secondary-200 rounded w-1/2"></div><div class="h-4 bg-secondary-100 rounded w-full"></div><div class="h-5 bg-secondary-200 rounded w-1/4"></div></div></div>
+            <div class="menu-card animate-pulse hidden lg:block"><div class="bg-secondary-200 w-full" style="aspect-ratio: 250/200;"></div><div class="p-3 space-y-2"><div class="h-4 bg-secondary-200 rounded w-1/3"></div><div class="h-5 bg-secondary-200 rounded w-1/2"></div><div class="h-4 bg-secondary-100 rounded w-full"></div><div class="h-5 bg-secondary-200 rounded w-1/4"></div></div></div>
+            <div class="menu-card animate-pulse hidden xl:block"><div class="bg-secondary-200 w-full" style="aspect-ratio: 250/200;"></div><div class="p-3 space-y-2"><div class="h-4 bg-secondary-200 rounded w-1/3"></div><div class="h-5 bg-secondary-200 rounded w-1/2"></div><div class="h-4 bg-secondary-100 rounded w-full"></div><div class="h-5 bg-secondary-200 rounded w-1/4"></div></div></div>
           </div>
         </div>
       </section>
@@ -595,20 +315,14 @@
         </div>
         <p class="text-secondary-600 mb-6">5名様より、二日前までにご予約ください。メニューにつきましてはお電話にてお問合せ、ご相談ください。</p>
 
-        <div class="bg-gradient-to-r from-yellow-50 to-yellow-100 rounded-2xl p-6 md:p-8 max-w-2xl">
-          <div class="text-center">
-            <span class="order-badge mb-2">注文番号：26</span>
-            <h3 class="text-3xl font-black mb-2">大樹</h3>
-            <p class="text-secondary-500 mb-4">タイジュ</p>
-            <p class="text-4xl font-black text-primary-600 mb-4">¥3,000</p>
-            <p class="text-secondary-600 mb-6">特別な日のための豪華弁当</p>
-            <div class="bg-white rounded-lg p-4 text-left">
-              <p class="font-bold mb-2">ご予約について</p>
-              <ul class="text-sm text-secondary-600 space-y-1">
-                <li>・5名様以上から承ります</li>
-                <li>・2日前までにご予約ください</li>
-                <li>・メニュー内容はご相談ください</li>
-              </ul>
+        <div id="premium-content">
+          <!-- ローディングスケルトン -->
+          <div class="bg-gradient-to-r from-yellow-50 to-yellow-100 rounded-2xl p-6 md:p-8 max-w-2xl animate-pulse">
+            <div class="text-center space-y-4">
+              <div class="h-5 bg-secondary-200 rounded w-24 mx-auto"></div>
+              <div class="h-8 bg-secondary-200 rounded w-16 mx-auto"></div>
+              <div class="h-10 bg-secondary-200 rounded w-24 mx-auto"></div>
+              <div class="h-4 bg-secondary-100 rounded w-48 mx-auto"></div>
             </div>
           </div>
         </div>
@@ -619,100 +333,12 @@
         <h2 class="text-2xl font-black mb-6">サイドメニュー</h2>
         <p class="text-secondary-600 mb-6">※お弁当注文時のみ適用</p>
 
-        <div class="grid md:grid-cols-3 gap-8">
-          <!-- サイドメニュー -->
-          <div>
-            <h3 class="font-bold text-lg mb-4 flex items-center gap-2">
-              <span class="text-primary-600">☆</span> サイドメニュー
-            </h3>
-            <div class="bg-white rounded-lg shadow-sm overflow-hidden">
-              <table class="w-full">
-                <tbody class="divide-y divide-secondary-100">
-                  <tr class="hover:bg-secondary-50">
-                    <td class="px-4 py-3">緑茶（缶）</td>
-                    <td class="px-4 py-3 text-right font-bold text-primary-600">¥100</td>
-                  </tr>
-                  <tr class="hover:bg-secondary-50">
-                    <td class="px-4 py-3">ウーロン茶（缶）</td>
-                    <td class="px-4 py-3 text-right font-bold text-primary-600">¥100</td>
-                  </tr>
-                  <tr class="hover:bg-secondary-50">
-                    <td class="px-4 py-3">ライス（単品）</td>
-                    <td class="px-4 py-3 text-right font-bold text-primary-600">¥200</td>
-                  </tr>
-                  <tr class="hover:bg-secondary-50">
-                    <td class="px-4 py-3">サラダ</td>
-                    <td class="px-4 py-3 text-right font-bold text-primary-600">¥300</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-
-          <!-- 惣菜 -->
-          <div>
-            <h3 class="font-bold text-lg mb-4 flex items-center gap-2">
-              <span class="text-primary-600">☆</span> 惣菜
-            </h3>
-            <div class="bg-white rounded-lg shadow-sm overflow-hidden">
-              <table class="w-full">
-                <tbody class="divide-y divide-secondary-100">
-                  <tr class="hover:bg-secondary-50">
-                    <td class="px-4 py-3">ジャガイモコロッケ</td>
-                    <td class="px-4 py-3 text-right font-bold text-primary-600">¥200</td>
-                  </tr>
-                  <tr class="hover:bg-secondary-50">
-                    <td class="px-4 py-3">カニクリームコロッケ（2ケ）</td>
-                    <td class="px-4 py-3 text-right font-bold text-primary-600">¥200</td>
-                  </tr>
-                  <tr class="hover:bg-secondary-50">
-                    <td class="px-4 py-3">鶏唐揚げ（2ケ）</td>
-                    <td class="px-4 py-3 text-right font-bold text-primary-600">¥200</td>
-                  </tr>
-                  <tr class="hover:bg-secondary-50">
-                    <td class="px-4 py-3">ホタテフライ</td>
-                    <td class="px-4 py-3 text-right font-bold text-primary-600">¥200</td>
-                  </tr>
-                  <tr class="hover:bg-secondary-50">
-                    <td class="px-4 py-3">厚焼き玉子（大根おろし付き）</td>
-                    <td class="px-4 py-3 text-right font-bold text-primary-600">¥250</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-
-          <!-- ごはんチェンジ -->
-          <div>
-            <h3 class="font-bold text-lg mb-4 flex items-center gap-2">
-              <span class="text-primary-600">☆</span> ごはんチェンジ
-            </h3>
-            <div class="bg-white rounded-lg shadow-sm overflow-hidden">
-              <table class="w-full">
-                <tbody class="divide-y divide-secondary-100">
-                  <tr class="hover:bg-secondary-50">
-                    <td class="px-4 py-3">ソボロ（鶏＆玉子）</td>
-                    <td class="px-4 py-3 text-right font-bold text-primary-600">¥200</td>
-                  </tr>
-                  <tr class="hover:bg-secondary-50">
-                    <td class="px-4 py-3">鮭ソボロ</td>
-                    <td class="px-4 py-3 text-right font-bold text-primary-600">¥200</td>
-                  </tr>
-                  <tr class="hover:bg-secondary-50">
-                    <td class="px-4 py-3">山菜</td>
-                    <td class="px-4 py-3 text-right font-bold text-primary-600">¥200</td>
-                  </tr>
-                  <tr class="hover:bg-secondary-50">
-                    <td class="px-4 py-3">ツナマヨ</td>
-                    <td class="px-4 py-3 text-right font-bold text-primary-600">¥200</td>
-                  </tr>
-                  <tr class="hover:bg-secondary-50">
-                    <td class="px-4 py-3">のり明太子</td>
-                    <td class="px-4 py-3 text-right font-bold text-primary-600">¥250</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+        <div id="side-content">
+          <!-- ローディングスケルトン -->
+          <div class="grid md:grid-cols-3 gap-8">
+            <div class="animate-pulse"><div class="h-6 bg-secondary-200 rounded w-32 mb-4"></div><div class="bg-white rounded-lg shadow-sm p-4 space-y-3"><div class="h-4 bg-secondary-100 rounded"></div><div class="h-4 bg-secondary-100 rounded"></div><div class="h-4 bg-secondary-100 rounded"></div></div></div>
+            <div class="animate-pulse"><div class="h-6 bg-secondary-200 rounded w-32 mb-4"></div><div class="bg-white rounded-lg shadow-sm p-4 space-y-3"><div class="h-4 bg-secondary-100 rounded"></div><div class="h-4 bg-secondary-100 rounded"></div><div class="h-4 bg-secondary-100 rounded"></div></div></div>
+            <div class="animate-pulse"><div class="h-6 bg-secondary-200 rounded w-32 mb-4"></div><div class="bg-white rounded-lg shadow-sm p-4 space-y-3"><div class="h-4 bg-secondary-100 rounded"></div><div class="h-4 bg-secondary-100 rounded"></div><div class="h-4 bg-secondary-100 rounded"></div></div></div>
           </div>
         </div>
       </section>
