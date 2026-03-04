@@ -774,6 +774,17 @@ async function renderMenuPage() {
       renderSideMenus(sideMenus);
     }
 
+    // ハッシュがある場合、動的コンテンツ生成後にスクロール
+    if (window.location.hash) {
+      requestAnimationFrame(() => {
+        const target = document.querySelector(window.location.hash);
+        if (target) {
+          const offset = target.getBoundingClientRect().top + window.scrollY - 200;
+          window.scrollTo({ top: offset, behavior: 'smooth' });
+        }
+      });
+    }
+
   } catch (error) {
     console.error('Error rendering menu page:', error);
     renderMenuError(containerIds);
@@ -809,7 +820,7 @@ async function updateTopPagePrices() {
     };
 
     for (const [catId, config] of Object.entries(categoryPriceMap)) {
-      const catItems = items.filter(i => i.categoryId === catId && !i.isDaily);
+      const catItems = items.filter(i => i.categoryId === catId);
       if (catItems.length === 0) continue;
 
       const minPrice = Math.min(...catItems.map(i => i.price));
