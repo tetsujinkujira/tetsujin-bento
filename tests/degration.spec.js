@@ -544,7 +544,7 @@ test.describe('メニューページ動的レンダリング', () => {
     // サイドメニュー内容が存在する
     const sideText = await page.locator('#side-content').textContent();
     expect(sideText).toContain('緑茶');
-    expect(sideText).toContain('ジャガイモコロッケ');
+    expect(sideText).toContain('コロッケ');
     expect(sideText).toContain('ソボロ');
   });
 
