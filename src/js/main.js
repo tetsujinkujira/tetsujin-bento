@@ -587,6 +587,18 @@ function renderMenuCard(item) {
   `;
 }
 
+// 説明文を文字列 or 配列の両方で受けて <p> タグに整形
+function renderDescriptionHtml(desc, pClass = '') {
+  const paragraphs = Array.isArray(desc) ? desc : [desc];
+  const cls = pClass ? ` class="${pClass}"` : '';
+  return paragraphs.map(p => `<p${cls}>${p}</p>`).join('');
+}
+
+// 説明文をプレーンテキスト化（textContent 用）
+function descriptionToText(desc) {
+  return Array.isArray(desc) ? desc.join(' ') : desc;
+}
+
 // 看板メニュー専用レイアウト
 function renderKanbanSection(item) {
   const paths = getImagePaths(item.image);
@@ -597,10 +609,7 @@ function renderKanbanSection(item) {
   let priceCards = `
     <div class="bg-white rounded-lg p-4 shadow-sm">
       <div class="flex justify-between items-center">
-        <div>
-          <p class="font-bold">${item.name}（基本）</p>
-          <p class="text-sm text-secondary-500">ニラ醤油＋チリマヨソース</p>
-        </div>
+        <p class="font-bold">${item.name}</p>
         <p class="text-xl font-black text-primary-600">${formatPrice(item.price)}</p>
       </div>
     </div>
@@ -631,7 +640,7 @@ function renderKanbanSection(item) {
           </picture>
         </div>
         <div class="md:w-1/2">
-          <p class="text-lg mb-6">${item.description}</p>
+          ${renderDescriptionHtml(item.description, 'text-lg mb-4')}
           <div class="space-y-4">
             ${priceCards}
           </div>
@@ -808,7 +817,7 @@ async function updateTopPagePrices() {
     if (kanbanItem) {
       kanbanPrice.textContent = `${formatPrice(kanbanItem.price)}〜`;
       const kanbanDesc = document.getElementById('kanban-description');
-      if (kanbanDesc) kanbanDesc.textContent = kanbanItem.description;
+      if (kanbanDesc) kanbanDesc.textContent = descriptionToText(kanbanItem.description);
     }
 
     // カテゴリ別の最低価格を計算して更新

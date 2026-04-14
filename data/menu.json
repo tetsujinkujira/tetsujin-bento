@@ -37,7 +37,10 @@
       "categoryId": "kanban",
       "name": "グレート竜田",
       "price": 950,
-      "description": "大判サイズの竜田揚げ弁当。300g超のお肉にご飯の量も多めでボリューム満点！ニラ醤油とチリマヨソースで2度楽しめる。",
+      "description": [
+        "大判サイズの竜田揚げ弁当。300g超のお肉にご飯の量も多めでボリューム満点！",
+        "ニラ醤油とチリマヨソースで2度楽しめる。"
+      ],
       "image": "kanban.jpg",
       "canOomori": true,
       "toppings": [
