@@ -45,13 +45,13 @@
       "toppings": [
         {
           "id": "oroshi",
-          "name": "おろしポン酢トッピング",
+          "name": "グレート竜田おろしポン酢",
           "description": "ニラ醤油＋おろしポン酢",
           "price": 1000
         },
         {
           "id": "tartar",
-          "name": "タルタルソーストッピング",
+          "name": "グレート竜田タルタルソース",
           "description": "ニラ醤油＋タルタルソース",
           "price": 1000
         }
