@@ -36,7 +36,7 @@
       "id": "great-tatsuta",
       "categoryId": "kanban",
       "name": "グレート竜田",
-      "price": 950,
+      "price": 1000,
       "description": [
         "大判サイズの竜田揚げ弁当。300g超のお肉にご飯の量も多めでボリューム満点！",
         "ニラ醤油とチリマヨソースで2度楽しめる。"
@@ -50,13 +50,13 @@
           "id": "oroshi",
           "name": "グレート竜田おろしポン酢",
           "description": "ニラ醤油＋おろしポン酢",
-          "price": 1000
+          "price": 1100
         },
         {
           "id": "tartar",
           "name": "グレート竜田タルタルソース",
           "description": "ニラ醤油＋タルタルソース",
-          "price": 1000
+          "price": 1100
         }
       ]
     },
@@ -67,7 +67,7 @@
       "name": "桜桃",
       "nameReading": "サクランボ",
       "price": 700,
-      "description": "毎月の日替わりメニュー。詳しくはお電話にてお尋ねください。",
+      "description": "毎月の日替わりメニュー。（※こちらのメニューはごはん上のトッピングは出来ません。）詳しくはお電話にてお尋ねください。",
       "image": null,
       "isDaily": true,
       "canOomori": true
