@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "validate:data": "node scripts/validate-data.js",
+    "build": "npm run validate:data && vite build",
     "preview": "vite preview",
     "test": "npm run build && npx playwright test",
     "test:only": "npx playwright test",

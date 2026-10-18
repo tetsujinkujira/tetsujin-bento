@@ -1,5 +1,9 @@
 // @ts-check
 import { test, expect } from '@playwright/test';
+import { readFileSync } from 'node:fs';
+
+const menuData = JSON.parse(readFileSync(new URL('../public/data/menu.json', import.meta.url), 'utf8'));
+const siteConfig = JSON.parse(readFileSync(new URL('../public/data/site-config.json', import.meta.url), 'utf8'));
 
 /**
  * 手作り弁当喰楽部 鉄人 - デグレチェックテスト
@@ -232,9 +236,9 @@ test.describe('お知らせティッカー確認', () => {
   test('ティッカー要素が存在する', async ({ page }) => {
     await page.goto(`${BASE_PATH}/`);
 
-    // ティッカー要素の存在を確認（データ読み込み失敗時は非表示になる場合がある）
-    const ticker = page.locator('#news-ticker');
-    await expect(ticker).toHaveCount(1);
+    await expect(page.locator('#news-ticker')).toBeVisible();
+    await expect(page.locator('#ticker-title')).toHaveText(siteConfig.news.title);
+    await expect(page.locator('#ticker-date')).toHaveText(siteConfig.news.date.replaceAll('-', '.'));
   });
 });
 
@@ -527,7 +531,8 @@ test.describe('メニューページ動的レンダリング', () => {
 
     // 価格が表示されている
     const kanbanText = await page.locator('#kanban-content').textContent();
-    expect(kanbanText).toContain('¥950');
+    const kanban = menuData.items.find(item => item.categoryId === 'kanban');
+    expect(kanbanText).toContain(`¥${kanban.price.toLocaleString('en-US')}`);
     expect(kanbanText).toContain('グレート竜田');
   });
 
@@ -560,4 +565,17 @@ test.describe('メニューページ動的レンダリング', () => {
     expect(premiumText).toContain('¥3,000');
     expect(premiumText).toContain('5名様以上');
   });
+});
+
+test('TOPとメニューの価格・日替わりが編集データと一致する', async ({ page }) => {
+  const kanban = menuData.items.find(item => item.categoryId === 'kanban');
+  await page.goto(`${BASE_PATH}/`);
+  await expect(page.locator('#kanban-price')).toHaveText(`¥${kanban.price.toLocaleString('en-US')}〜`);
+  await page.goto(`${BASE_PATH}/menu.html`);
+  await expect(page.locator('#daily-month')).toHaveText(`${siteConfig.daily.month}のメニュー`);
+  for (const day of siteConfig.daily.schedule) {
+    for (const item of day.items) {
+      await expect(page.locator('#daily-schedule')).toContainText(item);
+    }
+  }
 });

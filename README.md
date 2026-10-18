@@ -14,6 +14,14 @@ https://tetsujinkujira.github.io/tetsujin-bento/
 - GitHub Pages（ホスティング）
 - GitHub Actions（自動デプロイ）
 
+## 更新と公開確認
+
+- メニュー・価格は `public/data/menu.json` を編集します。
+- お知らせと日替わりは `public/data/site-config.json` を編集します。お知らせの `date` も更新してください。
+- `public/data/news.json` と `public/data/daily.json` は旧データです。現在の画面は参照しません。
+- `npm run validate:data` でJSONの構文、`npm test` でビルドと画面表示を確認できます。
+- `main` へのpush後、GitHub Actionsの「Deploy to GitHub Pages」で `deploy` の成功まで確認します。テストが失敗すると公開は行われず、以前の内容が残ります。
+
 ---
 
 ## ライセンス・利用規約

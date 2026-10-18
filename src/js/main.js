@@ -862,9 +862,9 @@ async function loadLatestNews() {
   const bodyElement = document.getElementById('ticker-body');
 
   try {
-    const response = await fetch(`${BASE_PATH}data/news.json`, { cache: 'no-cache' });
-    if (!response.ok) throw new Error('Failed to load news');
-    const data = await response.json();
+    const config = await loadSiteConfig();
+    if (!config || !config.news) throw new Error('Failed to load news');
+    const data = config.news;
 
     // カテゴリ表示
     const categoryLabels = {
