@@ -50,13 +50,13 @@
           "id": "oroshi",
           "name": "グレート竜田おろしポン酢",
           "description": "ニラ醤油＋おろしポン酢",
-          "price": 1100
+          "price": 1100,
         },
         {
           "id": "tartar",
           "name": "グレート竜田タルタルソース",
           "description": "ニラ醤油＋タルタルソース",
-          "price": 1100
+          "price": 1100,
         }
       ]
     },
