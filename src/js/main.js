@@ -753,6 +753,13 @@ async function renderMenuPage() {
 
     const { items, sideMenus } = menuData;
 
+    // 日替わりの説明もメニューデータから表示
+    const dailyItem = items.find(item => item.isDaily);
+    const dailyDescription = document.getElementById('daily-description');
+    if (dailyDescription && dailyItem) {
+      dailyDescription.textContent = descriptionToText(dailyItem.description || '');
+    }
+
     // 看板メニュー
     const kanbanItems = items.filter(i => i.categoryId === 'kanban');
     if (kanbanItems.length > 0) {

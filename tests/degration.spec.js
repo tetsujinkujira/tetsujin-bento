@@ -573,6 +573,8 @@ test('TOPとメニューの価格・日替わりが編集データと一致す�
   await expect(page.locator('#kanban-price')).toHaveText(`¥${kanban.price.toLocaleString('en-US')}〜`);
   await page.goto(`${BASE_PATH}/menu.html`);
   await expect(page.locator('#daily-month')).toHaveText(`${siteConfig.daily.month}のメニュー`);
+  const dailyItem = menuData.items.find(item => item.isDaily);
+  await expect(page.locator('#daily-description')).toHaveText(dailyItem.description);
   for (const day of siteConfig.daily.schedule) {
     for (const item of day.items) {
       await expect(page.locator('#daily-schedule')).toContainText(item);
