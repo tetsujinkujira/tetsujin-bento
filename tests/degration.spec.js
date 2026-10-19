@@ -2,8 +2,8 @@
 import { test, expect } from '@playwright/test';
 import { readFileSync } from 'node:fs';
 
-const menuData = JSON.parse(readFileSync(new URL('../public/data/menu.json', import.meta.url), 'utf8'));
 const siteConfig = JSON.parse(readFileSync(new URL('../public/data/site-config.json', import.meta.url), 'utf8'));
+const menuData = siteConfig.menu;
 
 /**
  * 手作り弁当喰楽部 鉄人 - デグレチェックテスト
@@ -573,6 +573,8 @@ test('TOPとメニューの価格・日替わりが編集データと一致す�
   await expect(page.locator('#kanban-price')).toHaveText(`¥${kanban.price.toLocaleString('en-US')}〜`);
   await page.goto(`${BASE_PATH}/menu.html`);
   await expect(page.locator('#daily-month')).toHaveText(`${siteConfig.daily.month}のメニュー`);
+  const dailyItem = siteConfig.daily.menuItem;
+  await expect(page.locator('#daily-description')).toHaveText(dailyItem.description);
   for (const day of siteConfig.daily.schedule) {
     for (const item of day.items) {
       await expect(page.locator('#daily-schedule')).toContainText(item);

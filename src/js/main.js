@@ -465,28 +465,35 @@ window.addEventListener('appinstalled', () => {
   hideInstallBanner();
 });
 
-// メニューデータの読み込み（動的ページ用）
-async function loadMenuData() {
-  try {
-    const response = await fetch(`${BASE_PATH}data/menu.json`, { cache: 'no-cache' });
-    if (!response.ok) throw new Error('Failed to load menu data');
-    return await response.json();
-  } catch (error) {
-    console.error('Error loading menu data:', error);
-    return null;
+// お知らせ・日替わり・メニューは同じデータをページ内で共有する。
+let siteConfigPromise;
+function loadSiteConfig() {
+  if (!siteConfigPromise) {
+    siteConfigPromise = fetch(`${BASE_PATH}data/site-config.json`, { cache: 'no-cache' })
+      .then(response => {
+        if (!response.ok) throw new Error('Failed to load site config');
+        return response.json();
+      })
+      .catch(error => {
+        console.error('Error loading site config:', error);
+        siteConfigPromise = null;
+        return null;
+      });
   }
+  return siteConfigPromise;
 }
 
-// サイト設定データの読み込み（お知らせ・日替わりメニュー）
-async function loadSiteConfig() {
-  try {
-    const response = await fetch(`${BASE_PATH}data/site-config.json`, { cache: 'no-cache' });
-    if (!response.ok) throw new Error('Failed to load site config');
-    return await response.json();
-  } catch (error) {
-    console.error('Error loading site config:', error);
-    return null;
-  }
+// 日替わりの名称・価格も同じ入力値から組み立てる。
+async function loadMenuData() {
+  const config = await loadSiteConfig();
+  if (!config?.menu || !config?.daily) return null;
+  const dailyItem = {
+    ...config.daily.menuItem,
+    name: config.daily.menuName,
+    nameReading: config.daily.menuReading,
+    price: config.daily.price,
+  };
+  return { ...config.menu, items: [...config.menu.items, dailyItem] };
 }
 
 // 価格のフォーマット
@@ -589,14 +596,14 @@ function renderMenuCard(item) {
 
 // 説明文を文字列 or 配列の両方で受けて <p> タグに整形
 function renderDescriptionHtml(desc, pClass = '') {
-  const paragraphs = Array.isArray(desc) ? desc : [desc];
+  const paragraphs = Array.isArray(desc) ? desc : desc.split('\n');
   const cls = pClass ? ` class="${pClass}"` : '';
   return paragraphs.map(p => `<p${cls}>${p}</p>`).join('');
 }
 
 // 説明文をプレーンテキスト化（textContent 用）
 function descriptionToText(desc) {
-  return Array.isArray(desc) ? desc.join(' ') : desc;
+  return (Array.isArray(desc) ? desc : desc.split('\n')).join(' ');
 }
 
 // 看板メニュー専用レイアウト
@@ -753,6 +760,13 @@ async function renderMenuPage() {
 
     const { items, sideMenus } = menuData;
 
+    // 日替わりの説明も通常メニューと同じJSONから表示
+    const dailyItem = items.find(item => item.isDaily);
+    const dailyDescription = document.getElementById('daily-description');
+    if (dailyDescription && dailyItem) {
+      dailyDescription.textContent = descriptionToText(dailyItem.description || '');
+    }
+
     // 看板メニュー
     const kanbanItems = items.filter(i => i.categoryId === 'kanban');
     if (kanbanItems.length > 0) {
@@ -800,7 +814,7 @@ async function renderMenuPage() {
   }
 }
 
-// TOPページの看板メニュー価格・説明文 + カテゴリ価格を menu.json から更新
+// TOPページの看板メニュー価格・説明文 + カテゴリ価格を site-config.json から更新
 async function updateTopPagePrices() {
   // TOPページかどうか判定
   const kanbanPrice = document.getElementById('kanban-price');

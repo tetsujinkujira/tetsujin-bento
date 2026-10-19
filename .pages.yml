@@ -1,0 +1,572 @@
+{
+  "content": [
+    {
+      "name": "site",
+      "label": "サイトを更新",
+      "type": "file",
+      "path": "public/data/site-config.json",
+      "format": "json",
+      "fields": [
+        {
+          "name": "news",
+          "label": "お知らせ",
+          "type": "object",
+          "fields": [
+            {
+              "name": "title",
+              "label": "タイトル",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "date",
+              "label": "掲載日",
+              "type": "date",
+              "required": true,
+              "options": {
+                "format": "yyyy-MM-dd",
+                "time": false
+              }
+            },
+            {
+              "name": "category",
+              "label": "種類",
+              "type": "select",
+              "required": true,
+              "options": {
+                "values": [
+                  {
+                    "name": "news",
+                    "label": "お知らせ"
+                  },
+                  {
+                    "name": "new_menu",
+                    "label": "新メニュー"
+                  },
+                  {
+                    "name": "holiday",
+                    "label": "休業日"
+                  },
+                  {
+                    "name": "campaign",
+                    "label": "キャンペーン"
+                  }
+                ]
+              }
+            },
+            {
+              "name": "body",
+              "label": "本文",
+              "type": "text"
+            }
+          ],
+          "required": true
+        },
+        {
+          "name": "daily",
+          "label": "日替わりメニュー",
+          "type": "object",
+          "fields": [
+            {
+              "name": "year",
+              "label": "年",
+              "type": "string",
+              "required": true,
+              "pattern": {
+                "regex": "^[0-9]{4}$",
+                "message": "西暦4桁で入力してください。"
+              }
+            },
+            {
+              "name": "month",
+              "label": "月",
+              "type": "select",
+              "required": true,
+              "options": {
+                "values": [
+                  "1月",
+                  "2月",
+                  "3月",
+                  "4月",
+                  "5月",
+                  "6月",
+                  "7月",
+                  "8月",
+                  "9月",
+                  "10月",
+                  "11月",
+                  "12月"
+                ]
+              }
+            },
+            {
+              "name": "menuName",
+              "label": "商品名",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "menuReading",
+              "label": "読み方",
+              "type": "string",
+              "required": true
+            },
+            {
+              "name": "price",
+              "label": "価格（円・税込）",
+              "type": "number",
+              "options": {
+                "min": 1
+              },
+              "required": true
+            },
+            {
+              "name": "schedule",
+              "label": "曜日別の献立",
+              "type": "object",
+              "fields": [
+                {
+                  "name": "day",
+                  "label": "曜日",
+                  "type": "string",
+                  "readonly": true,
+                  "required": true
+                },
+                {
+                  "name": "items",
+                  "label": "おかず（1品ずつ追加）",
+                  "type": "string",
+                  "list": true
+                },
+                {
+                  "name": "note",
+                  "label": "備考",
+                  "type": "text"
+                }
+              ],
+              "list": {
+                "min": 6,
+                "collapsible": {
+                  "collapsed": true,
+                  "summary": "{day}曜日"
+                },
+                "max": 6
+              },
+              "required": true
+            },
+            {
+              "name": "menuItem",
+              "label": "内部情報",
+              "type": "object",
+              "fields": [
+                {
+                  "name": "id",
+                  "label": "id",
+                  "type": "string",
+                  "hidden": true
+                },
+                {
+                  "name": "categoryId",
+                  "label": "categoryId",
+                  "type": "string",
+                  "hidden": true
+                },
+                {
+                  "name": "orderNumber",
+                  "label": "orderNumber",
+                  "type": "number",
+                  "hidden": true
+                },
+                {
+                  "name": "description",
+                  "label": "description",
+                  "type": "string",
+                  "hidden": true
+                },
+                {
+                  "name": "image",
+                  "label": "image",
+                  "type": "string",
+                  "hidden": true
+                },
+                {
+                  "name": "isDaily",
+                  "label": "isDaily",
+                  "type": "boolean",
+                  "hidden": true
+                },
+                {
+                  "name": "canOomori",
+                  "label": "canOomori",
+                  "type": "boolean",
+                  "hidden": true
+                }
+              ],
+              "hidden": true,
+              "readonly": true
+            }
+          ],
+          "required": true
+        },
+        {
+          "name": "menu",
+          "label": "商品・価格",
+          "type": "object",
+          "fields": [
+            {
+              "name": "categories",
+              "label": "カテゴリ設定",
+              "type": "object",
+              "fields": [
+                {
+                  "name": "id",
+                  "label": "id",
+                  "type": "string",
+                  "hidden": true
+                },
+                {
+                  "name": "name",
+                  "label": "name",
+                  "type": "string",
+                  "hidden": true
+                },
+                {
+                  "name": "subTitle",
+                  "label": "subTitle",
+                  "type": "string",
+                  "hidden": true
+                },
+                {
+                  "name": "description",
+                  "label": "description",
+                  "type": "text",
+                  "hidden": true
+                },
+                {
+                  "name": "note",
+                  "label": "note",
+                  "type": "string",
+                  "hidden": true
+                },
+                {
+                  "name": "highlight",
+                  "label": "highlight",
+                  "type": "boolean",
+                  "hidden": true
+                }
+              ],
+              "list": true,
+              "hidden": true,
+              "readonly": true
+            },
+            {
+              "name": "items",
+              "label": "お弁当と価格",
+              "type": "object",
+              "fields": [
+                {
+                  "name": "id",
+                  "label": "id",
+                  "type": "string",
+                  "hidden": true,
+                  "readonly": true
+                },
+                {
+                  "name": "categoryId",
+                  "label": "カテゴリ",
+                  "type": "select",
+                  "required": true,
+                  "readonly": true,
+                  "options": {
+                    "values": [
+                      {
+                        "name": "kanban",
+                        "label": "看板メニュー"
+                      },
+                      {
+                        "name": "standard",
+                        "label": "スタンダードメニュー"
+                      },
+                      {
+                        "name": "chef",
+                        "label": "シェフおすすめボリューム弁当"
+                      },
+                      {
+                        "name": "makunouchi",
+                        "label": "幕の内弁当"
+                      },
+                      {
+                        "name": "premium",
+                        "label": "会席膳"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "name": "orderNumber",
+                  "label": "orderNumber",
+                  "type": "number",
+                  "hidden": true,
+                  "readonly": true
+                },
+                {
+                  "name": "name",
+                  "label": "商品名",
+                  "type": "string",
+                  "required": true
+                },
+                {
+                  "name": "nameReading",
+                  "label": "読み方",
+                  "type": "string"
+                },
+                {
+                  "name": "price",
+                  "label": "価格（円・税込）",
+                  "type": "number",
+                  "options": {
+                    "min": 1
+                  },
+                  "required": true
+                },
+                {
+                  "name": "description",
+                  "label": "商品説明",
+                  "type": "text",
+                  "required": true,
+                  "description": "看板メニューは改行ごとに段落を分けて表示します。"
+                },
+                {
+                  "name": "image",
+                  "label": "image",
+                  "type": "string",
+                  "hidden": true,
+                  "readonly": true
+                },
+                {
+                  "name": "imageWidth",
+                  "label": "imageWidth",
+                  "type": "number",
+                  "hidden": true,
+                  "readonly": true
+                },
+                {
+                  "name": "imageHeight",
+                  "label": "imageHeight",
+                  "type": "number",
+                  "hidden": true,
+                  "readonly": true
+                },
+                {
+                  "name": "canOomori",
+                  "label": "canOomori",
+                  "type": "boolean",
+                  "hidden": true,
+                  "readonly": true
+                },
+                {
+                  "name": "isReservationOnly",
+                  "label": "isReservationOnly",
+                  "type": "boolean",
+                  "hidden": true,
+                  "readonly": true
+                },
+                {
+                  "name": "reservationNote",
+                  "label": "予約の案内",
+                  "type": "string"
+                },
+                {
+                  "name": "minQuantity",
+                  "label": "minQuantity",
+                  "type": "number",
+                  "hidden": true,
+                  "readonly": true
+                },
+                {
+                  "name": "toppings",
+                  "label": "トッピング",
+                  "type": "object",
+                  "fields": [
+                    {
+                      "name": "id",
+                      "label": "id",
+                      "type": "string",
+                      "hidden": true,
+                      "readonly": true
+                    },
+                    {
+                      "name": "name",
+                      "label": "商品名",
+                      "type": "string",
+                      "required": true
+                    },
+                    {
+                      "name": "description",
+                      "label": "説明",
+                      "type": "text"
+                    },
+                    {
+                      "name": "price",
+                      "label": "価格（円・税込）",
+                      "type": "number",
+                      "options": {
+                        "min": 1
+                      },
+                      "required": true
+                    }
+                  ],
+                  "list": {
+                    "min": 0,
+                    "collapsible": {
+                      "collapsed": true,
+                      "summary": "{name}：{price}円"
+                    },
+                    "max": 2
+                  }
+                }
+              ],
+              "required": true,
+              "list": {
+                "min": 26,
+                "collapsible": {
+                  "collapsed": true,
+                  "summary": "{name}：{price}円"
+                },
+                "max": 26
+              }
+            },
+            {
+              "name": "sideMenus",
+              "label": "サイドメニュー",
+              "type": "object",
+              "fields": [
+                {
+                  "name": "note",
+                  "label": "注文条件",
+                  "type": "string"
+                },
+                {
+                  "name": "categories",
+                  "label": "分類",
+                  "type": "object",
+                  "fields": [
+                    {
+                      "name": "id",
+                      "label": "id",
+                      "type": "string",
+                      "hidden": true,
+                      "readonly": true
+                    },
+                    {
+                      "name": "name",
+                      "label": "分類名",
+                      "type": "string",
+                      "required": true
+                    },
+                    {
+                      "name": "items",
+                      "label": "品目",
+                      "type": "object",
+                      "fields": [
+                        {
+                          "name": "name",
+                          "label": "品名",
+                          "type": "string",
+                          "required": true
+                        },
+                        {
+                          "name": "price",
+                          "label": "価格（円・税込）",
+                          "type": "number",
+                          "options": {
+                            "min": 1
+                          },
+                          "required": true
+                        }
+                      ],
+                      "list": {
+                        "min": 1,
+                        "collapsible": {
+                          "collapsed": true,
+                          "summary": "{name}：{price}円"
+                        }
+                      },
+                      "required": true
+                    }
+                  ],
+                  "list": {
+                    "min": 3,
+                    "collapsible": {
+                      "collapsed": true,
+                      "summary": "{name}"
+                    },
+                    "max": 3
+                  },
+                  "required": true
+                }
+              ],
+              "required": true
+            },
+            {
+              "name": "options",
+              "label": "内部設定",
+              "type": "object",
+              "fields": [
+                {
+                  "name": "oomori",
+                  "label": "大盛り",
+                  "type": "object",
+                  "fields": [
+                    {
+                      "name": "name",
+                      "label": "name",
+                      "type": "string",
+                      "hidden": true
+                    },
+                    {
+                      "name": "price",
+                      "label": "price",
+                      "type": "number",
+                      "hidden": true
+                    },
+                    {
+                      "name": "description",
+                      "label": "description",
+                      "type": "string",
+                      "hidden": true
+                    }
+                  ]
+                }
+              ],
+              "hidden": true,
+              "readonly": true
+            },
+            {
+              "name": "_meta",
+              "label": "内部情報",
+              "type": "object",
+              "fields": [
+                {
+                  "name": "lastUpdated",
+                  "label": "lastUpdated",
+                  "type": "string",
+                  "hidden": true
+                },
+                {
+                  "name": "note",
+                  "label": "note",
+                  "type": "string",
+                  "hidden": true
+                }
+              ],
+              "hidden": true,
+              "readonly": true
+            }
+          ],
+          "required": true
+        }
+      ]
+    }
+  ]
+}
