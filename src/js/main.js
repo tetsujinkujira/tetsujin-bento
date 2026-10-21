@@ -468,7 +468,7 @@ window.addEventListener('appinstalled', () => {
 // 表示中の情報は一つのファイルから取得し、価格・日替わりの版を揃える。
 async function fetchLatestContent() {
   const url = new URL(`${BASE_PATH}data/live-content.json`, location.origin);
-  // ブラウザ・配信側の既存キャッシュと別のURLで毎回確認する。
+  // ブラウザに保存したデータを使い回さず、配信サーバーへ毎回確認する。
   url.searchParams.set('_fresh', `${Date.now()}-${crypto.randomUUID()}`);
   const response = await fetch(url, { cache: 'no-store', signal: AbortSignal.timeout(15000) });
   if (!response.ok) throw new Error('最新情報を取得できません');
@@ -849,6 +849,7 @@ async function updateTopPagePrices(menuData) {
 
 // 表示中は60秒ごとに確認。復帰・再接続時には待たずに確認する。
 let refreshingContent = false;
+let refreshRequested = false;
 let displayedContent = '';
 function freshnessNotice(failed) {
   let notice = document.getElementById('content-freshness-notice');
@@ -878,23 +879,32 @@ async function refreshDisplayedContent() {
       });
       displayedContent = signature;
     }
-    freshnessNotice(false);
+    freshnessNotice(!navigator.onLine);
   } catch {
     // 古い内容を最新と誤認させず、再接続後の再試行で回復する。
     freshnessNotice(true);
   } finally {
     refreshingContent = false;
+    if (refreshRequested) {
+      refreshRequested = false;
+      refreshDisplayedContent();
+    }
   }
+}
+function requestContentRefresh() {
+  if (refreshingContent) refreshRequested = true;
+  else refreshDisplayedContent();
 }
 document.addEventListener('DOMContentLoaded', () => {
   if (!document.getElementById('news-ticker') && !document.getElementById('daily-schedule')) return;
   refreshDisplayedContent();
   setInterval(refreshDisplayedContent, 60000);
-  window.addEventListener('focus', refreshDisplayedContent);
-  window.addEventListener('online', refreshDisplayedContent);
-  window.addEventListener('pageshow', refreshDisplayedContent);
+  window.addEventListener('focus', requestContentRefresh);
+  window.addEventListener('offline', () => freshnessNotice(true));
+  window.addEventListener('online', requestContentRefresh);
+  window.addEventListener('pageshow', requestContentRefresh);
   document.addEventListener('visibilitychange', () => {
-    if (!document.hidden) refreshDisplayedContent();
+    if (!document.hidden) requestContentRefresh();
   });
 });
 
