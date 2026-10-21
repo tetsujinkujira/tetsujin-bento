@@ -489,6 +489,13 @@ async function loadSiteConfig() {
   }
 }
 
+// HTMLの本文・属性に入れるデータは文字として扱う。更新JSONの形式は変更しない。
+function escapeHtml(value) {
+  return String(value ?? '').replace(/[&<>"']/g, char => ({
+    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+  }[char]));
+}
+
 // 価格のフォーマット
 function formatPrice(price) {
   return `¥${price.toLocaleString()}`;
@@ -523,21 +530,21 @@ async function loadDailyMenu() {
         // 備考のみ（土曜日など）
         return `
           <div class="bg-white rounded-lg p-4 shadow-sm">
-            <p class="font-bold text-primary-600 mb-2 text-lg">${dayLabel}</p>
-            <p class="text-sm text-secondary-500 italic">${day.note}</p>
+            <p class="font-bold text-primary-600 mb-2 text-lg">${escapeHtml(dayLabel)}</p>
+            <p class="text-sm text-secondary-500 italic">${escapeHtml(day.note)}</p>
           </div>
         `;
       }
 
       // 通常のメニュー
-      const itemsHtml = day.items.map(item => `<li>・${item}</li>`).join('');
+      const itemsHtml = day.items.map(item => `<li>・${escapeHtml(item)}</li>`).join('');
       return `
         <div class="bg-white rounded-lg p-4 shadow-sm">
-          <p class="font-bold text-primary-600 mb-2 text-lg">${dayLabel}</p>
+          <p class="font-bold text-primary-600 mb-2 text-lg">${escapeHtml(dayLabel)}</p>
           <ul class="text-sm text-secondary-700 space-y-1">
             ${itemsHtml}
           </ul>
-          ${day.note ? `<p class="text-xs text-secondary-400 mt-2">${day.note}</p>` : ''}
+          ${day.note ? `<p class="text-xs text-secondary-400 mt-2">${escapeHtml(day.note)}</p>` : ''}
         </div>
       `;
     }).join('');
@@ -558,7 +565,7 @@ async function loadDailyMenu() {
 
 // 画像ファイル名から webp/jpg パスを生成
 function getImagePaths(filename) {
-  const baseName = filename.replace(/\.[^.]+$/, '');
+  const baseName = String(filename).replace(/\.[^.]+$/, '');
   return {
     webp: `/images/menu/${baseName}.webp`,
     jpg: `/images/menu/${filename}`,
@@ -570,17 +577,17 @@ function renderMenuCard(item) {
   if (!item.image) return ''; // 画像なしアイテム（日替わり等）はスキップ
 
   const paths = getImagePaths(item.image);
-  const widthAttr = item.imageWidth ? ` width="${item.imageWidth}"` : '';
-  const heightAttr = item.imageHeight ? ` height="${item.imageHeight}"` : '';
+  const widthAttr = item.imageWidth ? ` width="${escapeHtml(item.imageWidth)}"` : '';
+  const heightAttr = item.imageHeight ? ` height="${escapeHtml(item.imageHeight)}"` : '';
 
   return `
     <div class="menu-card">
-      <picture><source srcset="${paths.webp}" type="image/webp"><img src="${paths.jpg}" alt="${item.name}" class="menu-card-image" loading="lazy"${widthAttr}${heightAttr}></picture>
+      <picture><source srcset="${escapeHtml(paths.webp)}" type="image/webp"><img src="${escapeHtml(paths.jpg)}" alt="${escapeHtml(item.name)}" class="menu-card-image" loading="lazy"${widthAttr}${heightAttr}></picture>
       <div class="menu-card-body">
-        <span class="order-badge">注文番号：${item.orderNumber}</span>
-        <p class="menu-card-title">${item.name}</p>
-        ${item.nameReading ? `<p class="menu-card-reading">${item.nameReading}</p>` : ''}
-        <p class="text-sm text-secondary-600 mb-3">${item.description}</p>
+        <span class="order-badge">注文番号：${escapeHtml(item.orderNumber)}</span>
+        <p class="menu-card-title">${escapeHtml(item.name)}</p>
+        ${item.nameReading ? `<p class="menu-card-reading">${escapeHtml(item.nameReading)}</p>` : ''}
+        <p class="text-sm text-secondary-600 mb-3">${escapeHtml(item.description)}</p>
         <p class="menu-card-price">${formatPrice(item.price)}</p>
       </div>
     </div>
@@ -591,7 +598,7 @@ function renderMenuCard(item) {
 function renderDescriptionHtml(desc, pClass = '') {
   const paragraphs = Array.isArray(desc) ? desc : [desc];
   const cls = pClass ? ` class="${pClass}"` : '';
-  return paragraphs.map(p => `<p${cls}>${p}</p>`).join('');
+  return paragraphs.map(p => `<p${cls}>${escapeHtml(p)}</p>`).join('');
 }
 
 // 説明文をプレーンテキスト化（textContent 用）
@@ -602,14 +609,14 @@ function descriptionToText(desc) {
 // 看板メニュー専用レイアウト
 function renderKanbanSection(item) {
   const paths = getImagePaths(item.image);
-  const widthAttr = item.imageWidth ? ` width="${item.imageWidth}"` : '';
-  const heightAttr = item.imageHeight ? ` height="${item.imageHeight}"` : '';
+  const widthAttr = item.imageWidth ? ` width="${escapeHtml(item.imageWidth)}"` : '';
+  const heightAttr = item.imageHeight ? ` height="${escapeHtml(item.imageHeight)}"` : '';
 
   // 基本価格カード
   let priceCards = `
     <div class="bg-white rounded-lg p-4 shadow-sm">
       <div class="flex justify-between items-center">
-        <p class="font-bold">${item.name}</p>
+        <p class="font-bold">${escapeHtml(item.name)}</p>
         <p class="text-xl font-black text-primary-600">${formatPrice(item.price)}</p>
       </div>
     </div>
@@ -621,8 +628,8 @@ function renderKanbanSection(item) {
       <div class="bg-white rounded-lg p-4 shadow-sm">
         <div class="flex justify-between items-center">
           <div>
-            <p class="font-bold">${t.name}</p>
-            <p class="text-sm text-secondary-500">${t.description}</p>
+            <p class="font-bold">${escapeHtml(t.name)}</p>
+            <p class="text-sm text-secondary-500">${escapeHtml(t.description)}</p>
           </div>
           <p class="text-xl font-black text-primary-600">${formatPrice(t.price)}</p>
         </div>
@@ -635,8 +642,8 @@ function renderKanbanSection(item) {
       <div class="md:flex gap-8">
         <div class="md:w-1/2 mb-6 md:mb-0">
           <picture>
-            <source srcset="${paths.webp}" type="image/webp">
-            <img src="${paths.jpg}" alt="${item.name}" class="w-full rounded-xl shadow-lg lightbox-trigger" loading="lazy"${widthAttr}${heightAttr}>
+            <source srcset="${escapeHtml(paths.webp)}" type="image/webp">
+            <img src="${escapeHtml(paths.jpg)}" alt="${escapeHtml(item.name)}" class="w-full rounded-xl shadow-lg lightbox-trigger" loading="lazy"${widthAttr}${heightAttr}>
           </picture>
         </div>
         <div class="md:w-1/2">
@@ -672,15 +679,15 @@ function renderPremiumSection(item) {
   return `
     <div class="bg-gradient-to-r from-yellow-50 to-yellow-100 rounded-2xl p-6 md:p-8 max-w-2xl">
       <div class="text-center">
-        <span class="order-badge mb-2">注文番号：${item.orderNumber}</span>
-        <h3 class="text-3xl font-black mb-2">${item.name}</h3>
-        ${item.nameReading ? `<p class="text-secondary-500 mb-4">${item.nameReading}</p>` : ''}
+        <span class="order-badge mb-2">注文番号：${escapeHtml(item.orderNumber)}</span>
+        <h3 class="text-3xl font-black mb-2">${escapeHtml(item.name)}</h3>
+        ${item.nameReading ? `<p class="text-secondary-500 mb-4">${escapeHtml(item.nameReading)}</p>` : ''}
         <p class="text-4xl font-black text-primary-600 mb-4">${formatPrice(item.price)}</p>
         <p class="text-secondary-600 mb-6">特別な日のための豪華弁当</p>
         <div class="bg-white rounded-lg p-4 text-left">
           <p class="font-bold mb-2">ご予約について</p>
           <ul class="text-sm text-secondary-600 space-y-1">
-            <li>・${item.minQuantity || 5}名様以上から承ります</li>
+            <li>・${escapeHtml(item.minQuantity || 5)}名様以上から承ります</li>
             <li>・2日前までにご予約ください</li>
             <li>・メニュー内容はご相談ください</li>
           </ul>
@@ -698,7 +705,7 @@ function renderSideMenus(sideMenus) {
   const tablesHtml = sideMenus.categories.map(cat => {
     const rows = cat.items.map(item => `
       <tr class="hover:bg-secondary-50">
-        <td class="px-4 py-3">${item.name}</td>
+        <td class="px-4 py-3">${escapeHtml(item.name)}</td>
         <td class="px-4 py-3 text-right font-bold text-primary-600">${formatPrice(item.price)}</td>
       </tr>
     `).join('');
@@ -706,7 +713,7 @@ function renderSideMenus(sideMenus) {
     return `
       <div>
         <h3 class="font-bold text-lg mb-4 flex items-center gap-2">
-          <span class="text-primary-600">☆</span> ${cat.name}
+          <span class="text-primary-600">☆</span> ${escapeHtml(cat.name)}
         </h3>
         <div class="bg-white rounded-lg shadow-sm overflow-hidden">
           <table class="w-full">
@@ -793,7 +800,9 @@ async function renderMenuPage() {
     // ハッシュがある場合、動的コンテンツ生成後にスクロール
     if (window.location.hash) {
       requestAnimationFrame(() => {
-        const target = document.querySelector(window.location.hash);
+        let id;
+        try { id = decodeURIComponent(window.location.hash.slice(1)); } catch { return; }
+        const target = document.getElementById(id);
         if (target) {
           const offset = target.getBoundingClientRect().top + window.scrollY - 200;
           window.scrollTo({ top: offset, behavior: 'smooth' });

@@ -42,7 +42,7 @@ self.addEventListener('activate', (event) => {
     caches.keys().then((cacheNames) => {
       return Promise.all(
         cacheNames.map((cacheName) => {
-          if (cacheName !== CACHE_NAME) {
+          if (cacheName.startsWith('tetsujin-bento-') && cacheName !== CACHE_NAME) {
             console.log('古いキャッシュを削除:', cacheName);
             return caches.delete(cacheName);
           }
@@ -57,7 +57,7 @@ self.addEventListener('activate', (event) => {
 // フェッチ時
 self.addEventListener('fetch', (event) => {
   // 外部リソースはスキップ
-  if (!event.request.url.startsWith(self.location.origin)) {
+  if (event.request.method !== 'GET' || new URL(event.request.url).origin !== self.location.origin) {
     return;
   }
 

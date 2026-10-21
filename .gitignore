@@ -34,3 +34,6 @@ test-results/
 # Documentation (private)
 docs/
 continue.md
+
+# Local security review evidence
+security-review-artifacts/

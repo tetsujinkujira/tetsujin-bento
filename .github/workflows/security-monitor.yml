@@ -1,0 +1,55 @@
+name: Security monitor (通知のみ)
+
+on:
+  schedule:
+    # 毎週火曜 日本時間10:23。時刻ちょうどを避ける。
+    - cron: '23 1 * * 2'
+  workflow_dispatch:
+    inputs:
+      notify:
+        description: '異常時に管理者へ通知する（通常の動作確認ではOFF）'
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: security-monitor
+  cancel-in-progress: false
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+      issues: write
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: 24
+          package-manager-cache: false
+      - name: Test monitor
+        id: monitor-tests
+        run: node --test scripts/security-monitor.test.mjs
+      - name: Reproduce production files (公開・更新はしない)
+        id: reproduce
+        run: |
+          npm ci --ignore-scripts
+          npm run build
+      - name: Check and notify only when action is needed
+        if: always()
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          NOTIFY_MANAGER: ${{ github.event_name == 'schedule' || inputs.notify }}
+          MONITOR_PRECHECK_FAILED: ${{ steps.monitor-tests.outcome != 'success' || steps.reproduce.outcome != 'success' }}
+        run: |
+          if [ "$NOTIFY_MANAGER" = "true" ]; then
+            node scripts/security-monitor.mjs --notify
+          else
+            node scripts/security-monitor.mjs
+          fi

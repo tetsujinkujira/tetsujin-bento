@@ -7,7 +7,7 @@ function swVersionPlugin() {
   return {
     name: 'sw-version',
     closeBundle() {
-      const swPath = resolve(__dirname, 'dist/sw.js')
+      const swPath = resolve(import.meta.dirname, 'dist/sw.js')
       try {
         let content = readFileSync(swPath, 'utf-8')
         const timestamp = Date.now().toString()
@@ -30,19 +30,33 @@ export default defineConfig({
     emptyOutDir: true,
     rollupOptions: {
       input: {
-        main: resolve(__dirname, 'src/index.html'),
-        menu: resolve(__dirname, 'src/menu.html'),
-        order: resolve(__dirname, 'src/order.html'),
-        area: resolve(__dirname, 'src/area.html'),
-        about: resolve(__dirname, 'src/about.html'),
-        recruit: resolve(__dirname, 'src/recruit.html'),
-        legal: resolve(__dirname, 'src/legal.html'),
-        privacy: resolve(__dirname, 'src/privacy.html'),
-        notFound: resolve(__dirname, 'src/404.html'),
+        main: resolve(import.meta.dirname, 'src/index.html'),
+        menu: resolve(import.meta.dirname, 'src/menu.html'),
+        order: resolve(import.meta.dirname, 'src/order.html'),
+        area: resolve(import.meta.dirname, 'src/area.html'),
+        about: resolve(import.meta.dirname, 'src/about.html'),
+        recruit: resolve(import.meta.dirname, 'src/recruit.html'),
+        legal: resolve(import.meta.dirname, 'src/legal.html'),
+        privacy: resolve(import.meta.dirname, 'src/privacy.html'),
+        notFound: resolve(import.meta.dirname, 'src/404.html'),
       }
     }
   },
-  plugins: [swVersionPlugin()],
+  plugins: [swVersionPlugin(), {
+    name: 'security-policy',
+    apply: 'build',
+    transformIndexHtml: {
+      order: 'post',
+      handler() {
+        return [{ tag: 'meta', attrs: {
+          'http-equiv': 'Content-Security-Policy',
+          content: "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://*.tile.openstreetmap.org; frame-src https://maps.google.com https://www.google.com; connect-src 'self'; worker-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'"
+        }, injectTo: 'head-prepend' }, { tag: 'meta', attrs: {
+          name: 'referrer', content: 'strict-origin-when-cross-origin'
+        }, injectTo: 'head-prepend' }]
+      }
+    }
+  }],
   server: {
     open: true
   }

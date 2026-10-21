@@ -1,0 +1,16 @@
+{
+  "repository": "tetsujinkujira/tetsujin-bento",
+  "contact": "tetsujinkujira",
+  "site": "https://www.tetsujin-kujira.com",
+  "reviewed": [
+    {
+      "id": "GHSA-vfj7-8cjw-p6xm",
+      "package": "braces",
+      "versions": ["3.0.3"],
+      "severity": "high",
+      "range": "<=3.0.3",
+      "firstPatchedVersion": null,
+      "reason": "CSS生成・ファイル監視の開発用依存。公開JSには含まれず、訪問者入力を渡す処理がない。2026-10-22確認。警告全体の無視はしない。"
+    }
+  ]
+}
