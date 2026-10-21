@@ -4,8 +4,8 @@ import { readFileSync } from 'node:fs';
 // JSON差し替えテストはService Workerのネットワーク処理から分離する。
 test.use({ serviceWorkers: 'block' });
 
-const menu = JSON.parse(readFileSync(new URL('../public/data/menu.json', import.meta.url)));
-const config = JSON.parse(readFileSync(new URL('../public/data/site-config.json', import.meta.url)));
+const menu = JSON.parse(readFileSync(new URL('../dist/data/menu.json', import.meta.url)));
+const config = JSON.parse(readFileSync(new URL('../dist/data/site-config.json', import.meta.url)));
 const pages = ['index', 'menu', 'area', 'about', 'order', 'recruit', 'legal', 'privacy', '404'];
 
 test('公開ページは外部JSとインライン実行を禁止し、通常操作でCSP違反がない', async ({ page }) => {
@@ -28,7 +28,7 @@ test('公開ページは外部JSとインライン実行を禁止し、通常操
   }
 });
 
-test('既存JSONの編集形式のまま、お知らせ・日替わり・商品価格を更新できる', async ({ page }) => {
+test('生成したJSONから、お知らせ・日替わり・商品価格を表示できる', async ({ page }) => {
   const updatedConfig = structuredClone(config);
   const updatedMenu = structuredClone(menu);
   updatedConfig.news.title = '更新確認のお知らせ';

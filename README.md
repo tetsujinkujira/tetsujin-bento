@@ -16,11 +16,12 @@ https://tetsujinkujira.github.io/tetsujin-bento/
 
 ## 更新と公開確認
 
-- メニュー・価格は `public/data/menu.json` を編集します。
-- お知らせと日替わりは `public/data/site-config.json` を編集します。お知らせの `date` も更新してください。
-- `public/data/news.json` と `public/data/daily.json` は旧データです。現在の画面は参照しません。
-- `npm run validate:data` でJSONの構文、`npm test` でビルドと画面表示を確認できます。
-- `main` へのpush後、GitHub Actionsの「Deploy to GitHub Pages」で `deploy` の成功まで確認します。テストが失敗すると公開は行われず、以前の内容が残ります。
+- 更新者は「更新データ」フォルダの「お知らせ.txt」「日替わり.txt」「商品価格.txt」を編集します。
+- 編集・保存・公開確認の手順は [更新手順](更新データ/更新手順.md) を参照してください。
+- JSONはビルド時に自動生成します。`content/templates/` は写真・商品設定等の技術担当者向けの基礎データです。通常の更新では編集しません。
+- `npm run validate:content` で記入内容を確認、`npm test` で変換・ビルド・画面表示を確認できます。
+- `main` へのpush後、GitHub Actionsの「Deploy to GitHub Pages」で `deploy` の成功まで確認します。失敗時は以前の公開内容が残ります。
+- セキュリティ監視も同じ `npm run build` で期待値を生成します。監視による更新・公開は行いません。
 
 ---
 

@@ -2,8 +2,8 @@
 import { test, expect } from '@playwright/test';
 import { readFileSync } from 'node:fs';
 
-const menuData = JSON.parse(readFileSync(new URL('../public/data/menu.json', import.meta.url), 'utf8'));
-const siteConfig = JSON.parse(readFileSync(new URL('../public/data/site-config.json', import.meta.url), 'utf8'));
+const menuData = JSON.parse(readFileSync(new URL('../dist/data/menu.json', import.meta.url), 'utf8'));
+const siteConfig = JSON.parse(readFileSync(new URL('../dist/data/site-config.json', import.meta.url), 'utf8'));
 
 /**
  * 手作り弁当喰楽部 鉄人 - デグレチェックテスト
@@ -562,7 +562,7 @@ test.describe('メニューページ動的レンダリング', () => {
     // 会席膳の内容確認
     const premiumText = await page.locator('#premium-content').textContent();
     expect(premiumText).toContain('大樹');
-    expect(premiumText).toContain('¥3,000');
+    expect(premiumText).toContain(`¥${menuData.items.find(item => item.categoryId === 'premium').price.toLocaleString('en-US')}`);
     expect(premiumText).toContain('5名様以上');
   });
 });

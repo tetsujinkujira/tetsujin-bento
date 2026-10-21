@@ -1,4 +1,5 @@
 import { defineConfig } from 'vite'
+import { contentPlugin } from './scripts/text-content.mjs'
 import { resolve } from 'path'
 import { readFileSync, writeFileSync } from 'fs'
 
@@ -42,7 +43,7 @@ export default defineConfig({
       }
     }
   },
-  plugins: [swVersionPlugin(), {
+  plugins: [contentPlugin(), swVersionPlugin(), {
     name: 'security-policy',
     apply: 'build',
     transformIndexHtml: {
