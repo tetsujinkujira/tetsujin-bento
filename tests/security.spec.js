@@ -35,8 +35,7 @@ test('生成したJSONから、お知らせ・日替わり・商品価格を表�
   updatedConfig.daily.schedule[0].items = ['更新確認のおかず'];
   updatedConfig.daily.price = 750;
   updatedMenu.items.find(item => item.categoryId === 'kanban').price = 1234;
-  await page.route('**/data/site-config.json', route => route.fulfill({ json: updatedConfig }));
-  await page.route('**/data/menu.json', route => route.fulfill({ json: updatedMenu }));
+  await page.route('**/data/live-content.json?*', route => route.fulfill({ json: {site:updatedConfig,menu:updatedMenu} }));
   await page.goto('/');
   await expect(page.locator('#ticker-title').first()).toHaveText('更新確認のお知らせ');
   await expect(page.locator('#kanban-price')).toContainText('1,234');
@@ -59,8 +58,7 @@ test('HTMLを含むデータはCSPに頼らず文字として表示する', asyn
     const response = await route.fetch();
     await route.fulfill({ response, body: (await response.text()).replace(/<meta http-equiv="Content-Security-Policy"[^>]*>/, '') });
   });
-  await page.route('**/data/menu.json', route => route.fulfill({ json: updated }));
-  await page.route('**/data/site-config.json', route => route.fulfill({ json: updatedConfig }));
+  await page.route('**/data/live-content.json?*', route => route.fulfill({ json: {site:updatedConfig,menu:updated} }));
   await page.goto('/menu.html');
   await expect(page.locator('#standard-content')).toContainText(payload);
   await expect(page.locator('#kanban-content')).toContainText(payload);

@@ -55,15 +55,15 @@ export function contentPlugin() {
   },
   writeBundle(){
    // Viteが静的ファイルをコピーした後、公開用データだけを出力する。
-   for(const [file,value] of [['site-config.json',content.site],['menu.json',content.menu]]){
+   for(const [file,value] of [['site-config.json',content.site],['menu.json',content.menu],['live-content.json',content]]){
     const dest=path.join(root,'dist/data',file);fs.mkdirSync(path.dirname(dest),{recursive:true});
     fs.writeFileSync(dest,JSON.stringify(value,null,2)+'\n');
    }
   },
   configureServer(server){
    server.middlewares.use((req,res,next)=>{
-    const file=req.url?.split('?')[0];if(!['/data/site-config.json','/data/menu.json'].includes(file))return next();
-    try{const data=load();res.setHeader('Content-Type','application/json; charset=utf-8');res.setHeader('Cache-Control','no-store');res.end(JSON.stringify(file.includes('site-config')?data.site:data.menu));}
+    const file=req.url?.split('?')[0];if(!['/data/site-config.json','/data/menu.json','/data/live-content.json'].includes(file))return next();
+    try{const data=load();res.setHeader('Content-Type','application/json; charset=utf-8');res.setHeader('Cache-Control','no-store');res.end(JSON.stringify(file.includes('live-content')?data:file.includes('site-config')?data.site:data.menu));}
     catch(error){res.statusCode=500;res.end(JSON.stringify({error:error.message}));}
    });
   }

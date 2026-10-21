@@ -26,7 +26,13 @@ self.addEventListener('install', (event) => {
     caches.open(CACHE_NAME)
       .then((cache) => {
         console.log('キャッシュを開きました:', CACHE_NAME);
-        return cache.addAll(urlsToCache);
+        return Promise.all(urlsToCache.map(async path => {
+          const url = new URL(path, self.location.origin);
+          url.searchParams.set('_fresh', `${Date.now()}-${crypto.randomUUID()}`);
+          const response = await fetch(url, { cache: 'no-store', credentials: 'same-origin' });
+          if (!response.ok) throw new Error('オフライン用ページを取得できません');
+          await cache.put(path, response);
+        }));
       })
       .catch((error) => {
         console.log('キャッシュの追加に失敗:', error);
@@ -67,13 +73,19 @@ self.addEventListener('fetch', (event) => {
   );
 
   if (shouldSkipCache) {
-    event.respondWith(fetch(event.request));
+    event.respondWith(fetch(event.request, { cache: 'no-store' }));
     return;
   }
 
   // その他：ネットワークファースト、失敗時はキャッシュ
   event.respondWith(
-    fetch(event.request)
+    (event.request.mode === 'navigate'
+      ? (() => {
+          const url = new URL(event.request.url);
+          url.searchParams.set('_fresh', `${Date.now()}-${crypto.randomUUID()}`);
+          return fetch(url, { cache: 'no-store', credentials: 'same-origin' });
+        })()
+      : fetch(event.request))
       .then((response) => {
         if (response.status === 200) {
           const responseClone = response.clone();

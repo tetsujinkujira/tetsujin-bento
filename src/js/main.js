@@ -465,28 +465,20 @@ window.addEventListener('appinstalled', () => {
   hideInstallBanner();
 });
 
-// メニューデータの読み込み（動的ページ用）
-async function loadMenuData() {
-  try {
-    const response = await fetch(`${BASE_PATH}data/menu.json`, { cache: 'no-cache' });
-    if (!response.ok) throw new Error('Failed to load menu data');
-    return await response.json();
-  } catch (error) {
-    console.error('Error loading menu data:', error);
-    return null;
+// 表示中の情報は一つのファイルから取得し、価格・日替わりの版を揃える。
+async function fetchLatestContent() {
+  const url = new URL(`${BASE_PATH}data/live-content.json`, location.origin);
+  // ブラウザ・配信側の既存キャッシュと別のURLで毎回確認する。
+  url.searchParams.set('_fresh', `${Date.now()}-${crypto.randomUUID()}`);
+  const response = await fetch(url, { cache: 'no-store', signal: AbortSignal.timeout(15000) });
+  if (!response.ok) throw new Error('最新情報を取得できません');
+  const content = await response.json();
+  if (!content.site?.news || !Array.isArray(content.site?.daily?.schedule) ||
+      !Array.isArray(content.menu?.items) || !content.menu?.sideMenus ||
+      !Number.isFinite(content.menu?.options?.oomori?.price)) {
+    throw new Error('最新情報の形式を確認できません');
   }
-}
-
-// サイト設定データの読み込み（お知らせ・日替わりメニュー）
-async function loadSiteConfig() {
-  try {
-    const response = await fetch(`${BASE_PATH}data/site-config.json`, { cache: 'no-cache' });
-    if (!response.ok) throw new Error('Failed to load site config');
-    return await response.json();
-  } catch (error) {
-    console.error('Error loading site config:', error);
-    return null;
-  }
+  return content;
 }
 
 // HTMLの本文・属性に入れるデータは文字として扱う。更新JSONの形式は変更しない。
@@ -502,7 +494,7 @@ function formatPrice(price) {
 }
 
 // 日替わりメニューの読み込みと表示
-async function loadDailyMenu() {
+async function loadDailyMenu(config) {
   const scheduleContainer = document.getElementById('daily-schedule');
   const monthElement = document.getElementById('daily-month');
   const priceElement = document.getElementById('daily-price');
@@ -511,7 +503,6 @@ async function loadDailyMenu() {
   if (!scheduleContainer) return; // メニューページでない場合はスキップ
 
   try {
-    const config = await loadSiteConfig();
     if (!config || !config.daily) throw new Error('Failed to load daily menu');
     const data = config.daily;
 
@@ -747,7 +738,7 @@ function renderMenuError(containerIds) {
 }
 
 // メニューページ全体のオーケストレーター
-async function renderMenuPage() {
+async function renderMenuPage(menuData, refresh = false) {
   // メニューページかどうか判定（看板コンテナの存在で判断）
   const kanbanContent = document.getElementById('kanban-content');
   if (!kanbanContent) return;
@@ -755,7 +746,6 @@ async function renderMenuPage() {
   const containerIds = ['kanban-content', 'standard-content', 'chef-content', 'makunouchi-content', 'premium-content', 'side-content'];
 
   try {
-    const menuData = await loadMenuData();
     if (!menuData) throw new Error('Failed to load menu data');
 
     const { items, sideMenus } = menuData;
@@ -798,7 +788,7 @@ async function renderMenuPage() {
     }
 
     // ハッシュがある場合、動的コンテンツ生成後にスクロール
-    if (window.location.hash) {
+    if (!refresh && window.location.hash) {
       requestAnimationFrame(() => {
         let id;
         try { id = decodeURIComponent(window.location.hash.slice(1)); } catch { return; }
@@ -817,13 +807,12 @@ async function renderMenuPage() {
 }
 
 // TOPページの看板メニュー価格・説明文 + カテゴリ価格を menu.json から更新
-async function updateTopPagePrices() {
+async function updateTopPagePrices(menuData) {
   // TOPページかどうか判定
   const kanbanPrice = document.getElementById('kanban-price');
   if (!kanbanPrice) return;
 
   try {
-    const menuData = await loadMenuData();
     if (!menuData) return;
 
     const { items } = menuData;
@@ -858,16 +847,59 @@ async function updateTopPagePrices() {
   }
 }
 
-// ページ読み込み時に日替わりメニュー・お知らせ・メニューページ・TOP価格を読み込む
+// 表示中は60秒ごとに確認。復帰・再接続時には待たずに確認する。
+let refreshingContent = false;
+let displayedContent = '';
+function freshnessNotice(failed) {
+  let notice = document.getElementById('content-freshness-notice');
+  if (!failed) { notice?.remove(); return; }
+  if (notice) return;
+  notice = document.createElement('div');
+  notice.id = 'content-freshness-notice';
+  notice.setAttribute('role', 'status');
+  notice.textContent = '最新情報を確認できません。表示内容が古い可能性があります。通信が戻ると自動で更新します。お急ぎの場合はお電話でご確認ください。';
+  Object.assign(notice.style, { position: 'fixed', bottom: '0', left: '0', right: '0', zIndex: '10000', padding: '12px 16px', background: '#fff3cd', color: '#573c00', fontSize: '14px', borderTop: '1px solid #d6b75a' });
+  document.body.appendChild(notice);
+}
+async function refreshDisplayedContent() {
+  if (refreshingContent || document.hidden) return;
+  refreshingContent = true;
+  try {
+    const content = await fetchLatestContent();
+    const signature = JSON.stringify(content);
+    if (signature !== displayedContent) {
+      const refresh = Boolean(displayedContent);
+      await Promise.all([
+        loadDailyMenu(content.site), loadLatestNews(content.site),
+        renderMenuPage(content.menu, refresh), updateTopPagePrices(content.menu),
+      ]);
+      document.querySelectorAll('[data-extra-price]').forEach(element => {
+        element.textContent = `+${formatPrice(content.menu.options.oomori.price)}`;
+      });
+      displayedContent = signature;
+    }
+    freshnessNotice(false);
+  } catch {
+    // 古い内容を最新と誤認させず、再接続後の再試行で回復する。
+    freshnessNotice(true);
+  } finally {
+    refreshingContent = false;
+  }
+}
 document.addEventListener('DOMContentLoaded', () => {
-  loadDailyMenu();
-  loadLatestNews();
-  renderMenuPage();
-  updateTopPagePrices();
+  if (!document.getElementById('news-ticker') && !document.getElementById('daily-schedule')) return;
+  refreshDisplayedContent();
+  setInterval(refreshDisplayedContent, 60000);
+  window.addEventListener('focus', refreshDisplayedContent);
+  window.addEventListener('online', refreshDisplayedContent);
+  window.addEventListener('pageshow', refreshDisplayedContent);
+  document.addEventListener('visibilitychange', () => {
+    if (!document.hidden) refreshDisplayedContent();
+  });
 });
 
 // 最新のお知らせをティッカーに表示
-async function loadLatestNews() {
+async function loadLatestNews(config) {
   const newsTicker = document.getElementById('news-ticker');
   if (!newsTicker) return; // TOPページ以外はスキップ
 
@@ -878,7 +910,6 @@ async function loadLatestNews() {
   const bodyElement = document.getElementById('ticker-body');
 
   try {
-    const config = await loadSiteConfig();
     if (!config || !config.news) throw new Error('Failed to load news');
     const data = config.news;
 
@@ -913,6 +944,7 @@ async function loadLatestNews() {
     // ティッカーを複数複製して途切れない無限ループにする
     const tickerWrapper = document.getElementById('news-ticker-wrapper');
     if (tickerContent && tickerWrapper) {
+      tickerWrapper.querySelectorAll('[data-ticker-clone]').forEach(clone => clone.remove());
       // コンテンツ幅を取得
       const contentWidth = tickerContent.offsetWidth;
 
@@ -927,6 +959,7 @@ async function loadLatestNews() {
       for (let i = 0; i < clonesNeeded; i++) {
         const clone = tickerContent.cloneNode(true);
         clone.removeAttribute('id');
+        clone.dataset.tickerClone = '';
         // クローンのID付き要素からIDを削除
         clone.querySelectorAll('[id]').forEach(el => el.removeAttribute('id'));
         clone.style.setProperty('--ticker-duration', `${duration}s`);
