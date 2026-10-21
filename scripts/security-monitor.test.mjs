@@ -79,3 +79,16 @@ test('既存Issueの2ページ目以降も確認して重複通知を避ける',
   const result = await allPages('/repos/example/issues?state=all', {}, async path => new URL(path, 'https://api.github.com').searchParams.get('page') === '1' ? { data: [1], link: '<next>; rel="next"' } : { data: [2], link: '' });
   assert.deepEqual(result, [1, 2]);
 });
+
+
+test('停止予防の書き込み権限は外部コードを実行しない独立ジョブに限定する', () => {
+  const workflow = readFileSync(new URL('../.github/workflows/security-monitor.yml', import.meta.url), 'utf8');
+  const keepalive = workflow.split('  keepalive:')[1].split('  check:')[0];
+  const check = workflow.split('  check:')[1];
+  assert.match(keepalive, /actions: write/);
+  assert.match(keepalive, /security-monitor\.yml\/enable/);
+  assert.doesNotMatch(keepalive, /uses:|contents:|pages:|id-token:|npm |git push|git commit/);
+  assert.doesNotMatch(check, /actions: write|contents: write|pages: write|id-token: write/);
+  assert.match(check, /needs: keepalive/);
+  assert.match(check, /needs\.keepalive\.result != 'success'/);
+});

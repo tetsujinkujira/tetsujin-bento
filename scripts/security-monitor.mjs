@@ -105,7 +105,7 @@ async function main() {
   const step = async (name, run) => {
     try { await run(); } catch (error) { console.error(`${name}: ${error.message}`); problem(name); }
   };
-  if (process.env.MONITOR_PRECHECK_FAILED === 'true') problem('監視プログラムのテストまたはビルド');
+  if (process.env.MONITOR_PRECHECK_FAILED === 'true') problem('監視の継続設定・プログラムのテストまたはビルド');
   await step('依存ライブラリの診断', async () => {
     let output;
     try { output = execFileSync('npm', ['audit', '--package-lock-only', '--ignore-scripts', '--json'], { encoding: 'utf8', timeout: 120000, maxBuffer: 8 * 1024 * 1024 }); }

@@ -19,7 +19,26 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  keepalive:
+    name: 監視の継続設定（サイトは変更しない）
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      actions: write
+    steps:
+      # checkoutや外部Actionを使わず、この監視の有効化APIだけを呼ぶ。
+      - name: 監視ワークフローの有効化日時を更新
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh api --method PUT "repos/${GITHUB_REPOSITORY}/actions/workflows/security-monitor.yml/enable"
+          state=$(gh api "repos/${GITHUB_REPOSITORY}/actions/workflows/security-monitor.yml" --jq .state)
+          test "$state" = "active"
+          echo "監視の有効状態を更新しました。サイト・更新データ・公開設定は変更していません。"
+
   check:
+    needs: keepalive
+    if: always()
     runs-on: ubuntu-latest
     timeout-minutes: 15
     permissions:
@@ -46,7 +65,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ github.token }}
           NOTIFY_MANAGER: ${{ github.event_name == 'schedule' || inputs.notify }}
-          MONITOR_PRECHECK_FAILED: ${{ steps.monitor-tests.outcome != 'success' || steps.reproduce.outcome != 'success' }}
+          MONITOR_PRECHECK_FAILED: ${{ needs.keepalive.result != 'success' || steps.monitor-tests.outcome != 'success' || steps.reproduce.outcome != 'success' }}
         run: |
           if [ "$NOTIFY_MANAGER" = "true" ]; then
             node scripts/security-monitor.mjs --notify
